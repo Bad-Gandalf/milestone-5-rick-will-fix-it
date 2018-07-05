@@ -30,14 +30,14 @@ class Post(models.Model):
     upvotes = models.ManyToManyField(User, related_name="upvotes", blank=True)
     status = models.IntegerField(_('status'), default=1, choices=STATUS_CODES)
     
-    
-        
-    
-    def __unicode__(self):
+    def __str__(self):
         return self.title
+        
         
     def get_absolute_url(self):
         return reverse("bugs:post_detail", args=[self.id, self.slug])
+        
+    
 
 @receiver(pre_save, sender=Post)        
 def pre_save_slug(sender, **kwargs):
@@ -49,9 +49,9 @@ def pre_save_slug(sender, **kwargs):
 class Comment(models.Model):
     post = models.ForeignKey(Post)
     user = models.ForeignKey(User)
-    reply = models.ForeignKey('self', null=True, related_name="replies")
+    reply = models.ForeignKey('self', null=True, related_name="replies", blank=True)
     content = models.TextField(max_length=500)
     timestamp = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return '{} - {}'.format(self.post.title, str(self.user.username))
+        return '{}-{}'.format(self.post.title, str(self.user.username))

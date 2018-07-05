@@ -5,10 +5,11 @@ from datetime import datetime
 from .forms import *
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, HttpResponseRedirect
 
 # Create your views here.
 def post_list(request):
-    posts = Post.objects.all().order_by('-upvotes')
+    posts = Post.objects.all().order_by('-total_upvotes')
     context = {'posts': posts,}
     return render(request, 'bugs/post_list.html', context)
     
@@ -30,6 +31,20 @@ def post_detail(request, pk, slug):
             
     context = {'post': post, 'comments': comments, 'comment_form': comment_form,}
     return render(request, 'bugs/post_detail.html', context)
+
+
+@login_required
+def upvote_post(request):
+    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    is_upvoted = False
+    if post.upvotes.filter(id=request.user.id).exists():
+        post.upvotes.remove(request.user)
+        is_upvoted = False
+    else:
+        post.upvotes.add(request.user)
+        is_upvoted = True
+    return HttpResponseRedirect(post.get_absolute_url())
+
 
 @login_required    
 def post_create(request):
