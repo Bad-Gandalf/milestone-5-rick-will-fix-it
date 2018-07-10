@@ -14,7 +14,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 def feature_list(request):
     features = Feature.objects.all().order_by('-created_date')
     context = {'features': features,}
-    return render(request, 'features/post_list.html', context)
+    return render(request, 'features/feature_list.html', context)
     
 def feature_detail(request, pk, slug):
     feature = get_object_or_404(Feature, pk=pk, slug=slug)
@@ -38,14 +38,14 @@ def feature_detail(request, pk, slug):
 
 
 @login_required    
-def post_create(request):
+def feature_create(request):
     if request.method == 'POST':
-        form = PostCreateForm(request.POST)
+        form = FeatureCreateForm(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.save()
+            feature = form.save(commit=False)
+            feature.author = request.user
+            feature.save()
     else:
-        form = PostCreateForm()
+        form = FeatureCreateForm()
     context = {'form': form,}
-    return render(request, 'features/post_create.html', context)
+    return render(request, 'features/feature_create.html', context)
