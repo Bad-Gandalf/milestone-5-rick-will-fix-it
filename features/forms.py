@@ -1,14 +1,13 @@
 from django import forms
-from .models import Post, Comment
+from .models import Feature, Comment
 
-class PostCreateForm(forms.ModelForm):
+class FeatureCreateForm(forms.ModelForm):
     class Meta:
-        model = Post
+        model = Feature
         fields = (
             'title',
             'content',
-            'image',
-            )
+            'image',)
             
 class UserLoginForm(forms.Form):
     username = forms.CharField(label="")
@@ -19,3 +18,4 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('content',)
+        

@@ -57,5 +57,5 @@ def post_create(request):
     else:
         form = PostCreateForm()
     context = {'form': form,}
-    return render(request, 'blog/post_create.html', context)
+    return render(request, 'bugs/post_create.html', context)
     
