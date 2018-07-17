@@ -30,10 +30,9 @@ class Feature(models.Model):
     views = models.IntegerField(default=0)
     tag = models.CharField(max_length=30, blank=True, null=True)
     image = models.ImageField(upload_to="img", blank=True, null=True)
-    contributors = models.ManyToManyField(User, related_name="contributors", blank=True)
     status = models.IntegerField(_('status'), default=1, choices=STATUS_CODES)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    amount_raised = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    
     
     def __str__(self):
         return self.title
@@ -41,7 +40,7 @@ class Feature(models.Model):
         
     def get_absolute_url(self):
         return reverse("features:feature_detail", args=[self.id, self.slug])
-        
+    
     
 
 @receiver(pre_save, sender=Feature)        
