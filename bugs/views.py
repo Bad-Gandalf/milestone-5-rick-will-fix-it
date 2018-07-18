@@ -6,15 +6,18 @@ from .forms import *
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
+from django.db.models import Count
 
 # Create your views here.
 def post_list(request):
-    posts = Post.objects.all().order_by('-total_upvotes')
+    posts = Post.objects.annotate(total_upvotes=Count('upvotes'))
+    posts = posts.order_by('-total_upvotes')
     context = {'posts': posts,}
     return render(request, 'bugs/post_list.html', context)
     
 def post_detail(request, pk, slug):
     post = get_object_or_404(Post, pk=pk, slug=slug)
+    total_upvotes = post.upvotes.count()
     comments = Comment.objects.filter(post=post).order_by('-id')
     post.views += 1
     post.save()
@@ -29,7 +32,8 @@ def post_detail(request, pk, slug):
     else:
         comment_form = CommentForm()
             
-    context = {'post': post, 'comments': comments, 'comment_form': comment_form,}
+    context = {'post': post, 'comments': comments, 
+                'comment_form': comment_form, 'total_upvotes': total_upvotes}
     return render(request, 'bugs/post_detail.html', context)
 
 

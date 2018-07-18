@@ -38,6 +38,7 @@ class Post(models.Model):
         return reverse("bugs:post_detail", args=[self.id, self.slug])
         
     
+    
 
 @receiver(pre_save, sender=Post)        
 def pre_save_slug(sender, **kwargs):

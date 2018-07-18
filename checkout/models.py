@@ -23,3 +23,5 @@ class OrderLineItem(models.Model):
     
     def __str__(self):
         return "{0}-{1}-{2}".format(self.contribution, self.feature.title, self.user.username)
+        
+    
