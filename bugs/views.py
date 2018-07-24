@@ -1,5 +1,4 @@
 from __future__ import unicode_literals
-
 from .models import Post, Comment
 from datetime import datetime
 from .forms import *
@@ -10,13 +9,14 @@ from django.db.models import Count
 
 # Create your views here.
 def post_list(request):
-    posts = Post.objects.annotate(total_upvotes=Count('upvotes'))
-    posts = posts.order_by('-total_upvotes')
+    posts = Post.objects.annotate(comments=Count('comment'))
+    for post in posts:
+        post.total_upvotes = post.upvotes.count()
     context = {'posts': posts,}
     return render(request, 'bugs/post_list.html', context)
     
-def post_detail(request, pk, slug):
-    post = get_object_or_404(Post, pk=pk, slug=slug)
+def post_detail(request, id, slug):
+    post = get_object_or_404(Post, pk=id, slug=slug)
     total_upvotes = post.upvotes.count()
     comments = Comment.objects.filter(post=post).order_by('-id')
     post.views += 1
@@ -40,12 +40,13 @@ def post_detail(request, pk, slug):
 @login_required
 def upvote_post(request):
     post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    upvotes = Upvote.objects.filter(post=post).order_by('-id')
     is_upvoted = False
-    if post.upvotes.filter(id=request.user.id).exists():
-        post.upvotes.remove(request.user)
+    if upvotes.post.filter(id=request.user.id).exists():
+        upvotes.user.remove(request.user)
         is_upvoted = False
     else:
-        post.upvotes.add(request.user)
+        upvotes.post.add(request.user)
         is_upvoted = True
     return HttpResponseRedirect(post.get_absolute_url())
 

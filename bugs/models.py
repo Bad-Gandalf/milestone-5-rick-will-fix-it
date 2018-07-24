@@ -27,8 +27,8 @@ class Post(models.Model):
     views = models.IntegerField(default=0)
     tag = models.CharField(max_length=30, blank=True, null=True)
     image = models.ImageField(upload_to="img", blank=True, null=True)
-    upvotes = models.ManyToManyField(User, related_name="upvotes", blank=True)
     status = models.IntegerField(_('status'), default=1, choices=STATUS_CODES)
+    upvotes = models.ManyToManyField(User, related_name="upvoted_posts")
     
     def __str__(self):
         return self.title
@@ -48,7 +48,7 @@ def pre_save_slug(sender, **kwargs):
     
     
 class Comment(models.Model):
-    post = models.ForeignKey(Post)
+    post = models.ForeignKey(Post, related_name="comment")
     user = models.ForeignKey(User)
     reply = models.ForeignKey('self', null=True, related_name="replies", blank=True)
     content = models.TextField(max_length=500)
@@ -56,3 +56,6 @@ class Comment(models.Model):
     
     def __str__(self):
         return '{}-{}'.format(self.post.title, str(self.user.username))
+        
+
+    

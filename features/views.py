@@ -1,7 +1,5 @@
-from django.shortcuts import render
-
-# Create your views here.
 from __future__ import unicode_literals
+from django.shortcuts import render
 from .models import Feature, Comment
 from django.db.models import Sum
 from datetime import datetime
