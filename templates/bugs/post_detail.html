@@ -16,18 +16,48 @@
                 <p><span class="boldtext">Published on:</span> {{ post.published_date }} </p>
                 <p><span class="boldtext">Views:</span> {{post.views}}</p>
                 <p><span class="boldtext">Tag:</span> {{ post.tag }}</p>
-                <p><span class="boldtext">Upvotes:</span> {{ total_upvotes }}</p>
+                <p><i class="fas fa-thumbs-up"></i> {{ total_upvotes }}</p>
             </div>
         </div>
         <hr>
+        <h4>Comment{{ comments|pluralize }}: {{ comments.count }}</h4>
+        <hr>
+        <div class="main-comment-section">
+            <div class="container-fluid mt-2">
+                <div class="form-group row">
+                    <form method="POST">
+                        {% csrf_token %} {{ comment_form.as_p }} {% if request.user.is_authenticated %}
+                        <input type="submit" value="Submit" class="btn btn-outline-success"> {% else %}
+                        <input type="submit" value="Submit" class="btn btn-outline-success" disabled> {% endif %}
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
         <div class="row">
+
             {% for comment in comments %}
             <div class="col-xs-9">
                 <p> {{ comment.content }}</p>
                 <p><span class="boldtext">Published on:</span> {{ comment.timestamp }} </p>
                 <p><span class="boldtext">Author:</span> {{comment.user.username}}</p>
                 <hr>
+                <div class="replied-comments container mt-2">
+                    <div class="form-group row">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="comment_id" value="{{ comment.id }}"> {{ comment_form.as_p }} {% if request.user.is_authenticated %}
+                            <input type="submit" value="Submit" class="btn btn-outline-success"> {% else %}
+                            <input type="submit" value="Submit" class="btn btn-outline-success" disabled> {% endif %}
+                    </div>
+                </div>
+
+
+                </form>
             </div>
+
             {% endfor %}
         </div>
         <hr>
