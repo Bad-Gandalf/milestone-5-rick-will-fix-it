@@ -18,7 +18,7 @@ def post_list(request):
 def post_detail(request, id, slug):
     post = get_object_or_404(Post, pk=id, slug=slug)
     total_upvotes = post.upvotes.count()
-    comments = Comment.objects.filter(post=post).order_by('id')
+    comments = Comment.objects.filter(post=post, reply=None).order_by('id')
     post.views += 1
     post.save()
     
@@ -26,7 +26,11 @@ def post_detail(request, id, slug):
         comment_form = CommentForm(request.POST or None)
         if comment_form.is_valid():
             content = request.POST.get('content')
-            comment = Comment.objects.create(post=post, user=request.user, content=content)
+            reply_id = request.POST.get('comment_id')
+            comment_qs = None
+            if reply_id:
+                comment_qs = Comment.objects.get(id=reply_id)
+            comment = Comment.objects.create(post=post, user=request.user, content=content, reply=comment_qs)
             comment.save()
             return HttpResponseRedirect(post.get_absolute_url())
     

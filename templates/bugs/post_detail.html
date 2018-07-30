@@ -36,34 +36,48 @@
         </div>
 
 
-        <div class="row">
 
-            {% for comment in comments %}
-            <div class="col-xs-9">
-                <p> {{ comment.content }}</p>
-                <p><span class="boldtext">Published on:</span> {{ comment.timestamp }} </p>
-                <p><span class="boldtext">Author:</span> {{comment.user.username}}</p>
-                <hr>
-                <div class="replied-comments container mt-2">
-                    <div class="form-group row">
-                        <form method="POST">
-                            {% csrf_token %}
-                            <input type="hidden" name="comment_id" value="{{ comment.id }}"> {{ comment_form.as_p }} {% if request.user.is_authenticated %}
-                            <input type="submit" value="Submit" class="btn btn-outline-success"> {% else %}
-                            <input type="submit" value="Submit" class="btn btn-outline-success" disabled> {% endif %}
-                    </div>
+
+        {% for comment in comments %}
+        <div class="comments">
+            <p> {{ comment.content }}</p>
+            <footer>
+                <span class="boldtext">Published on:</span> {{ comment.timestamp }}
+                <span class="boldtext ml-2">Author:</span> {{comment.user.username}}
+                <button type="button" name="button" class="reply-btn btn btn-outline-dark btn-sm ml-2">Reply</button>
+            </footer>
+
+        </div>
+
+        <div class="replied-comments container mt-2" style="display:none;">
+            <div class="form-group row">
+                {% for reply in comment.replies.all %}
+                <div class="reply">
+                    <p class="mb-0">{{ reply.content }}</p>
+                    <small><p><span class="boldtext">Published on:</span> {{ reply.timestamp }} </p>
+                            <p><span class="boldtext">Author:</span> {{reply.user.username}}</p></small>
+
                 </div>
-
-
+                {% endfor %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="comment_id" value="{{ comment.id }}"> {{ comment_form.as_p }} {% if request.user.is_authenticated %}
+                    <input type="submit" value="Submit" class="btn btn-outline-success"> {% else %}
+                    <input type="submit" value="Submit" class="btn btn-outline-success" disabled> {% endif %}
                 </form>
             </div>
-
-            {% endfor %}
         </div>
-        <hr>
+        {% endfor %}
 
-        <a href="{% url 'post_list' %}" class="btn btn-default">Back To Blog</a>
 
     </div>
+</div>
+
+
+<hr>
+
+<a href="{% url 'post_list' %}" class="btn btn-default">Back To Blog</a>
+
+</div>
 </div>
 {% endblock %}
