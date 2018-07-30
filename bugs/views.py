@@ -60,10 +60,11 @@ def upvote_post(request):
 @login_required    
 def post_create(request):
     if request.method == 'POST':
-        form = PostCreateForm(request.POST)
+        form = PostCreateForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
+            
             post.save()
     else:
         form = PostCreateForm()
