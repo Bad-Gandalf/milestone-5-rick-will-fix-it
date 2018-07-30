@@ -5,19 +5,28 @@
             <div class="panel">
                 <div class="panel-body">
                     <div class="col-md-10 col-sm-9">
-                        <h3>{{ post.title }}</h3>
+
+                        
+                            <h3>{{ post.title }}</h3>
+                        
+                            
+                        
                         <div class="row">
                             <div class="col-xs-9">
                                 <p>{{ post.content|truncatewords:30 }}</p>
                                 <p><a href="{% url 'post_detail' post.id post.slug %}" class="btn btn-default">Read more</a></p>
                                 <p><span class="boldtext">Published on:</span> {{ post.published_date }} </p>
-                                
+
                                 <div class="col-md-3 col-sm-2">
                                     <i class="fas fa-thumbs-up"></i> {{ post.total_upvotes }}
                                 </div>
                                 <div class="col-md-3 col-sm-2">
-                                    <span class="boldtext">Comments</span> {{ post.comments }}
+                                    <span class="boldtext">Comments:</span> {{ post.comments }}
                                 </div>
+                                <div class="col-md-3 col-sm-2">
+                                    <span class="boldtext">Status:</span> {{ post.get_status_display }}
+                                </div>
+                                
 
                             </div>
                         </div>

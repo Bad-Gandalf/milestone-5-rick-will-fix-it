@@ -32,10 +32,14 @@ class Post(models.Model):
     
     def __str__(self):
         return self.title
-        
+    
+    def total_upvotes(self):
+        return self.upvotes.count()   
         
     def get_absolute_url(self):
         return reverse("post_detail", args=[self.id, self.slug])
+        
+    
         
     
     

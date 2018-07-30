@@ -17,7 +17,9 @@ def post_list(request):
     
 def post_detail(request, id, slug):
     post = get_object_or_404(Post, pk=id, slug=slug)
-    total_upvotes = post.upvotes.count()
+    is_upvoted = False
+    if post.upvotes.filter(id=request.user.id).exists():
+        is_upvoted = True
     comments = Comment.objects.filter(post=post, reply=None).order_by('id')
     post.views += 1
     post.save()
@@ -38,20 +40,19 @@ def post_detail(request, id, slug):
         comment_form = CommentForm()
             
     context = {'post': post, 'comments': comments, 
-                'comment_form': comment_form, 'total_upvotes': total_upvotes}
+                'comment_form': comment_form, 'total_upvotes': post.total_upvotes(), 'is_upvoted' : is_upvoted}
     return render(request, 'bugs/post_detail.html', context)
 
 
 @login_required
 def upvote_post(request):
     post = get_object_or_404(Post, id=request.POST.get('post_id'))
-    upvotes = Upvote.objects.filter(post=post).order_by('-id')
     is_upvoted = False
-    if upvotes.post.filter(id=request.user.id).exists():
-        upvotes.user.remove(request.user)
+    if post.upvotes.filter(id=request.user.id).exists():
+        post.upvotes.remove(request.user)
         is_upvoted = False
     else:
-        upvotes.post.add(request.user)
+        post.upvotes.add(request.user)
         is_upvoted = True
     return HttpResponseRedirect(post.get_absolute_url())
 
