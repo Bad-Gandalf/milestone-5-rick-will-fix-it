@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% block content %} {% load staticfiles %}
+
+<div class="container">
+
+    <h1>{{ user.username }}'s Profile</h1>
+</div>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-5">
+            <img src="{{ profile.photo.url }}">
+        </div>
+        <div class="col-sm-7">
+            <p>Name: {{ user.first_name }} {{ user.last_name }}</p>
+            <p>Email: {{ user.email }}</p>
+            <p>DOB: {{ profile.date_of_birth }}</p>
+        </div>
+</div>
+
+
+
+{% endblock %}

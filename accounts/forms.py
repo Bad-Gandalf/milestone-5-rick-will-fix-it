@@ -19,7 +19,7 @@ class UserRegistrationForm(UserCreationForm):
     
     class Meta:
         model = User
-        fields = ['email', 'username', 'password1', 'password2']
+        fields = ['email', 'username', 'password1', 'password2', 'first_name', 'last_name']
         
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -40,3 +40,7 @@ class UserRegistrationForm(UserCreationForm):
             
         return password2
         
+class ProfileForm(forms.Form):
+    class Meta:
+        model = Profile
+        fields = ["date_of_birth", "photo"]

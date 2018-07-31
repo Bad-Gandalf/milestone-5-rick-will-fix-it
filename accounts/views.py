@@ -1,13 +1,14 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from accounts.forms import UserLoginForm, UserRegistrationForm
+from accounts.models import Profile
 
 # Create your views here.
 def index(request):
     """Return the index.html file"""
-    return render(request, 'index.html')
+    return render(request, 'accounts/index.html')
 
 @login_required    
 def logout(request):
@@ -35,7 +36,7 @@ def login(request):
                 login_form.add_error(None, "Your username or password is incorrect")
     else:
         login_form = UserLoginForm()
-    return render(request, "login.html", {"login_form": login_form})
+    return render(request, "accounts/login.html", {"login_form": login_form})
     
     
 def registration(request):
@@ -60,10 +61,11 @@ def registration(request):
                 messages.error(request, "Unable to register your account at this time")
     else:
         registration_form = UserRegistrationForm()
-    return render(request, 'registration.html', {'registration_form': registration_form})
+    return render(request, 'accounts/registration.html', {'registration_form': registration_form})
     
-def user_profile(request):
+def user_profile(request, id):
     """The user's profile page"""
-    user = User.objects.get(email=request.user.email)
-    return render(request, 'profile.html', {"profile": user})
+    user = get_object_or_404(User, pk=request.user.id)
+    profile = get_object_or_404(Profile, user=request.user)
+    return render(request, 'accounts/profile.html', {"profile": profile, "user": user})
     

@@ -64,8 +64,8 @@ def post_create(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
-            
             post.save()
+            return HttpResponseRedirect(post.get_absolute_url())
     else:
         form = PostCreateForm()
     context = {'form': form,}

@@ -8,24 +8,22 @@
     </div>
 
     <div class="col-md-10 col-sm-9">
-        {% if post.image %}
-        
-        <img class="img-blogpost" src="/media/{{ post.image }}"> {% endif %}
+
         <div class="panel-body">
-        <h3>{{ post.title }}</h3>
-        <div class="row">
-            <div class="col-xs-9">
-                <p>{{ post.content }}</p>
-                <p>by {{ post.author.username }}</p>
-                <small><span class="boldtext">Published on:</span> {{ post.published_date }}
+            <h3>{{ post.title }}</h3>
+            <div class="row">
+                <div class="col-xs-9">
+                    <p>{{ post.content }}</p>
+                    <p>by {{ post.author.username }}</p>
+                    <small><span class="boldtext">Published on:</span> {{ post.published_date }}
                 
                 <span class="boldtext">Views:</span> {{post.views}} </small>
 
-                <p><i class="fas fa-thumbs-up"></i> {{ total_upvotes }}</p>
-            </div>
+                    <p><i class="fas fa-thumbs-up"></i> {{ total_upvotes }}</p>
+                </div>
 
-            <div class="upvote-panel">
-                <span><form action="{% url 'upvote_post' %}" method="POST">
+                <div class="upvote-panel">
+                    <span><form action="{% url 'upvote_post' %}" method="POST">
                     {% csrf_token %} 
                     {% if is_upvoted %}
                     <button class="btn btn-danger" type="submit" name="post_id" value="{{ post.id }}">Downvote</button> 
@@ -33,72 +31,76 @@
                     <button class="btn btn-blue" type="submit" name="post_id" value="{{ post.id }}">Upvote</button> 
                     {% endif %}
                 </form></span>
-            </div></div>
+                </div>
+            </div>
+            {% if post.image %}
+        
+        <img class="img-blogpost" src="/media/{{ post.image }}"> {% endif %}
         </div>
-    
 
-    <hr>
-    <h4>Comment{{ comments|pluralize }}: {{ comments.count }}</h4>
-    <hr>
-    <div class="main-comment-section">
-        <div class="container-fluid mt-2">
-            <div class="form-group row">
-                <form method="POST">
-                    {% csrf_token %} {{ comment_form.as_p }} {% if request.user.is_authenticated %}
-                    <input type="submit" value="Submit" class="btn btn-outline-success"> {% else %}
-                    <input type="submit" value="Submit" class="btn btn-outline-success" disabled> {% endif %}
 
-                </form>
+        <hr>
+        <h4>Comment{{ comments|pluralize }}: {{ comments.count }}</h4>
+        <hr>
+        <div class="main-comment-section">
+            <div class="container-fluid mt-2">
+                <div class="form-group row">
+                    <form method="POST">
+                        {% csrf_token %} {{ comment_form.as_p }} {% if request.user.is_authenticated %}
+                        <input type="submit" value="Submit" class="btn btn-outline-success"> {% else %}
+                        <input type="submit" value="Submit" class="btn btn-outline-success" disabled> {% endif %}
+
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
 
 
 
 
-    {% for comment in comments %}
-    <div class="comments">
-        <p> {{ comment.content }}</p>
-        <small>
+        {% for comment in comments %}
+        <div class="comments">
+            <p> {{ comment.content }}</p>
+            <small>
                 <p><span class="boldtext">Published on:</span> {{ comment.timestamp }}</p>
                 <p><span class="boldtext">Author:</span> {{comment.user.username}}</p>
                 <p><span>Replies: {{ comment.replies.count }}</span></p>
                 <button type="button" name="button" class="reply-btn btn btn-outline-dark btn-sm ml-2">Reply</button>
             </small>
 
-    </div>
+        </div>
 
-    <div class="replied-comments container mt-2" style="display:none;">
+        <div class="replied-comments container mt-2" style="display:none;">
 
-        <div class="form-group row mt-2">
-            {% for reply in comment.replies.all %}
-            <hr>
-            <div class="reply">
-                <p class="mb-3">{{ reply.content }}</p>
-                <small><p><span class="boldtext">Published on:</span> {{ reply.timestamp }} </p>
+            <div class="form-group row mt-2">
+                {% for reply in comment.replies.all %}
+                <hr>
+                <div class="reply">
+                    <p class="mb-3">{{ reply.content }}</p>
+                    <small><p><span class="boldtext">Published on:</span> {{ reply.timestamp }} </p>
                             <p><span class="boldtext">Author:</span> {{reply.user.username}}</p></small>
 
+                </div>
+                {% endfor %}
+                <hr>
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="comment_id" value="{{ comment.id }}"> {{ comment_form.as_p }} {% if request.user.is_authenticated %}
+                    <input type="submit" value="Submit" class="btn btn-outline-success"> {% else %}
+                    <input type="submit" value="Submit" class="btn btn-outline-success" disabled> {% endif %}
+                </form>
             </div>
-            {% endfor %}
-            <hr>
-            <form method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="comment_id" value="{{ comment.id }}"> {{ comment_form.as_p }} {% if request.user.is_authenticated %}
-                <input type="submit" value="Submit" class="btn btn-outline-success"> {% else %}
-                <input type="submit" value="Submit" class="btn btn-outline-success" disabled> {% endif %}
-            </form>
         </div>
+        <hr> {% endfor %}
+
+
+
     </div>
-    <hr> {% endfor %}
 
 
+    <hr>
 
-</div>
-
-
-<hr>
-
-<a href="{% url 'post_list' %}" class="btn btn-default">Back To Blog</a>
+    <a href="{% url 'post_list' %}" class="btn btn-default">Back To Blog</a>
 
 </div>
 </div>
