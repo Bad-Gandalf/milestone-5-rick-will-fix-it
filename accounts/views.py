@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from accounts.forms import UserLoginForm, UserRegistrationForm
+from accounts.forms import UserLoginForm, UserRegistrationForm, ProfileForm, UserForm
 from accounts.models import Profile
+from django.http import HttpResponse, HttpResponseRedirect
 
 # Create your views here.
 def index(request):
@@ -65,7 +66,44 @@ def registration(request):
     
 def user_profile(request, id):
     """The user's profile page"""
-    user = get_object_or_404(User, pk=request.user.id)
-    profile = get_object_or_404(Profile, user=request.user)
-    return render(request, 'accounts/profile.html', {"profile": profile, "user": user})
+   
+    profile = get_object_or_404(Profile, user=request.user.id)
+    return render(request, 'accounts/profile.html', { "profile": profile})
+   
+
+@login_required    
+def edit_profile(request, id):
+    if request.method == "POST":
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile = profile_form.save()
+            messages.success(request, 'Your profile was successfully updated!')
+            return HttpResponseRedirect(profile.get_absolute_url())
+        else:
+            messages.error(request, 'Please correct the error below.')
+        
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
+    return render(request, 'accounts/edit_profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
+        
+        
+#@login_required    
+#def post_create(request):
+#    if request.method == 'POST':
+#        form = PostCreateForm(request.POST, request.FILES)
+#            post = form.save(commit=False)
+##        if form.is_valid():
+#            post.save()
+#            post.author = request.user
+#            return HttpResponseRedirect(post.get_absolute_url())
+#    else:
+#        form = PostCreateForm()
+#    context = {'form': form,}
+#    return render(request, 'bugs/post_create.html', context)
     

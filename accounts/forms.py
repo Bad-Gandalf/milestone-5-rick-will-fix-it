@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 from .models import Profile
+from django.contrib.admin import widgets
 
 
 class UserLoginForm(forms.Form):
@@ -40,7 +41,15 @@ class UserRegistrationForm(UserCreationForm):
             
         return password2
         
-class ProfileForm(forms.Form):
+class ProfileForm(forms.ModelForm):
+    date_of_birth = forms.DateField(widget=widgets.AdminDateWidget) 
     class Meta:
         model = Profile
-        fields = ["date_of_birth", "photo"]
+        fields = ["date_of_birth", "photo", "bio", "location"]
+        
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email')
+
+
