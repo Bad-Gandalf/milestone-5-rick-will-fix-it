@@ -15,7 +15,7 @@
                             <div class="col-xs-9">
                                 <p>{{ post.content|truncatewords:30 }}</p>
 
-                                <p>By {{ post.author.username }}</p> 
+                                 <a href="{% url 'user_profile' post.author.id %}"><p>By {{ post.author.username }}</p></a> 
 
                                 
                                 <p><span class="boldtext">Published on:</span> {{ post.published_date }} </p>

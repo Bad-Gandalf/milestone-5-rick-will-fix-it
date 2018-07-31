@@ -9,25 +9,32 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-6">
             {% if profile.photo %}
-            <img src="{{ profile.photo.url }}">
+            <img src="{{ profile.photo.url }}" width=400px;>
             {% else %}
             <a href="{% url 'edit_profile' user.id %}"><button class="btn-success">Upload Picture</button></a>
             {% endif %}
             
         </div>
-        <div class="col-sm-7">
+        <div class="col-sm-6">
             <p>Name: {{ user.first_name }} {{ user.last_name }}</p>
             <p>Email: {{ user.email }}</p>
             <p>DOB: {{ profile.date_of_birth }}</p>
             <p>Bio: {{ profile.bio }}</p>
             <p>Location: {{ profile.location }}</p>
+            {% if request.user.id == user.id %}
+            <a href="{% url 'edit_profile' user.id %}"><button class="btn-success">Update Profile</button></a>
+            {% else %}
+            <span></span>
+            {% endif %}
+            
         </div>
+</div>
 </div>
 
 
-<a href="{% url 'edit_profile' user.id %}"><button class="btn-success">Update Profile</button></a>
+
 
 
 {% endblock %}

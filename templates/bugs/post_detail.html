@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-xs-9">
                     <p>{{ post.content }}</p>
-                    <p>by {{ post.author.username }}</p>
+                    <a href="{% url 'user_profile' post.author.id %}"><p>by {{ post.author.username }}</p></a>
                     <small><span class="boldtext">Published on:</span> {{ post.published_date }}
                 
                 <span class="boldtext">Views:</span> {{post.views}} </small>
@@ -34,8 +34,8 @@
                 </div>
             </div>
             {% if post.image %}
-        
-        <img class="img-blogpost" src="/media/{{ post.image }}"> {% endif %}
+
+            <img class="img-blogpost" src="/media/{{ post.image }}"> {% endif %}
         </div>
 
 
@@ -63,7 +63,7 @@
             <p> {{ comment.content }}</p>
             <small>
                 <p><span class="boldtext">Published on:</span> {{ comment.timestamp }}</p>
-                <p><span class="boldtext">Author:</span> {{comment.user.username}}</p>
+                <a href="{% url 'user_profile' comment.user.id %}"><p><span class="boldtext">By:</span> {{comment.user.username}}</p></a>
                 <p><span>Replies: {{ comment.replies.count }}</span></p>
                 <button type="button" name="button" class="reply-btn btn btn-outline-dark btn-sm ml-2">Reply</button>
             </small>
@@ -78,7 +78,7 @@
                 <div class="reply">
                     <p class="mb-3">{{ reply.content }}</p>
                     <small><p><span class="boldtext">Published on:</span> {{ reply.timestamp }} </p>
-                            <p><span class="boldtext">Author:</span> {{reply.user.username}}</p></small>
+                           <a href="{% url 'user_profile' reply.user.id %}"> <p><span class="boldtext">By:</span>{{reply.user.username}}</a></p></small>
 
                 </div>
                 {% endfor %}

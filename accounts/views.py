@@ -66,9 +66,9 @@ def registration(request):
     
 def user_profile(request, id):
     """The user's profile page"""
-   
-    profile = get_object_or_404(Profile, user=request.user.id)
-    return render(request, 'accounts/profile.html', { "profile": profile})
+    user = get_object_or_404(User, pk=id)
+    profile = get_object_or_404(Profile, user=id)
+    return render(request, 'accounts/profile.html', { "profile": profile, "user":user})
    
 
 @login_required    
