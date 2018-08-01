@@ -7,25 +7,29 @@
 </script>
 <script type="text/javascript" src="{% static 'js/stripe.js' %}"></script>
 {% endblock %} {% block content %}
+
+
 <div class="row row-flex">
-    
-    <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-6 col-md-4 display panel panel-default">
+{% for item in cart_items %}    
+    <div class="col-xs-8 panel">
         <div class="panel-body">
-            <div class="product" style="background-image: url('{{ feature.image.url }}')"></div>
+            
             <div class="caption">
-                <h3>{{ feature.title }}</h3>
-                <p class="product-description">{{ feature.content }}</p>
-                <p>{{ feature.author.username }}</p>
-                <p>{{ feature.price }}</p>
+                <h3>{{ item.feature.title }}</h3>
+                <p class="product-description">{{ item.feature.content }}</p>
+                <p>{{ item.feature.author.username }}</p>
+                <p>{{ item.feature.price }}</p>
+                <p>{{ item.contribution }}</p>
             </div>
         </div>
     </div>
+{% endfor %} 
+<div class="col-xs-4">
+    <p>Total: £<span class="glyphicon glyphicon-pound" aria-hidden="true"></span>{{ total }}</p>
     
 </div>
-<div class="row">
-    <p>Total</p>
-    <p><span class="glyphicon glyphicon-euro" aria-hidden="true"></span>{{ total }}</p>
 </div>
+
 
 <form role="form" method="post" id="payment-form" action="{% url 'checkout' %}">
     <legend>Payment Details</legend>
