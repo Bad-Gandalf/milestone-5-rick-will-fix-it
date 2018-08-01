@@ -71,3 +71,20 @@ def post_create(request):
     context = {'form': form,}
     return render(request, 'bugs/post_create.html', context)
     
+@login_required 
+def post_update(request, id, slug):
+    instance = get_object_or_404(Post, id=id)
+    form = PostCreateForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        return HttpResponseRedirect(instance.get_absolute_url())
+    
+    context = {
+        "title": instance.title,
+        "instance": instance,
+        "form": form,
+    }
+    return render(request, "bugs/post_create.html", context)
+        
+    

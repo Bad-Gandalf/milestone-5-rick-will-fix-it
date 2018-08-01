@@ -76,4 +76,9 @@ caption p {
 
 .replied-comments {
     padding-left: 70px;
+    margin-right: 85px;
+}
+
+.form-group {
+    margin-right: 85px
 }

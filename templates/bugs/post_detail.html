@@ -10,7 +10,9 @@
     <div class="col-md-10 col-sm-9">
 
         <div class="panel-body">
+            
             <h3>{{ post.title }}</h3>
+            
             <div class="row">
                 <div class="col-xs-9">
                     <p>{{ post.content }}</p>
@@ -38,10 +40,14 @@
                     {% if is_upvoted %}
                     <button class="btn btn-danger" type="submit" name="post_id" value="{{ post.id }}">Downvote</button> 
                     {% else %}
-                    <button class="btn btn-blue" type="submit" name="post_id" value="{{ post.id }}">Upvote</button> 
+                    <button class="btn btn-success" type="submit" name="post_id" value="{{ post.id }}">Upvote</button> 
                     {% endif %}
-                </form></span>
+                </form></span> 
+                {% if request.user.id == post.author.id %}
+                    <span><a href="{% url 'update' post.id post.slug %}"><button class="btn btn-danger">Edit Post</button></a></span> {% else %}
+                     {% endif %}
                 </div>
+                
             </div>
             {% if post.image %}
 
@@ -76,7 +82,7 @@
             </div>
             <div class="comments">
                 <p> {{ comment.content }}</p>
-<br>
+                <br>
 
                 <button type="button" name="button" class="reply-btn btn-success">Reply</button>
 
@@ -102,7 +108,7 @@
                     </div>
                     <div class="reply">
                         <p class="mb-5">{{ reply.content }}</p>
-                        
+
                     </div>
 
 
@@ -121,12 +127,12 @@
 
 
 
-    <a href="{% url 'post_list' %}" class="btn btn-default">Back To List</a>
+        <a href="{% url 'post_list' %}" class="btn btn-default">Back To List</a>
 
     </div>
 
 
-   
+
 
 </div>
 
