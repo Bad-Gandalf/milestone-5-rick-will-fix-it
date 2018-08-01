@@ -65,3 +65,15 @@ caption p {
 .product-description {
     min-height: 40px;
 }
+
+.avatar-box img {
+    max-width: 180px;
+}
+
+.comment-avatar-box img {
+    max-width: 30px;
+}
+
+.replied-comments {
+    padding-left: 70px;
+}

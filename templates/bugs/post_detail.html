@@ -1,8 +1,8 @@
 {% extends "base.html" %} {% block content %}
 <div class="row">
-    <div class="col-md-2 col-sm-3 text-center">
+    <div class="col-md-2 col-sm-3 text-center avatar-box">
         <a class="story-img" href="#">
-                <img src="/media/img/profile.jpg" class="img-circle">
+                <img src="{{post.author.profile.photo.url}}" class="img-circle">
             </a>
 
     </div>
@@ -14,13 +14,23 @@
             <div class="row">
                 <div class="col-xs-9">
                     <p>{{ post.content }}</p>
-                    <a href="{% url 'user_profile' post.author.id %}"><p>by {{ post.author.username }}</p></a>
-                    <small><span class="boldtext">Published on:</span> {{ post.published_date }}
-                
-                <span class="boldtext">Views:</span> {{post.views}} </small>
 
-                    <p><i class="fas fa-thumbs-up"></i> {{ total_upvotes }}</p>
+
+                    <a href="{% url 'user_profile' post.author.id %}">
+                        <p>by {{ post.author.username }}</p>
+                    </a>
+                    <small><div class="col-md-3 col-sm-2">
+                        <i class="fas fa-thumbs-up"></i> {{ post.total_upvotes }}
+                    </div>
+
+                    <div class="col-md-3 col-sm-2">
+                        <span class="boldtext">Status:</span> {{ post.get_status_display }}
+                    </div>
+                    <div class="col-md-3 col-sm-2">
+                     {{ post.published_date }}
+                </div></small>
                 </div>
+
 
                 <div class="upvote-panel">
                     <span><form action="{% url 'upvote_post' %}" method="POST">
@@ -54,31 +64,47 @@
                 </div>
             </div>
         </div>
+        <hr> {% for comment in comments %}
+        <div class="row">
+            <div class="comment-avatar-box col-sm-2">
+                <img src="{{comment.user.profile.photo.url}}" class="img-circle">
+                <p><a href="{% url 'user_profile' comment.user.id %}">{{comment.user.username}}</a></p>
+                <small>
+                    <p>{{ comment.timestamp }}</p>
+                    <p>Replies: {{ comment.replies.count }}</p>
+                </small>
+            </div>
+            <div class="comments">
+                <p> {{ comment.content }}</p>
+<br>
 
+                <button type="button" name="button" class="reply-btn btn-success">Reply</button>
 
+            </div>
 
-
-        {% for comment in comments %}
-        <div class="comments">
-            <p> {{ comment.content }}</p>
-            <small>
-                <p><span class="boldtext">Published on:</span> {{ comment.timestamp }}</p>
-                <a href="{% url 'user_profile' comment.user.id %}"><p><span class="boldtext">By:</span> {{comment.user.username}}</p></a>
-                <p><span>Replies: {{ comment.replies.count }}</span></p>
-                <button type="button" name="button" class="reply-btn btn btn-outline-dark btn-sm ml-2">Reply</button>
-            </small>
 
         </div>
 
-        <div class="replied-comments container mt-2" style="display:none;">
+        <div class="replied-comments container" style="display:none;">
 
-            <div class="form-group row mt-2">
+            <div class="form-group">
                 {% for reply in comment.replies.all %}
                 <hr>
-                <div class="reply">
-                    <p class="mb-3">{{ reply.content }}</p>
-                    <small><p><span class="boldtext">Published on:</span> {{ reply.timestamp }} </p>
-                           <a href="{% url 'user_profile' reply.user.id %}"> <p><span class="boldtext">By:</span>{{reply.user.username}}</a></p></small>
+
+                <div class="row">
+                    <div class="comment-avatar-box col-sm-2">
+                        <img src="{{reply.user.profile.photo.url}}" class="img-circle">
+                        <small>
+                        <p><a href="{% url 'user_profile' reply.user.id %}">{{reply.user.username}}</a></p>
+                        
+                                <p>{{ reply.timestamp }}</p>
+                            </small>
+                    </div>
+                    <div class="reply">
+                        <p class="mb-5">{{ reply.content }}</p>
+                        
+                    </div>
+
 
                 </div>
                 {% endfor %}
@@ -95,13 +121,13 @@
 
 
 
+    <a href="{% url 'post_list' %}" class="btn btn-default">Back To List</a>
+
     </div>
 
 
-    <hr>
-
-    <a href="{% url 'post_list' %}" class="btn btn-default">Back To Blog</a>
+   
 
 </div>
-</div>
+
 {% endblock %}

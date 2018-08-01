@@ -17,7 +17,7 @@ class Profile(models.Model):
         return 'Profile for user {}'.format(self.user.username)
         
     def get_absolute_url(self):
-        return reverse("user_profile", args=[self.id])
+        return reverse("user_profile", args=[self.user.id])
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
