@@ -41,28 +41,17 @@
                      {{ feature.published_date }}
                 </div></small>
                 </div>
+                <div class="upvote-panel">
+                    <span><form action="{% url 'contribution_amount' feature.id %}" method="POST">
+                     {% csrf_token %}
+                    
+                    <button class="btn btn-success" type="submit" name="feature_id" value="{{ feature.id }}">Contribute</button> 
+                    
+                </form></span> {% if feature.image %}
 
-
-                <!--            <div class="upvote-panel">
-                    <span><form action="{% url 'upvote_post' %}" method="POST">
-                    {% csrf_token %} 
-                    {% if is_upvoted %}
-                    <button class="btn btn-danger" type="submit" name="post_id" value="{{ post.id }}">Downvote</button> 
-                    {% else %}
-                    <button class="btn btn-success" type="submit" name="post_id" value="{{ post.id }}">Upvote</button> 
-                    {% endif %}
-                </form></span> 
-                {% if request.user.id == feature.author.id %}
-                    <span><a href="{% url 'update' post.id post.slug %}"><button class="btn btn-danger">Edit Post</button></a></span> {% else %}
-                     {% endif %}
+                    <img class="img-blogpost" src="{{ feature.image.url }}"> {% endif %}
                 </div>
-                
-            </div>-->
-                {% if feature.image %}
-
-                <img class="img-blogpost" src="{{ feature.image.url }}"> {% endif %}
             </div>
-
 
             <hr>
             <h4>Comment{{ comments|pluralize }}: {{ comments.count }}</h4>
@@ -145,4 +134,5 @@
 
     </div>
 </div>
-    {% endblock %}
+
+{% endblock %}

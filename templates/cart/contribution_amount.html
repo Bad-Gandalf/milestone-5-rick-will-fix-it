@@ -1,0 +1,29 @@
+{% extends 'base.html' %} {% block content %}
+<div class="row">
+
+    <div class="col-xs-10">
+        <div class="panel-body">
+            
+            <div class="caption">
+                <h3>{{ feature.title }}</h3>
+                <p class="product-description">{{ feature.content }}</p>
+                <p>{{ feature.author.username }}</p>
+                <p>{{ feature.price }}</p>
+                
+            </div>
+            <form method="post" action="{% url 'add_to_cart' feature.id %}">
+                {% csrf_token %}
+
+                <div class="form-group col-md-6">
+                    {{ contribution_form.as_p }} {% if request.user.is_authenticated %}
+                    <input type="submit" value="Submit" class="btn btn-outline-success"> {% else %}
+                    <input type="submit" value="Submit" class="btn btn-outline-success" disabled> {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

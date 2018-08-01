@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 from django.shortcuts import render
 from .models import Feature, Comment
-from django.db.models import Sum
+from django.db.models import Sum, Count
 from datetime import datetime
 from .forms import *
 from django.shortcuts import render, get_object_or_404
@@ -11,7 +11,7 @@ from .view_functions import total_feature_contributions
 
 # Create your views here.
 def feature_list(request):
-    features = Feature.objects.annotate(total_contributions=Sum('contributions__contribution')).order_by('-created_date')
+    features = Feature.objects.annotate(total_contributions=Sum('contributions__contribution')).annotate(comments=Count('comment')).order_by('-total_contributions')
     context = {'features': features,}
     return render(request, 'features/feature_list.html', context)
     

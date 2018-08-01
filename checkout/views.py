@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import MakePaymentForm, OrderForm
+from .forms import MakePaymentForm, OrderForm, ContributionForm
 from .models import OrderLineItem
 from django.conf import settings
 from django.utils import timezone
@@ -15,24 +15,26 @@ def checkout(request):
     if request.method =="POST":
         order_form = OrderForm(request.POST)
         payment_form = MakePaymentForm(request.POST)
+        contribution_form = ContributionForm(request.POST)
+    
         
-        if order_form.is_valid() and payment_form.is_valid():
+        if order_form.is_valid() and payment_form.is_valid() and contribution_form.is_valid():
             order = order_form.save(commit=False)
             order.date = timezone.now()
             order.save()
             
-            cart = request.session.get('cart', {})
-            total = 0
-            for id, contribution in cart.items():
-                feature = get_object_or_404(Feature, pk=id)
-                total = contribution
-                user = request.user
-                order_line_item = OrderLineItem(user = user,
-                                                order = order,
-                                                feature = feature, 
-                                                contribution = contribution,
-                                                )
-                order_line_item.save()
+            
+            contribution = request.POST.get('contribution')
+            
+            feature = get_object_or_404(Feature, pk=request.feature.id)
+            total = contribution
+            user = request.user
+            order_line_item = OrderLineItem(user = user,
+                                            order = order,
+                                            feature = feature, 
+                                            contribution = total,
+                                            )
+            order_line_item.save()
             try:
                 customer = stripe.Charge.create(
                     amount = int(total * 100),
@@ -57,4 +59,4 @@ def checkout(request):
         payment_form = MakePaymentForm()
         order_form = OrderForm()
         
-    return render(request, "checkout.html", {"order_form": order_form, 'payment_form': payment_form, 'publishable': settings.STRIPE_PUBLISHABLE})
+    return render(request, "checkout/checkout.html", {"order_form": order_form, 'payment_form': payment_form, 'publishable': settings.STRIPE_PUBLISHABLE})

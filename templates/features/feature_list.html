@@ -7,22 +7,37 @@
                     <div class="col-md-10 col-sm-9">
 
 
-                        <a href="{% url 'feature_detail' feature.id feature.slug %}"><h3>{{ feature.title }}</h3></a>
+                        <a href="{% url 'feature_detail' feature.id feature.slug %}">
+                            <h3>{{ feature.title }}</h3>
+                        </a>
 
 
 
                         <div class="row">
-                            <div class="col-xs-9">
+                            <div class="col-xs-12">
                                 <p>{{ feature.content|truncatewords:30 }}</p>
 
-                                 <a href="{% url 'user_profile' feature.author.id %}"><p>By {{ feature.author.username }}</p></a> 
+                                <a href="{% url 'user_profile' feature.author.id %}">
+                                    <p>By {{ feature.author.username }}</p>
+                                </a>
 
-                                
+
                                 <p><span class="boldtext">Published on:</span> {{ feature.published_date }} </p>
-
+                                {% if feature.price != None and feature.total_contributions != None %}
                                 <div class="col-md-3 col-sm-2">
-                                    <i class="fas fa-thumbs-up"></i> {{ feature.total_contributions }}
+                                    <span>Price: £</span>{{ feature.price }}
                                 </div>
+                                <div class="col-md-3 col-sm-2">
+                                    <span>Contributions: £</span>{{ feature.total_contributions }}
+                                </div>
+                                {% else %}
+                                <div class="col-md-3 col-sm-2">
+                                    <span>Price: </span>TBA
+                                </div>
+                                <div class="col-md-3 col-sm-2">
+                                    <span>Contributions: £0</span>
+                                </div>
+                                {% endif %}
                                 <div class="col-md-3 col-sm-2">
                                     <span class="boldtext">Comments:</span> {{ feature.comments }}
                                 </div>

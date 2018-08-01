@@ -17,7 +17,7 @@ class Order(models.Model):
         
 class OrderLineItem(models.Model):
     user = models.ForeignKey(User, null=True, related_name="user_contribution")
-    order = models.ForeignKey(Order, null=False)
+    order = models.ForeignKey(Order, null=False, related_name="order_contribution")
     feature = models.ForeignKey(Feature, null=False, related_name='contributions')
     contribution = models.DecimalField(max_digits=10, decimal_places=2)
     

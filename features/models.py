@@ -31,7 +31,7 @@ class Feature(models.Model):
     tag = models.CharField(max_length=30, blank=True, null=True)
     image = models.ImageField(upload_to="img", blank=True, null=True)
     status = models.IntegerField(_('status'), default=1, choices=STATUS_CODES)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     
     
     def __str__(self):
@@ -52,7 +52,7 @@ def pre_save_slug(sender, **kwargs):
     
 class Comment(models.Model):
     feature = models.ForeignKey(Feature)
-    user = models.ForeignKey(User, related_name="feature_comments")
+    user = models.ForeignKey(User, related_name="feature_comment")
     reply = models.ForeignKey('self', null=True, related_name="replies", blank=True)
     content = models.TextField(max_length=500)
     timestamp = models.DateTimeField(auto_now_add=True)

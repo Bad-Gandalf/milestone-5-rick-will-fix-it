@@ -39,6 +39,7 @@
                     <li><a href="{% url 'feature_list' %}">Feature List</a></li>
                     <li><a href="{% url 'logout' %}">Logout</a></li>
                     <li><a href="{% url 'user_profile' request.user.id %}">Profile</a></li>
+                    <li><a href="{% url 'view_cart' %}">Cart</a></li>
                     {% else %}
                     
                     <li><a href="{% url 'registration' %}">Register</a></li>
