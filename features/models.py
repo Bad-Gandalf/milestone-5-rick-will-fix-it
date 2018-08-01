@@ -39,7 +39,7 @@ class Feature(models.Model):
         
         
     def get_absolute_url(self):
-        return reverse("features:feature_detail", args=[self.id, self.slug])
+        return reverse("feature_detail", args=[self.id, self.slug])
     
     
 

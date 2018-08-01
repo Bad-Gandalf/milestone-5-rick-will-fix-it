@@ -15,9 +15,9 @@ def feature_list(request):
     context = {'features': features,}
     return render(request, 'features/feature_list.html', context)
     
-def feature_detail(request, pk, slug):
-    feature = get_object_or_404(Feature, pk=pk, slug=slug)
-    comments = Comment.objects.filter(feature=feature).order_by('-id')
+def feature_detail(request, id, slug):
+    feature = get_object_or_404(Feature, pk=id, slug=slug)
+    comments = Comment.objects.filter(feature=feature, reply=None).order_by('id')
     total_contributions = total_feature_contributions(feature)
     feature.views += 1
     feature.save()
@@ -26,17 +26,20 @@ def feature_detail(request, pk, slug):
         comment_form = CommentForm(request.POST or None)
         if comment_form.is_valid():
             content = request.POST.get('content')
-            comment = Comment.objects.create(feature=feature, user=request.user, content=content)
+            reply_id = request.POST.get('comment_id')
+            comment_qs = None
+            if reply_id:
+                comment_qs = Comment.objects.get(id=reply_id)
+            comment = Comment.objects.create(feature=feature, user=request.user, content=content, reply=comment_qs)
             comment.save()
+            return HttpResponseRedirect(feature.get_absolute_url())
     
     else:
         comment_form = CommentForm()
             
     context = {'feature': feature, 'comments': comments, 'comment_form': comment_form,
-                'total_contributions': total_contributions,
-    }
+                'total_contributions': total_contributions,}
     return render(request, 'features/feature_detail.html', context)
-
 
 
 @login_required    

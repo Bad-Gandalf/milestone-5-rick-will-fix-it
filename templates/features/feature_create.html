@@ -1,0 +1,11 @@
+{% extends 'base.html' %} {% block content %}
+<div class="create-post-form">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %} {{ form.as_p }} {% if request.user.is_authenticated %}
+        <input type="submit" value="Submit" class="btn btn-outline-success"> {% else %}
+        <input type="submit" value="Submit" class="btn btn-outline-success" disabled> {% endif %}
+    </form>
+
+</div>
+
+{% endblock %}
