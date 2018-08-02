@@ -1,1 +1,1 @@
-web: gunicorn rick-will-fix-it.wsgi:application
+web: gunicorn unicorn_attractor.wsgi:application
