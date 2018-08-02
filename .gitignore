@@ -1,2 +1,5 @@
+*.png
+static/
+media/
 env.py
 secret.py
