@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from .models import Post, Comment
 from datetime import datetime
 from .forms import *
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Count
@@ -21,6 +21,10 @@ def post_detail(request, id, slug):
     if post.upvotes.filter(id=request.user.id).exists():
         is_upvoted = True
     comments = Comment.objects.filter(post=post, reply=None).order_by('id')
+    is_liked = False
+    for comment in comments:
+        if comment.likes.filter(id=request.user.id).exists():
+            is_liked = True
     post.views += 1
     post.save()
     
@@ -40,14 +44,13 @@ def post_detail(request, id, slug):
         comment_form = CommentForm()
             
     context = {'post': post, 'comments': comments, 
-                'comment_form': comment_form, 'total_upvotes': post.total_upvotes(), 'is_upvoted' : is_upvoted}
+                'comment_form': comment_form, 'total_upvotes': post.total_upvotes(), 'is_upvoted' : is_upvoted, "is_liked": is_liked}
     return render(request, 'bugs/post_detail.html', context)
 
 
 @login_required
 def upvote_post(request):
     post = get_object_or_404(Post, id=request.POST.get('post_id'))
-    is_upvoted = False
     if post.upvotes.filter(id=request.user.id).exists():
         post.upvotes.remove(request.user)
         is_upvoted = False
@@ -55,6 +58,18 @@ def upvote_post(request):
         post.upvotes.add(request.user)
         is_upvoted = True
     return HttpResponseRedirect(post.get_absolute_url())
+    
+@login_required
+def like_comment(request):
+    comment = get_object_or_404(Comment, id=request.POST.get('comment_id'))
+    is_liked = False
+    if comment.likes.filter(id=request.user.id).exists():
+        comment.likes.remove(request.user)
+        is_liked = False
+    else:
+        comment.likes.add(request.user)
+        is_liked = True
+    return HttpResponseRedirect(comment.get_absolute_url())
 
 
 @login_required    

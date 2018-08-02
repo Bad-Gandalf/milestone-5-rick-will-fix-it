@@ -57,9 +57,15 @@ class Comment(models.Model):
     reply = models.ForeignKey('self', null=True, related_name="replies", blank=True)
     content = models.TextField(max_length=500)
     timestamp = models.DateTimeField(auto_now_add=True)
+    likes = models.ManyToManyField(User, related_name="liked_post_comments")
     
     def __str__(self):
         return '{}-{}'.format(self.post.title, str(self.user.username))
         
+    def total_likes(self):
+        return self.likes.count()
+    
+    def get_absolute_url(self):
+        return reverse("post_detail", args=[self.post.id, self.post.slug])
 
     
