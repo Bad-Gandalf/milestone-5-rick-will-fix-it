@@ -21,10 +21,12 @@ def post_detail(request, id, slug):
     if post.upvotes.filter(id=request.user.id).exists():
         is_upvoted = True
     comments = Comment.objects.filter(post=post, reply=None).order_by('id')
-    is_liked = False
     for comment in comments:
+        comment.is_liked = False
         if comment.likes.filter(id=request.user.id).exists():
-            is_liked = True
+            comment.is_liked = True
+        else:
+            comment.is_liked = False
     post.views += 1
     post.save()
     
@@ -44,7 +46,7 @@ def post_detail(request, id, slug):
         comment_form = CommentForm()
             
     context = {'post': post, 'comments': comments, 
-                'comment_form': comment_form, 'total_upvotes': post.total_upvotes(), 'is_upvoted' : is_upvoted, "is_liked": is_liked}
+                'comment_form': comment_form, 'total_upvotes': post.total_upvotes(), 'is_upvoted' : is_upvoted, "comment.is_liked": comment.is_liked}
     return render(request, 'bugs/post_detail.html', context)
 
 
@@ -62,7 +64,6 @@ def upvote_post(request):
 @login_required
 def like_comment(request):
     comment = get_object_or_404(Comment, id=request.POST.get('comment_id'))
-    is_liked = False
     if comment.likes.filter(id=request.user.id).exists():
         comment.likes.remove(request.user)
         is_liked = False

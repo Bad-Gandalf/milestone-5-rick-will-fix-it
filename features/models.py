@@ -66,3 +66,5 @@ class Comment(models.Model):
         
     def get_absolute_url(self):
         return reverse("feature_detail", args=[self.feature.id, self.feature.slug])
+        
+    

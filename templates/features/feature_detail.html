@@ -76,6 +76,7 @@
                     <small>
                     <p>{{ comment.timestamp }}</p>
                     <p>Replies: {{ comment.replies.count }}</p>
+                    <p><i class="fas fa-thumbs-up"></i> {{ comment.total_likes }}</p>
                 </small>
                 </div>
                 <div class="comments">
@@ -83,7 +84,14 @@
                     <br>
 
                     <button type="button" name="button" class="reply-btn btn-success">Reply</button>
-
+                    <span><form action="{% url 'like_feature_comment' %}" method="POST">
+                    {% csrf_token %} 
+                    {% if comment.is_liked %}
+                    <button class="btn btn-danger" type="submit" name="comment_id" value="{{ comment.id }}">Unlike</button> 
+                    {% else %}
+                    <button class="btn btn-success" type="submit" name="comment_id" value="{{ comment.id }}">Like</button> 
+                    {% endif %}
+                </form></span>
                 </div>
 
 

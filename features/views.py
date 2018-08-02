@@ -18,6 +18,12 @@ def feature_list(request):
 def feature_detail(request, id, slug):
     feature = get_object_or_404(Feature, pk=id, slug=slug)
     comments = Comment.objects.filter(feature=feature, reply=None).order_by('id')
+    for comment in comments:
+        comment.is_liked = False
+        if comment.likes.filter(id=request.user.id).exists():
+            comment.is_liked = True
+        else:
+            comment.is_liked = False
     total_contributions = total_feature_contributions(feature)
     feature.views += 1
     feature.save()
@@ -38,7 +44,7 @@ def feature_detail(request, id, slug):
         comment_form = CommentForm()
             
     context = {'feature': feature, 'comments': comments, 'comment_form': comment_form,
-                'total_contributions': total_contributions,}
+                'total_contributions': total_contributions, "comment.is_liked": comment.is_liked}
     return render(request, 'features/feature_detail.html', context)
 
 
@@ -54,3 +60,15 @@ def feature_create(request):
         form = FeatureCreateForm()
     context = {'form': form,}
     return render(request, 'features/feature_create.html', context)
+    
+@login_required
+def like_feature_comment(request):
+    comment = get_object_or_404(Comment, id=request.POST.get('comment_id'))
+    
+    if comment.likes.filter(id=request.user.id).exists():
+        comment.likes.remove(request.user)
+        is_liked = False
+    else:
+        comment.likes.add(request.user)
+        is_liked = True
+    return HttpResponseRedirect(comment.get_absolute_url())
