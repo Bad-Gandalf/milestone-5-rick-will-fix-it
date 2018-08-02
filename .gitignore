@@ -3,3 +3,4 @@ static/
 media/
 env.py
 secret.py
+details.py

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 from details import *
+import dj_database_url
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -81,14 +82,15 @@ WSGI_APPLICATION = 'unicorn_attractor.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+}"""
+
+DATABASES = {'default': dj_database_url.parse("postgres://jrlveihqsuuzrm:88394b454dae6aa762fe46eedf086d8d7925f818b530a5a4a91fef506dec398d@ec2-54-217-218-80.eu-west-1.compute.amazonaws.com:5432/d1lf7l0rcl5cpc")
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
