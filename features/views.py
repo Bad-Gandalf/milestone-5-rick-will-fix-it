@@ -11,7 +11,9 @@ from .view_functions import total_feature_contributions
 
 # Create your views here.
 def feature_list(request):
-    features = Feature.objects.annotate(total_contributions=Sum('contributions__contribution')).annotate(comments=Count('comment')).order_by('-total_contributions')
+    features = Feature.objects.annotate(comments=Count('comment', distinct=True))
+    for feature in features:
+        feature.total_contributions = total_feature_contributions(feature)
     context = {'features': features,}
     return render(request, 'features/feature_list.html', context)
     
@@ -44,7 +46,7 @@ def feature_detail(request, id, slug):
         comment_form = CommentForm()
             
     context = {'feature': feature, 'comments': comments, 'comment_form': comment_form,
-                'total_contributions': total_contributions, "comment.is_liked": comment.is_liked}
+                'total_contributions': total_contributions, }
     return render(request, 'features/feature_detail.html', context)
 
 

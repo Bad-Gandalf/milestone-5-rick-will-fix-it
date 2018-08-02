@@ -46,7 +46,7 @@ def post_detail(request, id, slug):
         comment_form = CommentForm()
             
     context = {'post': post, 'comments': comments, 
-                'comment_form': comment_form, 'total_upvotes': post.total_upvotes(), 'is_upvoted' : is_upvoted, "comment.is_liked": comment.is_liked}
+                'comment_form': comment_form, 'total_upvotes': post.total_upvotes(), 'is_upvoted' : is_upvoted }
     return render(request, 'bugs/post_detail.html', context)
 
 

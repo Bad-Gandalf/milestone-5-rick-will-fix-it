@@ -25,3 +25,5 @@ class OrderLineItem(models.Model):
         return "{0}-{1}-{2}".format(self.contribution, self.feature.title, self.user.username)
         
     
+        
+    

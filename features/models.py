@@ -40,6 +40,9 @@ class Feature(models.Model):
         
     def get_absolute_url(self):
         return reverse("feature_detail", args=[self.id, self.slug])
+        
+    
+        
     
     
 
@@ -51,8 +54,8 @@ def pre_save_slug(sender, **kwargs):
     
     
 class Comment(models.Model):
-    feature = models.ForeignKey(Feature)
-    user = models.ForeignKey(User, related_name="feature_comment")
+    feature = models.ForeignKey(Feature, related_name="comment")
+    user = models.ForeignKey(User, related_name="user_feature_comment")
     reply = models.ForeignKey('self', null=True, related_name="replies", blank=True)
     content = models.TextField(max_length=500)
     timestamp = models.DateTimeField(auto_now_add=True)
