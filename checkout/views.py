@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.contrib.auth.decorators import login_required
+
 from django.contrib import messages
 from .forms import MakePaymentForm, OrderForm, ContributionForm
 from .models import OrderLineItem
@@ -16,16 +17,10 @@ def checkout(request):
         order_form = OrderForm(request.POST)
         payment_form = MakePaymentForm(request.POST)
         
-    
-        
         if order_form.is_valid() and payment_form.is_valid():
             order = order_form.save(commit=False)
             order.date = timezone.now()
             order.save()
-            
-            
-            
-            
             cart = request.session.get('cart', {})
             total = 0
             for id, contribution in cart.items():
@@ -52,7 +47,7 @@ def checkout(request):
             if customer.paid:
                 messages.error(request, "You have successfully paid")
                 request.session['cart'] = {}
-                return redirect(reverse('index'))
+                return redirect(reverse('feature_list'))
             else:
                 messages.error(request, "Unable to take payment")
                 

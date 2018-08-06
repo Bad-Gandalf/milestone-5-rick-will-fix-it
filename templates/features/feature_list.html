@@ -1,4 +1,11 @@
-{% extends 'base.html' %} {% block content %} {% for feature in features %}
+{% extends 'base.html' %} {% block content %} 
+<div class="alert alert-success">
+        <div class="messages">
+            {% for message in messages %} {{ message }} {% endfor %}
+        </div>
+    </div>
+
+{% for feature in features %}
 <div class="container">
     <div class="row">
         <div class="col-md-12">
