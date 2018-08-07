@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.contrib.auth.decorators import login_required
-
+from django.http import HttpResponseRedirect
 from django.contrib import messages
 from .forms import MakePaymentForm, OrderForm, ContributionForm
 from .models import OrderLineItem
@@ -47,7 +47,7 @@ def checkout(request):
             if customer.paid:
                 messages.error(request, "You have successfully paid")
                 request.session['cart'] = {}
-                return redirect(reverse('feature_list'))
+                return HttpResponseRedirect(feature.get_absolute_url())
             else:
                 messages.error(request, "Unable to take payment")
                 
