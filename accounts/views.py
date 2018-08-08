@@ -93,17 +93,5 @@ def edit_profile(request, id):
     })
         
         
-#@login_required    
-#def post_create(request):
-#    if request.method == 'POST':
-#        form = PostCreateForm(request.POST, request.FILES)
-#            post = form.save(commit=False)
-##        if form.is_valid():
-#            post.save()
-#            post.author = request.user
-#            return HttpResponseRedirect(post.get_absolute_url())
-#    else:
-#        form = PostCreateForm()
-#    context = {'form': form,}
-#    return render(request, 'bugs/post_create.html', context)
+
     

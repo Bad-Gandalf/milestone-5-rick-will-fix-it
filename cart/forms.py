@@ -4,8 +4,8 @@ from checkout.models import OrderLineItem
 class ContributionForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
-            super(ContributionForm, self).__init__(*args, **kwargs)
-            self.fields['contribution'].widget.attrs['min'] = 10.00
+        super(ContributionForm, self).__init__(*args, **kwargs)
+        self.fields['contribution'].widget.attrs['min'] = 10.00
 
 
     def clean_price(self):
