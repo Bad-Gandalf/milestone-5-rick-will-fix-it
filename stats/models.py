@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class PostWorkTime(models.Model):
     post = models.ForeignKey(Post)
     time_spent_mins = models.IntegerField(default=0)
-    timestamp = models.DateField(auto_now_add=True)
+    timestamp = models.DateField(auto_now_add=False)
     user = models.ForeignKey(User, null=True, blank=True)
     
     
