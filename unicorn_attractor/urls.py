@@ -6,6 +6,7 @@ from bugs import urls as bugs_urls
 from cart import urls as cart_urls
 from checkout import urls as checkout_urls
 from features import urls as features_urls
+from stats import urls as stats_urls
 from django.views import static
 from .settings import MEDIA_ROOT
 
@@ -18,6 +19,7 @@ urlpatterns = [
     url(r'^features/', include(features_urls)),
     url(r'^cart/', include(cart_urls)),
     url(r'^checkout/', include(checkout_urls)),
+    url(r'^stats/', include(stats_urls)),
     url(r'^media/(?P<path>.*)$', static.serve, {'document_root': MEDIA_ROOT}),
     
     
