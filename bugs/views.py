@@ -11,20 +11,14 @@ from django.db.models import Count
 def post_list(request):
     try:
         posts = Post.objects.annotate(comments=Count('comment'))
-        for post in posts:
-            post.total_upvotes = post.upvotes.count()
-            context = {'posts': posts,}
+        context = {'posts': posts,}
+        return render(request, 'bugs/post_list.html', context)
     
     except Exception as e:
         print (e)
         return render(request, 'error.html', {"message": e.message}) 
     
-    else:
-        return render(request, 'bugs/post_list.html', context)
-    
-    
-        
-    
+
 def post_detail(request, id, slug):
     try:
         post = get_object_or_404(Post, pk=id, slug=slug)

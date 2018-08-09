@@ -3,13 +3,14 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.conf import settings
+
 
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     date_of_birth = models.DateField(blank=True, null=True)
-    photo = models.ImageField(upload_to="img",
-                              blank=True, null=True)
+    photo = models.ImageField(upload_to="img", blank=True, null=True, default="img/blank_avatar.png")
     bio = models.TextField(max_length=500, blank=True, null=True)
     location = models.CharField(max_length=30, blank=True)
 
@@ -18,6 +19,8 @@ class Profile(models.Model):
         
     def get_absolute_url(self):
         return reverse("user_profile", args=[self.user.id])
+ 
+            
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

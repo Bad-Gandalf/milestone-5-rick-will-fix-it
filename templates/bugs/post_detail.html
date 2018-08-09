@@ -1,4 +1,6 @@
+
 {% extends "base.html" %} {% block content %}
+{% load static from staticfiles %}
 <div class="row">
     <div class="col-md-2 col-sm-3 text-center avatar-box">
         <a class="story-img" href="#">
@@ -71,7 +73,9 @@
         <hr> {% for comment in comments %}
         <div class="row">
             <div class="comment-avatar-box col-sm-2">
+                
                 <img src="{{comment.user.profile.photo.url}}" class="img-circle">
+                
                 <p><a href="{% url 'user_profile' comment.user.id %}">{{comment.user.username}}</a></p>
                 <small>
                     <p>{{ comment.timestamp }}</p>

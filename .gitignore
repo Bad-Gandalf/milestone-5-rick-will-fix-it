@@ -4,3 +4,4 @@ media/
 env.py
 secret.py
 details.py
+db.sqlite3
