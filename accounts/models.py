@@ -9,7 +9,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     date_of_birth = models.DateField(blank=True, null=True)
     photo = models.ImageField(upload_to="img",
-                              blank=True)
+                              blank=True, null=True)
     bio = models.TextField(max_length=500, blank=True, null=True)
     location = models.CharField(max_length=30, blank=True)
 
