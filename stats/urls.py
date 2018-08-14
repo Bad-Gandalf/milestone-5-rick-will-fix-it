@@ -1,8 +1,9 @@
 from django.conf.urls import url
-from .views import bug_workflow
+from .views import BugWorkTimeList
+from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
-    url(r'bug_workflow/', bug_workflow, name="bug_workflow"),
+    url(r'^$', BugWorkTimeList.as_view(), name="workflow"),
+    ]
     
-    
-]
+urlpatterns = format_suffix_patterns(urlpatterns)

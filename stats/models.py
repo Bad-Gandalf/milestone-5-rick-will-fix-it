@@ -13,3 +13,7 @@ class BugWorkTime(models.Model):
     def __unicode__(self):
         return '{} {} {} {}'.format(self.bug.title, str(self.time_spent_mins), self.timestamp, self.user)
         
+    @property
+    def bug_title(self):
+        return self.bug.title
+        

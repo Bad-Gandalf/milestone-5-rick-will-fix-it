@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_cron',
     'accounts',
     'bugs',
     'features',
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'checkout',
     'storages',
     'stats',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -144,8 +146,8 @@ STATICFILES_LOCATION = 'static'
 STATICFILES_STORAGE = 'custom_storages.StaticStorage'
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static")]
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), 'static']
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
 
