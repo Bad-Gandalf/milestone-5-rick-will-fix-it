@@ -12,12 +12,16 @@ from .serializers import BugWorkTimeSerializer
 
 
 # Create your views here.
+def display_stats(request):
+    return render(request, 'stats/workflow.html')
+    
+
 
 class BugWorkTimeList(APIView):
     
     def get(self, request):
-        bugworktimes = BugWorkTime.objects.all()
-        serializer = BugWorkTimeSerializer(bugworktimes, many=True)
+        qs = BugWorkTime.objects.all()
+        serializer = BugWorkTimeSerializer(qs, many=True)
         return Response(serializer.data)
     
     def post(self):
