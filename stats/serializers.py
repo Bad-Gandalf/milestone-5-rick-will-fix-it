@@ -10,4 +10,9 @@ class BugWorkTimeSerializer(serializers.ModelSerializer):
         model = BugWorkTime
         fields = ('time_spent_mins', 'timestamp', 'bug', 'user')
         
-    
+
+
+class PostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = ('title', 'created_date', 'total_upvotes')

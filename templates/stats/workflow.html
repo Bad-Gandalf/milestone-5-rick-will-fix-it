@@ -1,48 +1,45 @@
-{% extends "base.html" %} 
-{% load static from staticfiles %}
-{% block head_js %}
+{% extends "base.html" %} {% load static from staticfiles %} {% block head_js %}
 <script type="text/javascript" src="{% static 'js/d3.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/crossfilter.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/dc.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/queue.min.js'%}"></script>
 <script type="text/javascript" src="{% static 'js/workflow_stats.js' %}"></script>
-{% endblock %}
-
-{% block content %}
+{% endblock %} {% block content %}
 <h1>Stats</h1>
 
 
 <br>
+<div class="container">
+    <div class="row">
+        <div class=" col-xs-12 col-lg-4">
+            <div class="chart-wrapper">
+                <div class="chart-title">Yesterday's Bug Fixes</div>
+                <div id="bug-worktime" class="chart-stage" style="font-weight: normal"></div>
 
- <div class=" col-xs-12 col-lg-4">
-                <div class="chart-wrapper">
-                    <div class="chart-title">Lifetime Score by Country</div>
-                    <div id="bug-worktime" class="chart-stage"  style="font-weight: normal" ></div>
 
-                    
-                    <p>This is the share of players lifetime points shared by their countries of origin. Japan is clearly dominates the sport followed in second by the United States.</p>
-                </div>
+                <p>This chart displays the share of time in minutes spent fixing each bug, yesterday.</p>
             </div>
-            
-  <div class=" col-xs-12 col-lg-4">
-                <div class="chart-wrapper">
-                    <div class="chart-title">Lifetime Score by Country</div>
-                    <div id="bug-worktime-weekly" class="chart-stage"  style="font-weight: normal" ></div>
+        </div>
+        <div class=" col-xs-12 col-lg-4">
+            <div class="chart-wrapper">
+                <div class="chart-title">Weekly Bug Fixes</div>
+                <div id="bug-worktime-weekly" class="chart-stage" style="font-weight: normal"></div>
 
-                    
-                    <p>This is the share of players lifetime points shared by their countries of origin. Japan is clearly dominates the sport followed in second by the United States.</p>
-                </div>
-            </div>   
-            
-    <div class=" col-xs-12 col-lg-4">
-                <div class="chart-wrapper">
-                    <div class="chart-title">Lifetime Score by Country</div>
-                    <div id="bug-worktime-monthly" class="chart-stage"  style="font-weight: normal" ></div>
 
-                    
-                    <p>This is the share of players lifetime points shared by their countries of origin. Japan is clearly dominates the sport followed in second by the United States.</p>
-                </div>
-            </div> 
+                <p>This chart displays the share of time in minutes spent fixing each bug in the 7 days.</p>
+            </div>
+        </div>
 
+        <div class=" col-xs-12 col-lg-4">
+            <div class="chart-wrapper">
+                <div class="chart-title">Monthly Bug Fixes</div>
+                <div id="bug-worktime-monthly" class="chart-stage" style="font-weight: normal"></div>
+
+
+                <p>This chart displays the share of time in minutes spent fixing each bug in the past 31 days.</p>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

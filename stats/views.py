@@ -3,11 +3,11 @@
 from django.shortcuts import render
 from django.core import serializers
 from .models import BugWorkTime
-#from django.views.generic import View
+from bugs.models import Post
 from datetime import datetime, timedelta
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import BugWorkTimeSerializer
+from .serializers import BugWorkTimeSerializer, PostSerializer
 
 
 
@@ -52,3 +52,10 @@ class BugWorkTimeListMonthly(APIView):
     
     def post(self):
         pass
+    
+class CurrentBugUpvotes(APIView):
+    
+    def get(self, request):
+        qs = Post.objects.filter(status=2)
+        serializer = PostSerializer(qs, many=True)
+        return Response(serializer.data)
