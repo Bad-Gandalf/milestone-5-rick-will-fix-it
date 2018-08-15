@@ -5,50 +5,12 @@
 <script type="text/javascript" src="{% static 'js/crossfilter.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/dc.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/queue.min.js'%}"></script>
-<!--<script type="text/javascript" src="{% static 'js/workflow_stats.js' %}"></script>-->
-<script language="javascript">
-queue()
-    .defer(d3.json, "/stats/api/chart/data/")
-    .await(makeGraphs);
-    
-    function makeGraphs(error, data) {
-        
-        var ndx = crossfilter(data);
-        var dtgFormat = d3.time.format("%Y-%m-%d");
-        
-        console.log(data);
-        
-        show_time_spent_per_bug_pie_chart(ndx);
-        
-                
-        dc.renderAll();
-    }
-    
-    function show_time_spent_per_bug_pie_chart(ndx) {
-        var bugDimension = ndx.dimension(function(d) { return d.bug; });
-        var bugGroup = bugDimension.group().reduceSum(function(d){ return d.time_spent_mins;});
-        
-        dc.pieChart("#bug-worktime")
-                .height(220)
-                .radius(100)
-                .transitionDuration(1500)
-                .dimension(bugDimension)
-                .group(bugGroup);
-    }
-
-</script>
+<script type="text/javascript" src="{% static 'js/workflow_stats.js' %}"></script>
 {% endblock %}
 
 {% block content %}
 <h1>Stats</h1>
 
-<select id="myDropDown">
-  <option value="Infinity">All</option>
-  <option value='30'>30 days</option>
-  <option value='7'>7 days</option>
-  <option value="2">Top 2 day</option>
-  <option value="5">Top 5 day</option>
-</select>
 
 <br>
 
@@ -62,7 +24,25 @@ queue()
                 </div>
             </div>
             
+  <div class=" col-xs-12 col-lg-4">
+                <div class="chart-wrapper">
+                    <div class="chart-title">Lifetime Score by Country</div>
+                    <div id="bug-worktime-weekly" class="chart-stage"  style="font-weight: normal" ></div>
+
+                    
+                    <p>This is the share of players lifetime points shared by their countries of origin. Japan is clearly dominates the sport followed in second by the United States.</p>
+                </div>
+            </div>   
             
+    <div class=" col-xs-12 col-lg-4">
+                <div class="chart-wrapper">
+                    <div class="chart-title">Lifetime Score by Country</div>
+                    <div id="bug-worktime-monthly" class="chart-stage"  style="font-weight: normal" ></div>
+
+                    
+                    <p>This is the share of players lifetime points shared by their countries of origin. Japan is clearly dominates the sport followed in second by the United States.</p>
+                </div>
+            </div> 
 
 
 {% endblock %}
