@@ -8,8 +8,6 @@ from django.dispatch import receiver
 from django.utils.text import slugify
 
 # Create your models here.
-
-
 class Post(models.Model):
     
     STATUS_CODES = (
@@ -39,11 +37,6 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse("post_detail", args=[self.id, self.slug])
         
-    
-        
-    
-    
-
 @receiver(pre_save, sender=Post)        
 def pre_save_slug(sender, **kwargs):
     slug = slugify(kwargs['instance'].title)
