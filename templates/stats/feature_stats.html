@@ -1,0 +1,32 @@
+{% extends "base.html" %} {% load static from staticfiles %} {% block head_js %}
+<script type="text/javascript" src="{% static 'js/d3.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/crossfilter.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/dc.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/queue.min.js'%}"></script>
+<script type="text/javascript" src="{% static 'js/feature_contributions.js' %}"></script>
+<script>
+
+</script>
+{% endblock %} {% block content %}
+<h1>Stats</h1>
+
+
+<br>
+<div class="container">
+    <div class="row">
+        
+            
+        <div class="col-xs-12">
+                <div class="chart-wrapper">
+                    <div class="chart-title">Total Upvotes Per Open Bug</div>
+                    <div id="open-features_contributions" class="chart-stage" style="font-weight: normal">
+                    </div>
+                </div>
+                <p>This bar chart displays the total upvotes currently attributed to each bug that's status is set to "open".</p>
+
+            </div>
+        
+    </div>
+</div>
+
+{% endblock %}

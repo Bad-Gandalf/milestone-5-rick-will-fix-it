@@ -4,10 +4,12 @@ from django.shortcuts import render
 from django.core import serializers
 from .models import BugWorkTime
 from bugs.models import Post
+from features.models import Feature
+from checkout.models import OrderLineItem
 from datetime import datetime, timedelta
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import BugWorkTimeSerializer, PostSerializer
+from .serializers import BugWorkTimeSerializer, PostSerializer, OrderLineItemSerializer, FeatureSerializer
 
 
 
@@ -15,10 +17,10 @@ from .serializers import BugWorkTimeSerializer, PostSerializer
 def display_stats(request):
     return render(request, 'stats/workflow.html')
     
-
+def display_feature_stats(request):
+    return render(request, 'stats/feature_stats.html')
 
 class BugWorkTimeListDaily(APIView):
-    
     def get(self, request):
         today = datetime.today()
         yesterday = today - timedelta(days=1)
@@ -30,7 +32,6 @@ class BugWorkTimeListDaily(APIView):
         pass
         
 class BugWorkTimeListWeekly(APIView):
-    
     def get(self, request):
         today = datetime.today()
         week = today - timedelta(days=7)
@@ -59,3 +60,17 @@ class CurrentBugUpvotes(APIView):
         qs = Post.objects.filter(status=2)
         serializer = PostSerializer(qs, many=True)
         return Response(serializer.data)
+        
+class OpenBugUpvotes(APIView):
+    
+    def get(self, request):
+        qs = Post.objects.filter(status=1)
+        serializer = PostSerializer(qs, many=True)
+        return Response(serializer.data)
+        
+class OpenFeaturesContributions(APIView):
+    def get(self, request):
+        qs = Feature.objects.filter(status=1)
+        serializer = FeatureSerializer(qs, many=True)
+        return Response(serializer.data)
+    
