@@ -6,297 +6,122 @@
 <!--<script type="text/javascript" src="{% static 'js/workflow_stats.js' %}"></script>-->
 <script>
     const BugWorktimeDailyApi = function() {
-    this.init = function() {
-    queue()
-        .defer(d3.json, "/stats/api/chart/data/daily")
-        .await(makeGraphs);
-    };
-    
-    function makeGraphs(error, data) {
-        var ndx = crossfilter(data);
-        console.log(data);
-        show_time_spent_per_bug_pie_chart(ndx);
-        dc.renderAll();
-    }
-    
-    function show_time_spent_per_bug_pie_chart(ndx) {
-        var bugDimension = ndx.dimension(function(d) { return d.bug; });
-        var bugGroup = bugDimension.group().reduceSum(function(d){ return d.time_spent_mins;});
-        
-        dc.pieChart("#bug-worktime")
+        this.init = function() {
+            queue()
+                .defer(d3.json, "/stats/api/chart/data/daily")
+                .await(makeGraphs);
+        };
+
+        function makeGraphs(error, data) {
+            var ndx = crossfilter(data);
+            console.log(data);
+            show_time_spent_per_bug_pie_chart(ndx);
+            dc.renderAll();
+        }
+
+        function show_time_spent_per_bug_pie_chart(ndx) {
+            var bugDimension = ndx.dimension(function(d) { return d.bug; });
+            var bugGroup = bugDimension.group().reduceSum(function(d) { return d.time_spent_mins; });
+
+            dc.pieChart("#bug-worktime")
                 .height(220)
                 .radius(140)
                 .transitionDuration(1500)
                 .dimension(bugDimension)
                 .group(bugGroup)
-                .label(function (d) {
-                    if(d.key.length > 12)
-                        return d.key.substring(0,12)+'...';
+                .label(function(d) {
+                    if (d.key.length > 12)
+                        return d.key.substring(0, 12) + '...';
                     else
-                        return d.key;                       
- });
-    }
-};
-const BugWorktimeWeeklyApi = function() {
-    this.init = function() {
-    queue()
-        .defer(d3.json, "/stats/api/chart/data/weekly")
-        .await(makeGraphs);
+                        return d.key;
+                });
+        }
     };
-    function makeGraphs(error, data) {
-        var ndx = crossfilter(data);
-        console.log(data);
-        show_time_spent_per_bug_pie_chart_weekly(ndx);
-        dc.renderAll();
-    }
-    
-    function show_time_spent_per_bug_pie_chart_weekly(ndx) {
-        var bugDimension = ndx.dimension(function(d) { return d.bug; });
-        var bugGroup = bugDimension.group().reduceSum(function(d){ return d.time_spent_mins;});
-        
-        dc.pieChart("#bug-worktime-weekly")
+    const BugWorktimeWeeklyApi = function() {
+        this.init = function() {
+            queue()
+                .defer(d3.json, "/stats/api/chart/data/weekly")
+                .await(makeGraphs);
+        };
+
+        function makeGraphs(error, data) {
+            var ndx = crossfilter(data);
+            console.log(data);
+            show_time_spent_per_bug_pie_chart_weekly(ndx);
+            dc.renderAll();
+        }
+
+        function show_time_spent_per_bug_pie_chart_weekly(ndx) {
+            var bugDimension = ndx.dimension(function(d) { return d.bug; });
+            var bugGroup = bugDimension.group().reduceSum(function(d) { return d.time_spent_mins; });
+
+            dc.pieChart("#bug-worktime-weekly")
                 .height(220)
                 .radius(140)
                 .transitionDuration(1500)
                 .dimension(bugDimension)
                 .group(bugGroup)
-                .label(function (d) {
-                    if(d.key.length > 12)
-                        return d.key.substring(0,12)+'...';
+                .label(function(d) {
+                    if (d.key.length > 12)
+                        return d.key.substring(0, 12) + '...';
                     else
-                        return d.key;                       
- });
-    }
-};
-const BugWorktimeMonthlyApi = function() {
-    this.init = function() {
-    queue()
-        .defer(d3.json, "/stats/api/chart/data/monthly")
-        .await(makeGraphs);
+                        return d.key;
+                });
+        }
     };
-    function makeGraphs(error, data) {
-        var ndx = crossfilter(data);
-        console.log(data);
-        show_time_spent_per_bug_pie_chart_monthly(ndx);
-        dc.renderAll();
-    }
-    
-    function show_time_spent_per_bug_pie_chart_monthly(ndx) {
-        var bugDimension = ndx.dimension(function(d) { return d.bug; });
-        var bugGroup = bugDimension.group().reduceSum(function(d){ return d.time_spent_mins;});
-        
-        dc.pieChart("#bug-worktime-monthly")
+    const BugWorktimeMonthlyApi = function() {
+        this.init = function() {
+            queue()
+                .defer(d3.json, "/stats/api/chart/data/monthly")
+                .await(makeGraphs);
+        };
+
+        function makeGraphs(error, data) {
+            var ndx = crossfilter(data);
+            console.log(data);
+            show_time_spent_per_bug_pie_chart_monthly(ndx);
+            dc.renderAll();
+        }
+
+        function show_time_spent_per_bug_pie_chart_monthly(ndx) {
+            var bugDimension = ndx.dimension(function(d) { return d.bug; });
+            var bugGroup = bugDimension.group().reduceSum(function(d) { return d.time_spent_mins; });
+
+            dc.pieChart("#bug-worktime-monthly")
                 .height(220)
                 .radius(140)
                 .transitionDuration(1500)
                 .dimension(bugDimension)
                 .group(bugGroup)
-                .label(function (d) {
-                    if(d.key.length > 12)
-                        return d.key.substring(0,12)+'...';
+                .label(function(d) {
+                    if (d.key.length > 12)
+                        return d.key.substring(0, 12) + '...';
                     else
-                        return d.key;                       
- });
-    }
-};
-
-const BugUpvotesApi = function() {
-    this.init = function() {
-    queue()
-        .defer(d3.json, "/stats/api/chart/data/bug/working/upvotes")
-        .await(makeGraphs);
+                        return d.key;
+                });
+        }
     };
-    function makeGraphs(error, data) {
-    data.forEach(function(d) {
-        d.title = d.title;
-        d.total_upvotes =+ d.total_upvotes;});
-        
-        console.log(data);
-        show_working_bug_upvotes(data);
-        dc.renderAll();
-    }
-    
-    function show_working_bug_upvotes(data) {
-        var margin = {top: 20, right: 20, bottom: 70, left: 50},
-            width = 900 - margin.left - margin.right,
-            height = 300 - margin.top - margin.bottom;
 
 
-// set the ranges
-        var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
-        var y = d3.scale.linear().range([height, 0]);
+    const P = new BugWorktimeDailyApi;
+    const Q = new BugWorktimeWeeklyApi;
+    const R = new BugWorktimeMonthlyApi;
 
-// define the axis
-        var xAxis = d3.svg.axis()
-            .scale(x)
-            .orient("bottom");
-
-
-        var yAxis = d3.svg.axis()
-            .scale(y)
-            .orient("left")
-            .ticks(10);
-        
-        
-        // add the SVG element
-        var svg = d3.select("#working-bugs-upvotes").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        
-        .append("g")
-            .attr("transform", 
-              "translate(" + margin.left + "," + margin.top + ")");
-            
-        x.domain(data.map(function(d) { return d.title; }));
-        y.domain([0, d3.max(data, function(d) { return d.total_upvotes; })]);
-        
-        // add axis
-        svg.append("g")
-          .attr("class", "x axis")
-          .attr("transform", "translate(0," + height + ")")
-          .style({ 'stroke': 'black', 'fill': 'none', 'stroke-width': '1px'}) 
-          .call(xAxis)
-        .selectAll("text")
-          .classed('labels', true)
-          .style("text-anchor", "middle", {'fill': 'black'})
-          .attr("dx", "-.8em")
-          .attr("dy", "-.15em")
-          .attr("transform", "translate(0, 20)");
-          
-        
-        svg.append("g")
-          .attr("class", "y axis")
-          .style({ 'stroke': 'black', 'fill': 'none', 'stroke-width': '1px'}) 
-          .call(yAxis)
-        .append("text")
-          .attr("transform", "rotate(-90), translate(-100, -45)")
-          .attr("y", 5)
-          .attr("dy", ".71em")
-          .classed('labels', true)
-          .style("text-anchor", "middle")
-          .text("Upvotes");
-        
-        
-        // Add bar chart
-        svg.selectAll("bar")
-          .data(data)
-        .enter().append("rect")
-        .style('fill', 'rgb(49, 130, 189)')
-          .attr("class", "bar")
-          .attr("x", function(d) { return x(d.title); })
-          .attr("width", x.rangeBand())
-          .attr("y", function(d) { return y(d.total_upvotes); })
-          .attr("height", function(d) { return height - y(d.total_upvotes); });
-    } 
-};
-const OpenBugUpvotesApi = function() {
-    this.init = function() {
-    queue()
-        .defer(d3.json, "/stats/api/chart/data/bug/open/upvotes")
-        .await(makeGraphs);
-    };
-    function makeGraphs(error, data) {
-    data.forEach(function(d) {
-        d.title = d.title;
-        d.total_upvotes =+ d.total_upvotes;});
-        
-        console.log(data);
-        show_open_working_bug_upvotes(data);
-        dc.renderAll();
-    }
-    
-    function show_open_working_bug_upvotes(data) {
-        var margin = {top: 20, right: 20, bottom: 70, left: 50},
-            width = 900 - margin.left - margin.right,
-            height = 300 - margin.top - margin.bottom;
-
-
-// set the ranges
-        var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
-        var y = d3.scale.linear().range([height, 0]);
-
-// define the axis
-        var xAxis = d3.svg.axis()
-            .scale(x)
-            .orient("bottom");
-
-
-        var yAxis = d3.svg.axis()
-            .scale(y)
-            .orient("left")
-            .ticks(10);
-        
-        
-        // add the SVG element
-        var svg = d3.select("#open-bugs-upvotes").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        
-        .append("g")
-            .attr("transform", 
-              "translate(" + margin.left + "," + margin.top + ")");
-            
-        x.domain(data.map(function(d) { return d.title; }));
-        y.domain([0, d3.max(data, function(d) { return d.total_upvotes; })]);
-        
-        // add axis
-        svg.append("g")
-          .attr("class", "x axis")
-          .attr("transform", "translate(0," + height + ")")
-          .style({ 'stroke': 'black', 'fill': 'none', 'stroke-width': '1px'}) 
-          .call(xAxis)
-        .selectAll("text")
-          .classed('labels', true)
-          .style("text-anchor", "middle", {'fill': 'black'})
-          .attr("dx", "-.8em")
-          .attr("dy", "-.15em")
-          .attr("transform", "translate(0, 20)");
-          
-        
-        svg.append("g")
-          .attr("class", "y axis")
-          .style({ 'stroke': 'black', 'fill': 'none', 'stroke-width': '1px'}) 
-          .call(yAxis)
-        .append("text")
-          .attr("transform", "rotate(-90), translate(-100, -45)")
-          .attr("y", 5)
-          .attr("dy", ".71em")
-          .classed('labels', true)
-          .style("text-anchor", "middle")
-          .text("Upvotes");
-        
-        
-        // Add bar chart
-        svg.selectAll("bar")
-          .data(data)
-        .enter().append("rect")
-        .style('fill', 'rgb(49, 130, 189)')
-          .attr("class", "bar")
-          .attr("x", function(d) { return x(d.title); })
-          .attr("width", x.rangeBand())
-          .attr("y", function(d) { return y(d.total_upvotes); })
-          .attr("height", function(d) { return height - y(d.total_upvotes); });
-    } 
-};
-
-const P = new BugWorktimeDailyApi;
-const Q = new BugWorktimeWeeklyApi;
-const R = new BugWorktimeMonthlyApi;
-const S = new BugUpvotesApi;
-const T = new OpenBugUpvotesApi;
-P.init();
-Q.init();
-R.init();
-S.init();
-T.init();
+    P.init();
+    Q.init();
+    R.init();
 </script>
 {% endblock %} {% block content %}
-<h1>Stats</h1>
 
-
-<br>
 <div class="container">
+    <h1>Developer Meeseeks Workflow</h1>
+    <br>
+    <p>Priority is given to bugs with the most upvotes. The status of a 
+    bug will change from open to working depending on its popularity or urgency.
+    You can check the popularity of current bugs <a href="{% url 'bug_upvotes' %}">here</a>.</p>
+    <br>
     <div class="row">
+
         <div class=" col-xs-12 col-lg-4">
             <div class="chart-wrapper">
                 <div class="chart-title">Yesterday's Bug Fixes</div>
@@ -325,27 +150,9 @@ T.init();
                 <p>This chart displays the share of time in minutes spent fixing each bug in the past 31 days.</p>
             </div>
         </div>
-        
-        <div class="col-xs-12">
-                <div class="chart-wrapper">
-                    <div class="chart-title">Total Upvotes Per Working Bug</div>
-                    <div id="working-bugs-upvotes" class="chart-stage" style="font-weight: normal">
-                    </div>
-                </div>
-                <p>This bar chart displays the total upvotes currently attributed to each bug that's status is set to "working".</p>
 
-            </div>
-            
-        <div class="col-xs-12">
-                <div class="chart-wrapper">
-                    <div class="chart-title">Total Upvotes Per Open Bug</div>
-                    <div id="open-bugs-upvotes" class="chart-stage" style="font-weight: normal">
-                    </div>
-                </div>
-                <p>This bar chart displays the total upvotes currently attributed to each bug that's status is set to "open".</p>
 
-            </div>
-        
+
     </div>
 </div>
 

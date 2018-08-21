@@ -1,27 +1,27 @@
 {% extends "base.html" %} {% block content %}
 <div class="row">
     <div class="col-md-2 col-sm-3 text-center avatar-box">
-        <a class="story-img" href="#">
-                <img src="{{feature.author.profile.photo.url}}" class="img-circle">
+        <a class="story-img" href="{% url 'user_profile' feature.author.id %}">
+               <img src="{{feature.author.profile.photo.url}}" class="img-circle">
             </a>
         <br>
         <br>
         <div class="contribution-target-box">
-            {% if feature.price %}
-            <p>Target: £{{ feature.price }}</p>
-            {% else %}
-            <p>Target: TBA</p>
-            {% endif %}
-            <p>Contributions: £{{ total_contributions }}</p>
+            <div>
+                {% if feature.price %}
+                <p>Target: £{{ feature.price }}</p>
+                {% else %}
+                <p>Target: TBA</p>
+                {% endif %}
+                <p>Contributions: £{{ total_contributions }}</p>
+
+            </div>
+
         </div>
     </div>
-    
-
     <div class="col-md-10 col-sm-9">
-         
-    
-
         <div class="panel-body">
+
 
             <h3>{{ feature.title }}</h3>
 
@@ -29,20 +29,6 @@
                 <div class="col-xs-9">
                     <p>{{ feature.content }}</p>
 
-
-                    <a href="{% url 'user_profile' feature.author.id %}">
-                        <p>by {{ feature.author.username }}</p>
-                    </a>
-                    <small><div class="col-md-3 col-sm-2">
-                        <i class="fas fa-thumbs-up"></i> {{ feature.total_upvotes }}
-                    </div>
-
-                    <div class="col-md-3 col-sm-2">
-                        <span class="boldtext">Status:</span> {{ feature.get_status_display }}
-                    </div>
-                    <div class="col-md-3 col-sm-2">
-                     {{ feature.published_date }}
-                </div></small>
                 </div>
                 <div class="upvote-panel">
                     <span><form action="{% url 'contribution_amount' feature.id %}" method="POST">
@@ -50,10 +36,27 @@
                     
                     <button class="btn btn-success" type="submit" name="feature_id" value="{{ feature.id }}">Contribute</button> 
                     
-                </form></span> {% if feature.image %}
-
-                    <img class="img-blogpost" src="{{ feature.image.url }}"> {% endif %}
+                </form></span>
                 </div>
+                <br>
+                <small><div class="col-md-3 col-sm-2">
+                        <span class="boldtext">Status:</span> {{ feature.get_status_display }}
+                    </div>
+                    <div class="col-md-3 col-sm-2">
+                     {{ feature.published_date }}
+                </div>
+                 <div class="col-md-3 col-sm-2">
+                     <span>by </span><a href="{% url 'user_profile' feature.author.id %}">{{ feature.author.username }}</a>
+                     </div>
+                 </small> {% if feature.image %}
+                <hr>
+                <div class="col-xs-9">
+                    <img class="img-blogpost" src="{{ feature.image.url }}" style="max-width:100%;
+max-height:500px;display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;"> </div>{% endif %}
+
             </div>
 
             <hr>
@@ -104,7 +107,7 @@
 
             <div class="replied-comments container" style="display:none;">
 
-                <div class="form-group">
+                <div class="form-group" style="margin-right:150px;">
                     {% for reply in comment.replies.all %}
                     <hr>
 

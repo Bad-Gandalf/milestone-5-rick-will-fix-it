@@ -1,12 +1,14 @@
-
-{% extends "base.html" %} {% block content %}
-{% load static from staticfiles %}
+{% extends "base.html" %} {% block content %} {% load static from staticfiles %}
 <div class="row">
     <div class="col-md-2 col-sm-3 text-center avatar-box">
         <a class="story-img" href="#">
                 <img src="{{post.author.profile.photo.url}}" class="img-circle">
             </a>
+        <br>
 
+        <a href="{% url 'user_profile' post.author.id %}">
+            <p>by {{ post.author.username }}</p>
+        </a>
     </div>
 
     <div class="col-md-10 col-sm-9">
@@ -19,23 +21,7 @@
                 <div class="col-xs-9">
                     <p>{{ post.content }}</p>
 
-
-                    <a href="{% url 'user_profile' post.author.id %}">
-                        <p>by {{ post.author.username }}</p>
-                    </a>
-                    <small><div class="col-md-3 col-sm-2">
-                        <i class="fas fa-thumbs-up"></i> {{ post.total_upvotes }}
-                    </div>
-
-                    <div class="col-md-3 col-sm-2">
-                        <span class="boldtext">Status:</span> {{ post.get_status_display }}
-                    </div>
-                    <div class="col-md-3 col-sm-2">
-                     {{ post.published_date }}
-                </div></small>
                 </div>
-
-
                 <div class="upvote-panel">
                     <span><form action="{% url 'upvote_post' %}" method="POST">
                     {% csrf_token %} 
@@ -48,10 +34,26 @@
                     <span><a href="{% url 'update' post.id post.slug %}"><button class="btn btn-danger">Edit Post</button></a></span> {% else %} {% endif %}
                 </div>
 
+                <small><div class="col-md-3 col-sm-2">
+                        <i class="fas fa-thumbs-up"></i> {{ post.total_upvotes }}
+                    </div>
+
+                    <div class="col-md-3 col-sm-2">
+                        <span class="boldtext">Status:</span> {{ post.get_status_display }}
+                    </div>
+                    <div class="col-md-3 col-sm-2">
+                     {{ post.published_date }}
+                </div></small>
+
+
+
+
+
             </div>
             {% if post.image %}
+            <hr>
 
-            <img class="img-blogpost" src="/media/{{ post.image }}"> {% endif %}
+            <img class="img-blogpost" src="{{ post.image.url }}" style="max-width:100%;"> {% endif %}
         </div>
 
 
@@ -73,9 +75,9 @@
         <hr> {% for comment in comments %}
         <div class="row">
             <div class="comment-avatar-box col-sm-2">
-                
+
                 <img src="{{comment.user.profile.photo.url}}" class="img-circle">
-                
+
                 <p><a href="{% url 'user_profile' comment.user.id %}">{{comment.user.username}}</a></p>
                 <small>
                     <p>{{ comment.timestamp }}</p>
@@ -97,10 +99,6 @@
                     <button class="btn btn-success" type="submit" name="comment_id" value="{{ comment.id }}">Like</button> 
                     {% endif %}
                 </form></span>
-
-
-                
-
             </div>
 
 
@@ -108,7 +106,7 @@
 
         <div class="replied-comments container" style="display:none;">
 
-            <div class="form-group">
+            <div class="form-group" style="margin-right:150px;">
                 {% for reply in comment.replies.all %}
                 <hr>
 
@@ -125,7 +123,7 @@
                         <p class="mb-5">{{ reply.content }}</p>
 
                     </div>
-                    
+
 
 
                 </div>
@@ -150,6 +148,7 @@
 
 
 
+</div>
 </div>
 
 {% endblock %}

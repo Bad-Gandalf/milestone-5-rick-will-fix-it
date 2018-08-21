@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/dc.min.css' %}" media="screen"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
     <script type="text/javascript">
         $(document).ready(function(){
             $('.reply-btn').click(function() {
@@ -33,19 +34,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{% url 'post_list' %}">Bug Forum</a>
+                <a class="navbar-brand" href="{% url 'index' %}">Home</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     {% if request.user.is_authenticated %}
-                    <li><a href="{% url 'post_create' %}">New Bug</a></li>
+                    <li><a href="{% url 'post_list' %}">Bug List</a></li>
                     <li><a href="{% url 'feature_list' %}">Feature List</a></li>
-                    <li><a href="{% url 'feature_create' %}">New Feature</a></li>
                     <li><a href="{% url 'logout' %}">Logout</a></li>
                     <li><a href="{% url 'user_profile' request.user.id %}">Profile</a></li>
                     <li><a href="{% url 'view_cart' %}">Cart</a></li>
                     {% else %}
-                    
+                    <li><a href="{% url 'post_list' %}">Bug List</a></li>
+                    <li><a href="{% url 'feature_list' %}">Feature List</a></li>
                     <li><a href="{% url 'registration' %}">Register</a></li>
                     <li><a href="{% url 'login' %}">Login</a></li>
                     {% endif %}
@@ -55,13 +56,7 @@
         </div>
     </nav>
 
-    <div id="masthead">
-        <div class="container">
-            <div class="row">
-                
-            </div>
-        </div>
-    </div>
+    
 {% if messages %}
     <div class="alert alert-success">
         <div class="messages">

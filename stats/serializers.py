@@ -28,9 +28,9 @@ class OrderLineItemSerializer(serializers.ModelSerializer):
 
 class FeatureSerializer(serializers.ModelSerializer):
     contributions = serializers.SlugRelatedField(read_only=True, many=True, slug_field='contribution')
-    author = serializers.SlugRelatedField(read_only=True, slug_field='username')
+    
     class Meta:
         model = Feature
-        fields = ('title', 'author', 'price', 'contributions')
+        fields = ('title', 'price', 'contributions')
         
     

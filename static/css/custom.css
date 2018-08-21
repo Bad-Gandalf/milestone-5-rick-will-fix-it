@@ -108,3 +108,10 @@ caption p {
     padding-left: 20px;
     padding-top: 20px;
 }
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}

@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from .views import (BugWorkTimeListDaily, display_stats, BugWorkTimeListWeekly, \
 BugWorkTimeListMonthly, CurrentBugUpvotes, OpenBugUpvotes, OpenFeaturesContributions, \
-display_feature_stats)
+display_feature_stats, display_upvotes)
 
 from rest_framework.urlpatterns import format_suffix_patterns
 
@@ -13,7 +13,8 @@ urlpatterns = [
     url(r'^api/chart/data/bug/open/upvotes', OpenBugUpvotes.as_view(), name="open_bugs_upvotes"),
     url(r'^api/chart/data/feature/open/contributions', OpenFeaturesContributions.as_view(), name="open_feature_contributions"),
     
-    url(r'^bugs$', display_stats, name="workflow"),
+    url(r'^bugs/workflow$', display_stats, name="workflow"),
+    url(r'^bugs/upvotes$', display_upvotes, name="bug_upvotes"),
     url(r'^features$', display_feature_stats, name="feature_contributions")
     ]
     

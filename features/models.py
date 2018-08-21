@@ -16,9 +16,10 @@ from django.utils.text import slugify
 class Feature(models.Model):
     
     STATUS_CODES = (
-    (1, _('Open')),
-    (2, _('Working')),
-    (3, _('Closed')),
+    (1, _('Awaiting Pricing')),
+    (2, _('Open')),
+    (3, _('Working')),
+    (4, _('Closed')),
 )
 
     title = models.CharField(max_length=200)

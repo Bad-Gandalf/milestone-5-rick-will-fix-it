@@ -1,8 +1,25 @@
-{% extends 'base.html' %} {% block content %} 
+{% extends 'base.html' %} {% block content %}
 
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-10">
+            <h2>Feature List</h2>
+        </div>
+        <div class="col-xs-2">
+            {% if request.user.is_authenticated %} 
+            <a href="{% url 'feature_create' %}"><i class="fas fa-plus-circle"></i> New Feature</a>
+            {% endif %}
+        </div>
+
+    </div>
+    <p>Click <a href="{% url 'feature_contributions' %}">here</a> to see the charts displaying each features's contributions against its price.</p>
+    <br>
+</div>
 
 {% for feature in features %}
 <div class="container">
+
     <div class="row">
         <div class="col-md-12">
             <div class="panel">
@@ -26,7 +43,7 @@
 
 
                                 <p><span class="boldtext">Published on:</span> {{ feature.published_date }} </p>
-                                {% if feature.price != None and feature.total_contributions != None %}
+                                <hr> {% if feature.price != None and feature.total_contributions != None %}
                                 <div class="col-md-3 col-sm-2">
                                     <span>Price: £</span>{{ feature.price }}
                                 </div>

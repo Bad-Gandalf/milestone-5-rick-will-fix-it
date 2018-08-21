@@ -1,4 +1,20 @@
 {% extends 'base.html' %} {% block content %}
+
+<div class="">
+    <h2>
+        Wuba-luba-bug-bug!! Create a new bug!
+    </h2>
+</div>
+
+<div class="">
+<p>
+    Please send us the information regarding your problem. It will be added to 
+    our list of things to do. Priority will be given to bugs with the most upvotes from the community.
+</p>   
+</div>
+
+
+
 <div class="create-post-form">
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %} {{ form.as_p }} {% if request.user.is_authenticated %}

@@ -11,19 +11,29 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import BugWorkTimeSerializer, PostSerializer, OrderLineItemSerializer, FeatureSerializer
 
-
-
 # Create your views here.
 def display_stats(request):
     return render(request, 'stats/workflow.html')
     
+def display_upvotes(request):
+    return render(request, 'stats/bugs_by_upvotes.html')
+    
 def display_feature_stats(request):
     return render(request, 'stats/feature_stats.html')
+    
+    
 
 class BugWorkTimeListDaily(APIView):
+    # If statements to adjust for last working day i.e Friday when the 
+    # user checks on a Sunday or Monday
     def get(self, request):
         today = datetime.today()
-        yesterday = today - timedelta(days=1)
+        if datetime.today().isoweekday() == 7: #Sunday
+            yesterday = today - timedelta(days=2)
+        elif datetime.today().isoweekday() == 1:
+            yesterday = today - timedelta(days=3) #Monday
+        else:
+            yesterday = today - timedelta(days=1)
         qs = BugWorkTime.objects.filter(timestamp__gte=yesterday)
         serializer = BugWorkTimeSerializer(qs, many=True)
         return Response(serializer.data)
@@ -70,7 +80,7 @@ class OpenBugUpvotes(APIView):
         
 class OpenFeaturesContributions(APIView):
     def get(self, request):
-        qs = Feature.objects.filter(status=1)
+        qs = Feature.objects.filter(status=2)
         serializer = FeatureSerializer(qs, many=True)
         return Response(serializer.data)
     
