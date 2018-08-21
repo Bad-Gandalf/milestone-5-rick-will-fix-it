@@ -1,11 +1,42 @@
 {% extends 'base.html' %} {% block content %}
-<div class="create-post-form">
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %} {{ form.as_p }} {% if request.user.is_authenticated %}
-        <input type="submit" value="Submit" class="btn btn-outline-success"> {% else %}
-        <input type="submit" value="Submit" class="btn btn-outline-success" disabled> {% endif %}
-    </form>
+<div class="container" >
+    <h2 style="text-align:center;">
+        Propose A New Feature
+    </h2>
 
+<br>
+
+    <p>
+        Please send details of what you want this new feature or product to do.
+        A sketch may help us visualize more easily. Once your proposal has been submitted
+        we will decide whether to accept it and set a price or we may reject it. The waiting time is
+        usually 3 working days. 
+    </p>
+    <p>
+        For Curse Purge Plus please do the same as above, however we will send you a postal address to send your item
+        to for inspection and a quote.
+    </p>
 </div>
+
+<br>
+
+
+<div class="container">
+    <div class="col-md-offset-2 col-md-8">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                {% for field in form %}
+                <label>{{ field.label_tag }}</label> {{ field }} 
+                <br>
+                {% endfor %}
+            </div>
+            {% if request.user.is_authenticated %}
+            <button type="submit" value="Submit" class="btn-primary">Submit</button>{% else %}
+            <button type="submit" value="Submit" class="btn-primary" disabled>Submit</button> {% endif %}
+        </form>
+    </div>
+</div>
+
 
 {% endblock %}

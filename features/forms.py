@@ -8,6 +8,10 @@ class FeatureCreateForm(forms.ModelForm):
             'title',
             'content',
             'image',)
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'content' : forms.Textarea(attrs={'class': 'form-control'}),
+        }
             
 class UserLoginForm(forms.Form):
     username = forms.CharField(label="")

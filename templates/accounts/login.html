@@ -7,11 +7,25 @@
 
 
 {% block content %}
+<div class="container">
 <form method="POST">
     {% csrf_token %}
-    {{ login_form.as_p }}
-    <button class="btn btn-default" type="submit">Login</button>
+     <div class="form-group">
+         <ul>
+        {% for field, errors in login_form.errors.items %}
+        {% for error in errors %}
+         <li>{{ error }}</li>
+         {% endfor %}
+         {% endfor %}
+         </ul>
+         
+         {% for field in login_form %}
+          <label>{{ field.label_tag }}</label> {{ field}}
+         {% endfor %}
+    <button class="btn-primary" type="submit">Login</button></div>
+    
 </form>
 
 <a href="{% url 'password_reset' %}"><p>Forgot Password</p></a>
+</div>
 {% endblock %}

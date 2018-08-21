@@ -34,14 +34,14 @@
                     <span><a href="{% url 'update' post.id post.slug %}"><button class="btn btn-danger">Edit Post</button></a></span> {% else %} {% endif %}
                 </div>
 
-                <small><div class="col-md-3 col-sm-2">
+                <small><div class="col-md-3 col-xs-12">
                         <i class="fas fa-thumbs-up"></i> {{ post.total_upvotes }}
                     </div>
 
-                    <div class="col-md-3 col-sm-2">
+                    <div class="col-md-3 col-xs-12">
                         <span class="boldtext">Status:</span> {{ post.get_status_display }}
                     </div>
-                    <div class="col-md-3 col-sm-2">
+                    <div class="col-md-3 col-xs-12">
                      {{ post.published_date }}
                 </div></small>
 
@@ -52,8 +52,10 @@
             </div>
             {% if post.image %}
             <hr>
-
-            <img class="img-blogpost" src="{{ post.image.url }}" style="max-width:100%;"> {% endif %}
+            <div class="col-xs-10 col-lg-10">
+                <img class="img-blogpost" src="{{ post.image.url }}" style="max-width:100%;">
+            </div>
+            {% endif %}
         </div>
 
 

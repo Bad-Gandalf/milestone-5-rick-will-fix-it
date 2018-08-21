@@ -17,11 +17,14 @@ class UserRegistrationForm(UserCreationForm):
     
     password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
     password2 = forms.CharField(label="Password Confirmation", widget=forms.PasswordInput)
+    email = forms.CharField(required=True, max_length=50, label='Email')
     
     class Meta:
         model = User
-        fields = ['email', 'username', 'password1', 'password2', 'first_name', 'last_name']
-        
+        fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
+        widgets={
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'cols':'50'})
+        }
     def clean_email(self):
         email = self.cleaned_data.get('email')
         username = self.cleaned_data.get('username')
@@ -42,10 +45,15 @@ class UserRegistrationForm(UserCreationForm):
         return password2
         
 class ProfileForm(forms.ModelForm):
-    date_of_birth = forms.DateField(widget=widgets.AdminDateWidget) 
+    bio = forms.CharField(label="Bio", widget=forms.Textarea(attrs={'class': 'form-control'}))
     class Meta:
         model = Profile
-        fields = ["date_of_birth", "photo", "bio", "location"]
+        fields = ["date_of_birth", "location", "bio", "photo"]
+        widget = {
+            "date_of_birth" : forms.DateInput(attrs={'class': 'datepicker'}),
+            'photo': forms.FileInput(attrs={'class': 'form-control'}),
+            
+        }
         
 class UserForm(forms.ModelForm):
     class Meta:

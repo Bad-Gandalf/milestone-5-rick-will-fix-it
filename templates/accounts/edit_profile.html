@@ -1,16 +1,22 @@
 {% extends 'base.html' %} 
 {% block content %}
-<h3>Edit Profile</h3>
 
-<div class="edit-profile-form">
+<div class="container">
+    <h3>Edit Profile</h3>
+<div class="edit-profile-form ui-widget">
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ user_form.as_p }}
-        {{ profile_form.as_p }} 
         
-        <input type="submit" value="Submit" class="btn btn-outline-success"> 
+        
+        
+        <br>
+        {{ profile_form.as_p }} 
+        <br>
+        <button type="submit" value="Submit" class="btn-primary">Submit</button>
     </form>
 
+</div>
 </div>
 
 
