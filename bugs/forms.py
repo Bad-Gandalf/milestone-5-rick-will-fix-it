@@ -14,10 +14,7 @@ class PostCreateForm(forms.ModelForm):
             'content' : forms.Textarea(attrs={'class': 'form-control'}),
             
         }
-        
-class UserLoginForm(forms.Form):
-    username = forms.CharField(label="")
-    password = forms.CharField(label="", widget=forms.PasswordInput)
+
     
     
 class CommentForm(forms.ModelForm):

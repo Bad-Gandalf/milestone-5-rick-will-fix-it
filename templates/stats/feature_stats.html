@@ -1,14 +1,6 @@
 {% extends "base.html" %} {% load static from staticfiles %} {% block head_js %}
-<!--<style>
-    .axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-</style>-->
-<script type="text/javascript" src="{% static 'js/d3.min.js' %}"></script>
 
+<script type="text/javascript" src="{% static 'js/d3.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/crossfilter.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/dc.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/queue.min.js'%}"></script>
@@ -39,7 +31,7 @@
       
         
        var margin = {top: 25, right: 40, bottom: 35, left: 85},
-				w = 900 - margin.left - margin.right,
+				w = 1000 - margin.left - margin.right,
 				h = 350 - margin.top - margin.bottom;
        var padding = 10;
 
@@ -68,7 +60,7 @@ for (var i = 0; i < data.length; i++){
 
 var xScale = d3.scale.ordinal()
 				.domain(d3.range(data.length))
-				.rangeRoundBands([0, w], 0.05); 
+				.rangeRoundBands([0, w-40], 0.05); 
 // ternary operator to determine if global or local has a larger scale
 var yScale = d3.scale.linear()
 				.domain([0, d3.max(data, function(d) { return (d.price > d.contributions) ? d.price : d.contributions;})]) 
@@ -153,9 +145,7 @@ sets.append("rect")
 		return commaFormat(d.contributions);
 	})
 	.attr("text-anchor", "middle")
-	.attr("x", function(d, i) {
-		return xScale(i) + xScale.rangeBand() / 2;
-	})
+	.attr("x", function(d,i){return (w +(140*i))})
 	.attr("y", function(d) {
 		return h - yScale(d.contributions) + 14;
 	})
@@ -202,7 +192,7 @@ var legend = svg.append("g")
 		//.attr("y", 50)
 		.attr("height", 100)
 		.attr("width", 100)
-		.attr('transform', 'translate(-20,50)');
+		.attr('transform', 'translate(20,50)');
 
 
 legend.selectAll('rect')

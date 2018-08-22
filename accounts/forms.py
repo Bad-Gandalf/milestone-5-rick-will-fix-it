@@ -37,7 +37,7 @@ class UserRegistrationForm(UserCreationForm):
         password2 = self.cleaned_data.get('password2')
         
         if not password1 or not password2:
-            raise ValidationError("please confirm your password")
+            raise ValidationError("Please confirm your password")
             
         if password1 != password2:
             raise ValidationError("Passwords must match")

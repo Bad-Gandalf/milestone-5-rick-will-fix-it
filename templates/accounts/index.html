@@ -1,34 +1,36 @@
 {% extends 'base.html' %} {% load staticfiles %} {% block content %}
 
 <div class="page-title">
-    <h1>Welcome to Rick Will Fix It.</h1>
+    
 </div>
 <div class="container">
+    <h1>Welcome to Rick Will Fix It.</h1>
+    
     <div class="row">
-        <div class="col-xs-9">
-            <h2>Community Bugs</h2>
+        <div class="col-xs-12 col-md-9">
+            <a href="{% url 'post_list' %}"><h2>Community Bugs</h2></a>
             <p>Rick Sanchez will try to address any issues or bugs you may 
             currently have, as long as it serves his own purposes also. Our 
             developer Meeseeks will attend to most bugs. Please search through 
             current bugs before posting a new one. Our community members can 
             upvote a particular bug. You must register before you can post a 
-            new bug. Upvotes will determine time given to solving each bug. 
-            Checkout <a href="{% url 'post_list' %}">current bugs</a>.</p>
+            new bug. Upvotes will determine time given to solving each bug.</p>
         </div>
-        <div class="col-xs-3">
-            <img src="{% static 'img/mrmeeseeks.jpeg' %}">
+        <div class="col-xs-12 col-md-3">
+            <img src="{% static 'img/mrmeeseeks.jpeg' %}" style="border-radius: 10px; max-width:225px;">
         </div>
     </div>
     
-    <br>
+    
+    <hr>
     <div class="row">
-        <div class="col-xs-3">
-            <img src="{% static 'img/CursePurgePlus.png' %}" style="max-width:225px;">
+        <div class="col-xs-12 col-md-3">
+            <img src="{% static 'img/CursePurgePlus.png' %}" style="border-radius: 10px; max-width:225px;">
         </div>
-        <div class="col-xs-9">
-            <h2>Feature Requests and Curse Purge Plus</h2>
+        <div class="col-xs-12 col-md-9">
+            <a href="{% url 'feature_list' %}"><h2>Feature Requests and Curse Purge Plus</h2></a>
             <p>If you would like Rick to create a new product or feature for you, you will have to pay. If you can't afford it there's a good chance our many patrons will contribute to your cause. You can submit a request for a new feature and once it has
-                been priced, contributions can be made. Mr Sanchez pledges to spend 50% of his time working on the highest paid feature. Have a look at current <a href="{% url 'feature_list' %}">feature requests.</a></p>
+                been priced, contributions can be made. Mr Sanchez pledges to spend 50% of his time working on the highest paid feature.</p>
 
             <p>Curse Purge Plus services will also be available through this system.
             

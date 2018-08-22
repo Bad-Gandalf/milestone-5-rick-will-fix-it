@@ -74,8 +74,6 @@ def user_profile(request, id):
     """The user's profile page"""
     user = get_object_or_404(User, pk=id)
     profile = get_object_or_404(Profile, user=id)
-    if not profile:
-        return render(request, 'error.html')
     return render(request, 'accounts/profile.html', { "profile": profile, "user":user})
     
    

@@ -1,4 +1,7 @@
 {% extends 'base.html' %} 
+<style>
+    .hasDatepicker {
+</style>
 {% block content %}
 
 <div class="container">
@@ -7,9 +10,6 @@
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ user_form.as_p }}
-        
-        
-        
         <br>
         {{ profile_form.as_p }} 
         <br>

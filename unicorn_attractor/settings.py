@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'checkout',
     'storages',
     'stats',
-    'rest_framework'
+    'rest_framework',
+    'htmlcov'
 ]
 
 MIDDLEWARE = [
@@ -111,7 +112,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'accounts.backends.EmailAuth'
+    'accounts.backends.EmailAuth',
+    
     ]
 
 # Internationalization
