@@ -133,4 +133,15 @@ class TestFeatureDetailView(TestCase):
         self.assertEqual(str(contribution), "{0}-{1}-{2}".format(contribution.contribution, feature.title, user.username))
         
         
+class TestAdminView(TestCase):
+    def test_admin_queryset(self):
+        user = User.objects.create_superuser('superuser', 'myemail@test.com', password='password')
+        feature = Feature(title="Test Post", author=user, content="Test Content")
+        feature.save()
+        self.client.login(username=user.username, password='password')
+        
+        response = self.client.get("/admin/features/feature/")
+        self.assertEqual(response.status_code, 200)
+        
+        
             

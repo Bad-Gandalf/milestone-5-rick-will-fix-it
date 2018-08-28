@@ -11,9 +11,7 @@ class TestContributionForm(TestCase):
         self.assertTrue(form.is_valid())
         self.assertRaises(ValidationError, form.clean_price)
         
-    def test_form_with_10_euro(self):
-        form = ContributionForm({'contribution':10})
-        self.assertTrue(form.is_valid())
+    
         
         
         

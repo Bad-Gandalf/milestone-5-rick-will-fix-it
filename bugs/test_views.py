@@ -143,3 +143,15 @@ class TestPostDetailView(TestCase):
         self.assertEqual(page.status_code, 200)
         self.assertTemplateUsed(page, "bugs/post_detail.html")
         self.assertContains(page, "Updated Content")
+        
+class TestAdminView(TestCase):
+    def test_admin_queryset(self):
+        user = User.objects.create_superuser('superuser', 'myemail@test.com', password='password')
+        post = Post(title="Test Post", author=user, content="Test Content")
+        post.save()
+        self.client.login(username=user.username, password='password')
+        
+        response = self.client.get("/admin/bugs/post/")
+        self.assertEqual(response.status_code, 200)   
+        
+   

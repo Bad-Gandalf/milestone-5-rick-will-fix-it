@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from .models import BugWorkTime
 from bugs.models import Post
+from features.models import Feature
 
 
 class TestFeatureList(TestCase):
@@ -50,11 +51,11 @@ class TestBugWorkTimeListApi(TestCase):
         
     def test_admin_panel_render_change_form(self):
         user = User.objects.create_superuser('superuser', 'myemail@test.com', password='password')
-        bug = Post(title="Test Bug", author=user, content="Test Content")
-        bug.save()
-        data = {"bug": bug, 'user': user, 'timestamp': "2018-08-28", "time_spent_mins": 60}
+        post = Post(title="Test Feature", author=user, content="Test Content")
+        post.save()
+        data = {"bug": post, "user":user, "time_spent_mins":60, "timestamp":"2018-08-27"}
         self.client.login(username=user.username, password='password')
-        response = self.client.post("/admin/stats/bugworktime/add/", data )
+        response = self.client.post("/admin/stats/bugworktime/add/", data, follow=True)
         self.assertEqual(response.status_code, 200)
         
     
