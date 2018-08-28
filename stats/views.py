@@ -38,8 +38,7 @@ class BugWorkTimeListDaily(APIView):
         serializer = BugWorkTimeSerializer(qs, many=True)
         return Response(serializer.data)
     
-    def post(self):
-        pass
+    
         
 class BugWorkTimeListWeekly(APIView):
     def get(self, request):
@@ -49,8 +48,7 @@ class BugWorkTimeListWeekly(APIView):
         serializer = BugWorkTimeSerializer(qs, many=True)
         return Response(serializer.data)
     
-    def post(self):
-        pass
+    
     
 class BugWorkTimeListMonthly(APIView):
     
@@ -61,8 +59,7 @@ class BugWorkTimeListMonthly(APIView):
         serializer = BugWorkTimeSerializer(qs, many=True)
         return Response(serializer.data)
     
-    def post(self):
-        pass
+    
     
 class CurrentBugUpvotes(APIView):
     

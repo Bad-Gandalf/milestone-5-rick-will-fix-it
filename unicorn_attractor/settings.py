@@ -1,6 +1,6 @@
 import os
 import dj_database_url
-import env # for development only
+#import env # for development only
 
 if os.environ.get('DEVELOPMENT'):
     development = True
@@ -161,6 +161,7 @@ MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 
 STRIPE_PUBLISHABLE = os.environ.get('STRIPE_PUBLISHABLE')
 STRIPE_SECRET = os.environ.get('STRIPE_SECRET')
+
 
 
 
