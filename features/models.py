@@ -42,8 +42,7 @@ class Feature(models.Model):
     def get_absolute_url(self):
         return reverse("feature_detail", args=[self.id, self.slug])
         
-    def total_contributions(self):
-        return sum(self.contributions__contribution)
+
         
     
     

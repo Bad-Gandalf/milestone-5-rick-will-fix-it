@@ -8,7 +8,7 @@
     
     
     <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
-    <title>Coverage for bugs/test_models.py: 100%</title>
+    <title>Coverage for features/test_models.py: 100%</title>
     <link rel="stylesheet" href="style.css" type="text/css">
     
     <script type="text/javascript" src="jquery.min.js"></script>
@@ -23,7 +23,7 @@
 
 <div id="header">
     <div class="content">
-        <h1>Coverage for <b>bugs/test_models.py</b> :
+        <h1>Coverage for <b>features/test_models.py</b> :
             <span class="pc_cov">100%</span>
         </h1>
 
@@ -84,16 +84,16 @@
             <td class="text">
 <p id="t1" class="stm run hide_run"><span class="key">from</span> <span class="nam">django</span><span class="op">.</span><span class="nam">test</span> <span class="key">import</span> <span class="nam">TestCase</span><span class="strut">&nbsp;</span></p>
 <p id="t2" class="stm run hide_run"><span class="key">from</span> <span class="nam">django</span><span class="op">.</span><span class="nam">contrib</span><span class="op">.</span><span class="nam">auth</span><span class="op">.</span><span class="nam">models</span> <span class="key">import</span> <span class="nam">User</span><span class="strut">&nbsp;</span></p>
-<p id="t3" class="stm run hide_run"><span class="key">from</span> <span class="op">.</span><span class="nam">models</span> <span class="key">import</span> <span class="nam">Comment</span><span class="op">,</span> <span class="nam">Post</span><span class="strut">&nbsp;</span></p>
+<p id="t3" class="stm run hide_run"><span class="key">from</span> <span class="op">.</span><span class="nam">models</span> <span class="key">import</span> <span class="nam">Comment</span><span class="op">,</span> <span class="nam">Feature</span><span class="strut">&nbsp;</span></p>
 <p id="t4" class="pln"><span class="strut">&nbsp;</span></p>
 <p id="t5" class="stm run hide_run"><span class="key">class</span> <span class="nam">TestCommentModel</span><span class="op">(</span><span class="nam">TestCase</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
 <p id="t6" class="pln"><span class="strut">&nbsp;</span></p>
 <p id="t7" class="stm run hide_run">    <span class="key">def</span> <span class="nam">test_str_is_equal_to_username</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
 <p id="t8" class="stm run hide_run">        <span class="nam">user</span> <span class="op">=</span> <span class="nam">User</span><span class="op">.</span><span class="nam">objects</span><span class="op">.</span><span class="nam">create_user</span><span class="op">(</span><span class="nam">username</span><span class="op">=</span><span class="str">'username'</span><span class="op">,</span> <span class="nam">password</span><span class="op">=</span><span class="str">'password'</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t9" class="stm run hide_run">        <span class="nam">post</span> <span class="op">=</span> <span class="nam">Post</span><span class="op">(</span><span class="nam">title</span><span class="op">=</span><span class="str">"Test Post"</span><span class="op">,</span> <span class="nam">author</span><span class="op">=</span><span class="nam">user</span><span class="op">,</span> <span class="nam">content</span><span class="op">=</span><span class="str">"Test Content"</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t10" class="stm run hide_run">        <span class="nam">post</span><span class="op">.</span><span class="nam">save</span><span class="op">(</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t11" class="stm run hide_run">        <span class="nam">comment</span> <span class="op">=</span> <span class="nam">Comment</span><span class="op">(</span><span class="nam">content</span><span class="op">=</span><span class="str">"Test Comment"</span><span class="op">,</span> <span class="nam">post</span><span class="op">=</span><span class="nam">post</span><span class="op">,</span> <span class="nam">user</span><span class="op">=</span><span class="nam">user</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t12" class="stm run hide_run">        <span class="nam">self</span><span class="op">.</span><span class="nam">assertEqual</span><span class="op">(</span><span class="nam">str</span><span class="op">(</span><span class="nam">comment</span><span class="op">)</span><span class="op">,</span> <span class="str">'Test Post-username'</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t9" class="stm run hide_run">        <span class="nam">feature</span> <span class="op">=</span> <span class="nam">Feature</span><span class="op">(</span><span class="nam">title</span><span class="op">=</span><span class="str">"Test Feature"</span><span class="op">,</span> <span class="nam">author</span><span class="op">=</span><span class="nam">user</span><span class="op">,</span> <span class="nam">content</span><span class="op">=</span><span class="str">"Test Content"</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t10" class="stm run hide_run">        <span class="nam">feature</span><span class="op">.</span><span class="nam">save</span><span class="op">(</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t11" class="stm run hide_run">        <span class="nam">comment</span> <span class="op">=</span> <span class="nam">Comment</span><span class="op">(</span><span class="nam">content</span><span class="op">=</span><span class="str">"Test Comment"</span><span class="op">,</span> <span class="nam">feature</span><span class="op">=</span><span class="nam">feature</span><span class="op">,</span> <span class="nam">user</span><span class="op">=</span><span class="nam">user</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t12" class="stm run hide_run">        <span class="nam">self</span><span class="op">.</span><span class="nam">assertEqual</span><span class="op">(</span><span class="nam">str</span><span class="op">(</span><span class="nam">comment</span><span class="op">)</span><span class="op">,</span> <span class="str">'Test Feature-username'</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
 
             </td>
         </tr>
@@ -104,7 +104,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v4.5.1</a>,
-            created at 2018-08-23 15:49
+            created at 2018-08-23 15:23
         </p>
     </div>
 </div>
