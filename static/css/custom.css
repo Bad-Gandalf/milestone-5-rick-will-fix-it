@@ -68,7 +68,8 @@ caption p {
 }
 
 .avatar-box img {
-    max-width: 180px;
+    max-width: 50px;
+    max-height: 50px;
 }
 
 .comment-avatar-box img {
@@ -76,12 +77,12 @@ caption p {
 }
 
 .replied-comments {
-    padding-left: 70px;
-    margin-right: 85px;
+    
+    
 }
 
 .form-group {
-    margin-right: 85px
+    
 }
 
 .chart-wrapper {

@@ -1,40 +1,41 @@
 {% extends "base.html" %} {% block content %} {% load static from staticfiles %}
-<div class="row">
-    <div class="col-md-2 col-sm-3 text-center avatar-box">
-        <a class="story-img" href="#">
-                <img src="{{post.author.profile.photo.url}}" class="img-circle">
-            </a>
+<div class="container-fluid">
+    <div class="container">
+        
+    <div class="row">
+        <div class="col-sm-3 col-md-2">
+        <div class="avatar-box"> 
+        <img src="{{post.author.profile.photo.url}}" class="img-circle" style="max-width:100px;">
+        </div>
         <br>
-
-        <a href="{% url 'user_profile' post.author.id %}">
-            <p>by {{ post.author.username }}</p>
-        </a>
-    </div>
-
-    <div class="col-md-10 col-sm-9">
-
-        <div class="panel-body">
-
-            <h3>{{ post.title }}</h3>
-
-            <div class="row">
-                <div class="col-xs-9">
-                    <p>{{ post.content }}</p>
-
-                </div>
-                <div class="upvote-panel">
-                    <span><form action="{% url 'upvote_post' %}" method="POST">
+        <div class="upvote-panel">
+                        <span><form action="{% url 'upvote_post' %}" method="POST">
                     {% csrf_token %} 
                     {% if is_upvoted %}
                     <button class="btn btn-danger" type="submit" name="post_id" value="{{ post.id }}">Downvote</button> 
                     {% else %}
                     <button class="btn btn-success" type="submit" name="post_id" value="{{ post.id }}">Upvote</button> 
                     {% endif %}
-                </form></span> {% if request.user.id == post.author.id %}
-                    <span><a href="{% url 'update' post.id post.slug %}"><button class="btn btn-danger">Edit Post</button></a></span> {% else %} {% endif %}
-                </div>
+                <br>
+                    </div>
+                    <br>
+</div>
+        <div class="col-md-10 col-sm-9">
 
-                <small><div class="col-md-3 col-xs-12">
+            <div class="panel-body">
+
+                <h3>{{ post.title }}</h3>
+                <a href="{% url 'user_profile' post.author.id %}"><h6>{{ post.author.username }}</h6></a>
+
+                <div class="row">
+                    
+                    <div class="col-xs-12">
+                        <p>{{ post.content }}</p>
+
+                    </div>
+                    
+
+                    <small><div class="col-md-3 col-xs-12">
                         <i class="fas fa-thumbs-up"></i> {{ post.total_upvotes }}
                     </div>
 
@@ -43,111 +44,107 @@
                     </div>
                     <div class="col-md-3 col-xs-12">
                      {{ post.published_date }}
-                </div></small>
+                </div>
+                {% if request.user.id == post.author.id %}
+                 <div class="col-md-3" >
+                    
+                        <span><a href="{% url 'update' post.id post.slug %}" style="float:right;">
+                             Edit
+                            </a></span> </div>{% else %} {% endif %}</small>
 
+                </div>
+                {% if post.image %}
+                <hr>
+                <div class="col-xs-10" style="text-align:center;">
+                    <img class="img-blogpost" src="{{ post.image.url }}" style="max-width:100%; max-height:500px;">
+                </div>
+                {% endif %}
+                
             </div>
-            {% if post.image %}
+
+
             <hr>
-            <div class="col-xs-10" style="text-align:center;">
-                <img class="img-blogpost" src="{{ post.image.url }}" style="max-width:100%; max-height:500px;">
+            <h4>Comment{{ comments|pluralize }}: {{ comments.count }}</h4>
+            <hr>
+            <div class="main-comment-section">
+                <div class="container-fluid mt-2">
+                    <div class="form-group row">
+                        <form method="POST">
+                            {% csrf_token %} {{ comment_form.as_p }} {% if request.user.is_authenticated %}
+                            <input type="submit" value="Submit" class="btn btn-outline-success"> {% else %}
+                            <input type="submit" value="Submit" class="btn btn-outline-success" disabled> {% endif %}
+
+                        </form>
+                    </div>
+                </div>
             </div>
-            {% endif %}
-        </div>
+            <hr> {% for comment in comments %}
+            <div class="row">
+
+                <div class="comments">
+                    <div class="col-xs-2 col-md-1">
+                        <img src="{{comment.user.profile.photo.url}}" class="img-circle" style="max-height:50px; max-width:50px;">
+                    </div>
+                    <div class="col-xs-10 col-md-11"><p>
+                        <a href="{% url 'user_profile' comment.user.id %}">{{comment.user.username}}</a> {{ comment.content }} <small>{{comment.timestamp }} <i class="fas fa-thumbs-up" ></i>   {{ comment.total_likes }}</small></p>
+                    
+                    <div class="col-xs-3 ">
+                        <button type="button" name="button" class="reply-btn">Reply</button>
+                        </div>
+                        <div class="col-xs-3">
+                        <span><form action="{% url 'like_comment' %}" method="POST">
+                    {% csrf_token %} 
+                    {% if comment.is_liked %}
+                    <button type="submit" name="comment_id" value="{{ comment.id }}">Unlike</button> 
+                    {% else %}
+                    <button type="submit" name="comment_id" value="{{ comment.id }}">Like</button> 
+                    {% endif %}
+                </form></span>
+                </div>
+                </div>
+                </div>
+            </div>
+
+            <div class="replied-comments  mt-4" style="display:none;">
+
+                <div class="form-group container-fluid">
+                    {% for reply in comment.replies.all %}
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-xs-2 col-md-1"><img src="{{reply.user.profile.photo.url}}" class="img-circle" style="max-height:50px; max-width:50px;"></div>
+                        <div class="col-xs-10 col-md-11"><p>
+                        <a href="{% url 'user_profile' comment.user.id %}">{{reply.user.username}}</a> {{ reply.content }} <small>{{reply.timestamp }}</small></p>
+                        </div>
+                        
+                        
 
 
-        <hr>
-        <h4>Comment{{ comments|pluralize }}: {{ comments.count }}</h4>
-        <hr>
-        <div class="main-comment-section">
-            <div class="container-fluid mt-2">
-                <div class="form-group row">
+
+                    </div>
+                    {% endfor %}
+                    <hr>
                     <form method="POST">
-                        {% csrf_token %} {{ comment_form.as_p }} {% if request.user.is_authenticated %}
+                        {% csrf_token %}
+                        <input type="hidden" name="comment_id" value="{{ comment.id }}"> {{ comment_form.as_p }} {% if request.user.is_authenticated %}
                         <input type="submit" value="Submit" class="btn btn-outline-success"> {% else %}
                         <input type="submit" value="Submit" class="btn btn-outline-success" disabled> {% endif %}
-
                     </form>
                 </div>
             </div>
-        </div>
-        <hr> {% for comment in comments %}
-        <div class="row">
-            
-            <div class="comment-avatar-box col-xs-2">
+            <hr> {% endfor %}
 
-                <img src="{{comment.user.profile.photo.url}}" class="img-circle">
 
-                <p><a href="{% url 'user_profile' comment.user.id %}">{{comment.user.username}}</a></p>
-                <small>
-                    <p>{{ comment.timestamp }}</p>
-                    <p>Replies: {{ comment.replies.count }}</p>
-                    <p><i class="fas fa-thumbs-up"></i> {{ comment.total_likes }}</p>
-                </small>
-            </div>
-            <div class="comments col-xs-10">
-                <p> {{ comment.content }}</p>
-                <br>
 
-                <button type="button" name="button" class="reply-btn btn-success">Reply</button>
-
-                <span><form action="{% url 'like_comment' %}" method="POST">
-                    {% csrf_token %} 
-                    {% if comment.is_liked %}
-                    <button class="btn btn-danger" type="submit" name="comment_id" value="{{ comment.id }}">Unlike</button> 
-                    {% else %}
-                    <button class="btn btn-success" type="submit" name="comment_id" value="{{ comment.id }}">Like</button> 
-                    {% endif %}
-                </form></span>
-            </div>
-
+            <a href="{% url 'post_list' %}" class="btn btn-default">Back To List</a>
 
         </div>
-
-        <div class="replied-comments container" style="display:none;">
-
-            <div class="form-group">
-                {% for reply in comment.replies.all %}
-                <hr>
-
-                <div class="row">
-                    <div class="comment-avatar-box col-sm-2">
-                        <img src="{{reply.user.profile.photo.url}}" class="img-circle">
-                        <small>
-                        <p><a href="{% url 'user_profile' reply.user.id %}">{{reply.user.username}}</a></p>
-                        
-                                <p>{{ reply.timestamp }}</p>
-                            </small>
-                    </div>
-                    <div class="reply">
-                        <p class="mb-5">{{ reply.content }}</p>
-
-                    </div>
-
-
-
-                </div>
-                {% endfor %}
-                <hr>
-                <form method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="comment_id" value="{{ comment.id }}"> {{ comment_form.as_p }} {% if request.user.is_authenticated %}
-                    <input type="submit" value="Submit" class="btn btn-outline-success"> {% else %}
-                    <input type="submit" value="Submit" class="btn btn-outline-success" disabled> {% endif %}
-                </form>
-            </div>
-        </div>
-        <hr> {% endfor %}
-
-
-
-        <a href="{% url 'post_list' %}" class="btn btn-default">Back To List</a>
-
-    </div>
-
-
 
 
 </div>
+
+    </div>
+    
 </div>
 
 {% endblock %}
