@@ -50,44 +50,6 @@ def post_detail(request, id, slug):
 
     return render(request, 'bugs/post_detail.html', context)
 
-def post_detail1(request, id, slug):
-    post = get_object_or_404(Post, pk=id, slug=slug)
-    is_upvoted = False
-    if post.upvotes.filter(id=request.user.id).exists():
-        is_upvoted = True
-    comments = Comment.objects.filter(post=post, reply=None).order_by('id')
-    for comment in comments:
-        comment.is_liked = False
-        if comment.likes.filter(id=request.user.id).exists():
-            comment.is_liked = True
-        else:
-            comment.is_liked = False
-    post.views += 1
-    post.save()
-
-    if request.method == 'POST':
-        comment_form = CommentForm(request.POST or None)
-        if comment_form.is_valid():
-            content = request.POST.get('content')
-            reply_id = request.POST.get('comment_id')
-            comment_qs = None
-            if reply_id:
-                comment_qs = Comment.objects.get(id=reply_id)
-            comment = Comment.objects.create(post=post, user=request.user, content=content, reply=comment_qs)
-            comment.save()
-            return HttpResponseRedirect(post.get_absolute_url())
-    
-    else:
-        comment_form = CommentForm()
-            
-    context = {'post': post, 'comments': comments, 
-                'comment_form': comment_form, 'total_upvotes': post.total_upvotes(), 'is_upvoted' : is_upvoted }
-
-    return render(request, 'bugs/post_detail1.html', context)
-
-
-
-
 
 
 @login_required

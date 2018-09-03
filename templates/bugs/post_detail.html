@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-sm-3 col-md-2">
         <div class="avatar-box"> 
-        <img src="{{post.author.profile.photo.url}}" class="img-circle" style="max-width:100px;">
+        <img src="{{post.author.profile.photo.url}}" class="img-circle">
         </div>
         <br>
         <div class="upvote-panel">
@@ -16,6 +16,7 @@
                     {% else %}
                     <button class="btn btn-success" type="submit" name="post_id" value="{{ post.id }}">Upvote</button> 
                     {% endif %}
+                    </form>
                 <br>
                     </div>
                     <br>
@@ -87,7 +88,7 @@
                     </div>
                     <div class="col-xs-10 col-md-11"><p>
                         <a href="{% url 'user_profile' comment.user.id %}">{{comment.user.username}}</a> {{ comment.content }} <small>{{comment.timestamp }} <i class="fas fa-thumbs-up" ></i>   {{ comment.total_likes }}</small></p>
-                    
+                     <small>
                     <div class="col-xs-3 ">
                         <button type="button" name="button" class="reply-btn">Reply</button>
                         </div>
@@ -100,12 +101,12 @@
                     <button type="submit" name="comment_id" value="{{ comment.id }}">Like</button> 
                     {% endif %}
                 </form></span>
-                </div>
+                </div></small>
                 </div>
                 </div>
             </div>
 
-            <div class="replied-comments  mt-4" style="display:none;">
+            <div class="replied-comments mt-4" style="display:none;">
 
                 <div class="form-group container-fluid">
                     {% for reply in comment.replies.all %}

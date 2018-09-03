@@ -100,9 +100,9 @@
 <p id="n31" class="stm run hide_run"><a href="#n31">31</a></p>
 <p id="n32" class="stm mis"><a href="#n32">32</a></p>
 <p id="n33" class="stm run hide_run"><a href="#n33">33</a></p>
-<p id="n34" class="stm mis"><a href="#n34">34</a></p>
+<p id="n34" class="stm run hide_run"><a href="#n34">34</a></p>
 <p id="n35" class="pln"><a href="#n35">35</a></p>
-<p id="n36" class="stm run hide_run"><a href="#n36">36</a></p>
+<p id="n36" class="stm mis"><a href="#n36">36</a></p>
 <p id="n37" class="stm run hide_run"><a href="#n37">37</a></p>
 <p id="n38" class="stm run hide_run"><a href="#n38">38</a></p>
 <p id="n39" class="stm run hide_run"><a href="#n39">39</a></p>
@@ -186,9 +186,9 @@
 <p id="t31" class="stm run hide_run">        <span class="key">if</span> <span class="nam">datetime</span><span class="op">.</span><span class="nam">today</span><span class="op">(</span><span class="op">)</span><span class="op">.</span><span class="nam">isoweekday</span><span class="op">(</span><span class="op">)</span> <span class="op">==</span> <span class="num">7</span><span class="op">:</span> <span class="com">#Sunday</span><span class="strut">&nbsp;</span></p>
 <p id="t32" class="stm mis">            <span class="nam">yesterday</span> <span class="op">=</span> <span class="nam">today</span> <span class="op">-</span> <span class="nam">timedelta</span><span class="op">(</span><span class="nam">days</span><span class="op">=</span><span class="num">2</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
 <p id="t33" class="stm run hide_run">        <span class="key">elif</span> <span class="nam">datetime</span><span class="op">.</span><span class="nam">today</span><span class="op">(</span><span class="op">)</span><span class="op">.</span><span class="nam">isoweekday</span><span class="op">(</span><span class="op">)</span> <span class="op">==</span> <span class="num">1</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
-<p id="t34" class="stm mis">            <span class="nam">yesterday</span> <span class="op">=</span> <span class="nam">today</span> <span class="op">-</span> <span class="nam">timedelta</span><span class="op">(</span><span class="nam">days</span><span class="op">=</span><span class="num">3</span><span class="op">)</span> <span class="com">#Monday</span><span class="strut">&nbsp;</span></p>
+<p id="t34" class="stm run hide_run">            <span class="nam">yesterday</span> <span class="op">=</span> <span class="nam">today</span> <span class="op">-</span> <span class="nam">timedelta</span><span class="op">(</span><span class="nam">days</span><span class="op">=</span><span class="num">3</span><span class="op">)</span> <span class="com">#Monday</span><span class="strut">&nbsp;</span></p>
 <p id="t35" class="pln">        <span class="key">else</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
-<p id="t36" class="stm run hide_run">            <span class="nam">yesterday</span> <span class="op">=</span> <span class="nam">today</span> <span class="op">-</span> <span class="nam">timedelta</span><span class="op">(</span><span class="nam">days</span><span class="op">=</span><span class="num">1</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t36" class="stm mis">            <span class="nam">yesterday</span> <span class="op">=</span> <span class="nam">today</span> <span class="op">-</span> <span class="nam">timedelta</span><span class="op">(</span><span class="nam">days</span><span class="op">=</span><span class="num">1</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
 <p id="t37" class="stm run hide_run">        <span class="nam">qs</span> <span class="op">=</span> <span class="nam">BugWorkTime</span><span class="op">.</span><span class="nam">objects</span><span class="op">.</span><span class="nam">filter</span><span class="op">(</span><span class="nam">timestamp__gte</span><span class="op">=</span><span class="nam">yesterday</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
 <p id="t38" class="stm run hide_run">        <span class="nam">serializer</span> <span class="op">=</span> <span class="nam">BugWorkTimeSerializer</span><span class="op">(</span><span class="nam">qs</span><span class="op">,</span> <span class="nam">many</span><span class="op">=</span><span class="key">True</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
 <p id="t39" class="stm run hide_run">        <span class="key">return</span> <span class="nam">Response</span><span class="op">(</span><span class="nam">serializer</span><span class="op">.</span><span class="nam">data</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
@@ -246,7 +246,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v4.5.1</a>,
-            created at 2018-08-28 13:41
+            created at 2018-09-03 14:09
         </p>
     </div>
 </div>

@@ -30,8 +30,8 @@
         <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
 
         <h2 class="stats">
-            44 statements &nbsp;
-            <span class="run hide_run shortkey_r button_toggle_run">44 run</span>
+            45 statements &nbsp;
+            <span class="run hide_run shortkey_r button_toggle_run">45 run</span>
             <span class="mis shortkey_m button_toggle_mis">0 missing</span>
             <span class="exc shortkey_x button_toggle_exc">0 excluded</span>
 
@@ -122,7 +122,7 @@
 <p id="n53" class="stm run hide_run"><a href="#n53">53</a></p>
 <p id="n54" class="stm run hide_run"><a href="#n54">54</a></p>
 <p id="n55" class="stm run hide_run"><a href="#n55">55</a></p>
-<p id="n56" class="pln"><a href="#n56">56</a></p>
+<p id="n56" class="stm run hide_run"><a href="#n56">56</a></p>
 <p id="n57" class="stm run hide_run"><a href="#n57">57</a></p>
 <p id="n58" class="stm run hide_run"><a href="#n58">58</a></p>
 <p id="n59" class="stm run hide_run"><a href="#n59">59</a></p>
@@ -184,11 +184,11 @@
 <p id="t51" class="pln"><span class="strut">&nbsp;</span></p>
 <p id="t52" class="stm run hide_run">    <span class="key">def</span> <span class="nam">test_admin_panel_render_change_form</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
 <p id="t53" class="stm run hide_run">        <span class="nam">user</span> <span class="op">=</span> <span class="nam">User</span><span class="op">.</span><span class="nam">objects</span><span class="op">.</span><span class="nam">create_superuser</span><span class="op">(</span><span class="str">'superuser'</span><span class="op">,</span> <span class="str">'myemail@test.com'</span><span class="op">,</span> <span class="nam">password</span><span class="op">=</span><span class="str">'password'</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t54" class="stm run hide_run">        <span class="nam">feature</span> <span class="op">=</span> <span class="nam">Feature</span><span class="op">(</span><span class="nam">title</span><span class="op">=</span><span class="str">"Test Feature"</span><span class="op">,</span> <span class="nam">author</span><span class="op">=</span><span class="nam">user</span><span class="op">,</span> <span class="nam">content</span><span class="op">=</span><span class="str">"Test Content"</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t55" class="stm run hide_run">        <span class="nam">feature</span><span class="op">.</span><span class="nam">save</span><span class="op">(</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t56" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t54" class="stm run hide_run">        <span class="nam">post</span> <span class="op">=</span> <span class="nam">Post</span><span class="op">(</span><span class="nam">title</span><span class="op">=</span><span class="str">"Test Feature"</span><span class="op">,</span> <span class="nam">author</span><span class="op">=</span><span class="nam">user</span><span class="op">,</span> <span class="nam">content</span><span class="op">=</span><span class="str">"Test Content"</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t55" class="stm run hide_run">        <span class="nam">post</span><span class="op">.</span><span class="nam">save</span><span class="op">(</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t56" class="stm run hide_run">        <span class="nam">data</span> <span class="op">=</span> <span class="op">{</span><span class="str">"bug"</span><span class="op">:</span> <span class="nam">post</span><span class="op">,</span> <span class="str">"user"</span><span class="op">:</span><span class="nam">user</span><span class="op">,</span> <span class="str">"time_spent_mins"</span><span class="op">:</span><span class="num">60</span><span class="op">,</span> <span class="str">"timestamp"</span><span class="op">:</span><span class="str">"2018-08-27"</span><span class="op">}</span><span class="strut">&nbsp;</span></p>
 <p id="t57" class="stm run hide_run">        <span class="nam">self</span><span class="op">.</span><span class="nam">client</span><span class="op">.</span><span class="nam">login</span><span class="op">(</span><span class="nam">username</span><span class="op">=</span><span class="nam">user</span><span class="op">.</span><span class="nam">username</span><span class="op">,</span> <span class="nam">password</span><span class="op">=</span><span class="str">'password'</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t58" class="stm run hide_run">        <span class="nam">response</span> <span class="op">=</span> <span class="nam">self</span><span class="op">.</span><span class="nam">client</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">"/admin/features/feature/"</span> <span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t58" class="stm run hide_run">        <span class="nam">response</span> <span class="op">=</span> <span class="nam">self</span><span class="op">.</span><span class="nam">client</span><span class="op">.</span><span class="nam">post</span><span class="op">(</span><span class="str">"/admin/stats/bugworktime/add/"</span><span class="op">,</span> <span class="nam">data</span><span class="op">,</span> <span class="nam">follow</span><span class="op">=</span><span class="key">True</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
 <p id="t59" class="stm run hide_run">        <span class="nam">self</span><span class="op">.</span><span class="nam">assertEqual</span><span class="op">(</span><span class="nam">response</span><span class="op">.</span><span class="nam">status_code</span><span class="op">,</span> <span class="num">200</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
 <p id="t60" class="pln"><span class="strut">&nbsp;</span></p>
 <p id="t61" class="pln"><span class="strut">&nbsp;</span></p>
@@ -202,7 +202,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v4.5.1</a>,
-            created at 2018-08-28 14:49
+            created at 2018-09-03 14:09
         </p>
     </div>
 </div>
