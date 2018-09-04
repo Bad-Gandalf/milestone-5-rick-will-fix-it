@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'unicorn_attractor.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-if development:
+if development or 'TRAVIS' in os.environ:
     DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
