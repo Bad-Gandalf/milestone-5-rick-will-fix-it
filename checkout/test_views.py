@@ -1,14 +1,14 @@
-from django.test import TestCase
-from django.contrib.auth import login
-from django.contrib.auth.models import User
-from features.models import Feature
-from .forms import *
-from django.utils import timezone
-from django.conf import settings
-import env
-import stripe
+# from django.test import TestCase
+# from django.contrib.auth import login
+# from django.contrib.auth.models import User
+# from features.models import Feature
+# from .forms import *
+# from django.utils import timezone
+# from django.conf import settings
+# import env
+# import stripe
 
-stripe.api_key = settings.STRIPE_SECRET
+# stripe.api_key = settings.STRIPE_SECRET
 
 
 
