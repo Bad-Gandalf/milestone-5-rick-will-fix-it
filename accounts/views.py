@@ -7,10 +7,6 @@ from accounts.models import Profile
 from django.http import HttpResponse, HttpResponseRedirect
 
 # Create your views here.
-def index(request):
-    """Return the index.html file"""
-    return render(request, 'accounts/index.html')
-    
 
 @login_required    
 def logout(request):

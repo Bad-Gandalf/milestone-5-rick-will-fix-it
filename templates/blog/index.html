@@ -40,5 +40,41 @@
     </div>
 
 </div>
+<hr>
+
+{% if blogs %}
+<div class="container-fluid">
+    <div class="container">
+    <h2>Recent Updates</h2>
+    </div>
+    <hr>
+    
+{% for blog in blogs %}
+
+<div class="blog-post container ">
+    
+    <div class="post-info" style="margin-bottom:10px;">
+        <h3 class="post-title">{{ blog.title }}</h3>
+        <div class="post-meta">
+            <small><span class="post-author">by {{ blog.author }} - </span>
+            <span class="post-date published">{{ blog.published_date }} - {{blog.views}} view{{ blog.views|pluralize }}</span></small>
+            
+        </div>
+            
+    </div>
+    
+    <div class="post-content">
+        <p class="post-snippet">{{ blog.content }}</p>
+        <div class="post-footer">
+            <a href="{% url 'blog_detail' blog.id blog.slug %}" class="read-more">Read More</a>
+        </div>
+    </div>
+</div>
+
+<hr>
+{% endfor %}
+</div>
+{% endif %}
+
 
 {% endblock %}

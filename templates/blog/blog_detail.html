@@ -1,0 +1,37 @@
+{% extends "base.html" %} {% block content %}
+<div class="container-fluid">
+    <div class="container">
+<div class="row">
+
+    <div class="col-xs-12">
+        <div class="panel-body">
+            <h3>{{ blog.title }}</h3>
+            <small><span>{{ blog.author.username }} - {{ blog.published_date }} - {{blog.views}} view{{ blog.views|pluralize }}</span></small>
+            <hr>
+            <div class="row">
+                {% if blog.image %}
+                <div class="col-xs-6">
+                    <p>{{ blog.content }}</p>
+
+                </div>
+                <div class="col-xs-6" >
+                    <img class="img-blogpost" src="{{ blog.image.url }}" style="max-width:100%; max-height:500px; float:right;"> 
+                </div>
+                {% else %}
+                <div class="col-xs-12">
+                     <p>{{ blog.content }}</p>
+                </div>
+                
+                {% endif %}
+
+        </div>
+
+<a href="{% url 'index' %}" class="btn btn-default">Back To Homepage</a>
+
+
+    </div>
+</div>
+    </div>
+</div>
+
+{% endblock %}

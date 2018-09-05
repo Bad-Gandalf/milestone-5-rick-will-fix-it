@@ -1,6 +1,6 @@
 import os
 import dj_database_url
-#import env # for development only
+import env # for development only
 
 if os.environ.get('DEVELOPMENT'):
     development = True
@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'storages',
     'stats',
     'rest_framework',
-    'htmlcov'
+    'htmlcov',
+    'blog'
 ]
 
 MIDDLEWARE = [
