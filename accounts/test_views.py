@@ -6,10 +6,7 @@ from django.contrib.messages import get_messages
 
 class TestViews(TestCase):
     
-    def test_get_home_page(self):
-        page = self.client.get("/")
-        self.assertEqual(page.status_code, 200)
-        self.assertTemplateUsed(page, "accounts/index.html")
+    
         
     def test_get_login_page(self):
         page = self.client.get("/accounts/login/")
@@ -56,7 +53,7 @@ class TestViews(TestCase):
         self.client.login(username='username', password='password')
         page = self.client.get("/accounts/logout/", follow=True)
         self.assertEqual(page.status_code, 200)
-        self.assertTemplateUsed(page, "accounts/index.html")
+        self.assertTemplateUsed(page, "blog/index.html")
         
     def test_get_login_page_authenticated(self):
         User.objects.create_user(username='username', password='password')
@@ -79,7 +76,7 @@ class TestViews(TestCase):
                                         'password2': 'beyk38cmej39'}, follow=True)
         
         self.assertEqual(page.status_code, 200)
-        self.assertTemplateUsed(page, "accounts/index.html")
+        self.assertTemplateUsed(page, "blog/index.html")
         
     def test_register_new_user_duplicate_info(self):
         user = User.objects.create_user(username='test_username', password='password', email='email.address@gmail.com')
@@ -115,7 +112,7 @@ class TestViews(TestCase):
         response = self.client.post("/accounts/login/", {"username": "username",
                                                     "password": "password"}, follow=True)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "accounts/index.html")
+        self.assertTemplateUsed(response, "blog/index.html")
         
     def test_get_login_page_not_authenticated_not_correct_info(self):
         User.objects.create_user(username='username', password='password')

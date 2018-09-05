@@ -64,7 +64,7 @@
     </div>
     
     <div class="post-content">
-        <p class="post-snippet">{{ blog.content }}</p>
+        <p class="post-snippet">{{ blog.content|truncatewords:50 }}</p>
         <div class="post-footer">
             <a href="{% url 'blog_detail' blog.id blog.slug %}" class="read-more">Read More</a>
         </div>

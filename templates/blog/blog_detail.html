@@ -12,6 +12,11 @@
                 {% if blog.image %}
                 <div class="col-xs-6">
                     <p>{{ blog.content }}</p>
+                    {% if blog.feature %}
+                     <p>Have a look at the original thread<a href="{% url 'feature_detail' blog.feature.id blog.feature.slug %}"> here</a>.</p>
+                     {% elif blog.bug %}
+                     <p>Have a look at the original thread<a href="{% url 'post_detail' blog.bug.id blog.bug.slug %}"> here</a>.</p>
+                     {% endif %}
 
                 </div>
                 <div class="col-xs-6" >
@@ -20,6 +25,11 @@
                 {% else %}
                 <div class="col-xs-12">
                      <p>{{ blog.content }}</p>
+                     {% if blog.feature %}
+                     <p>Have a look at the original thread<a href="{% url 'feature_detail' blog.feature.id blog.feature.slug %}"> here</a>.</p>
+                     {% elif blog.bug %}
+                     <p>Have a look at the original thread<a href="{% url 'post_detail' blog.bug.id blog.bug.slug %}"> here</a>.</p>
+                     {% endif %}
                 </div>
                 
                 {% endif %}

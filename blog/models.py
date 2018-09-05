@@ -6,6 +6,7 @@ from features.models import Feature
 from django.utils import timezone
 from django.dispatch import receiver
 from django.utils.text import slugify
+from django.db.models.signals import pre_save
 
 # Create your models here.
 class Blog(models.Model):
@@ -23,9 +24,12 @@ class Blog(models.Model):
     def __str__(self):
         return self.title
     
-    def get_absolute_url(self):
-        return reverse("blog_detail", args=[self.id, self.slug])
-        
     
         
+    
+@receiver(pre_save, sender=Blog)        
+def pre_save_slug(sender, **kwargs):
+    slug = slugify(kwargs['instance'].title)
+    kwargs['instance'].slug = slug
+    print(kwargs)     
     
