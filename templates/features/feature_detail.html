@@ -63,18 +63,19 @@
             <hr>
             <h4>Comment{{ comments|pluralize }}: {{ comments.count }}</h4>
             <hr>
+            {% if request.user.is_authenticated %}
             <div class="main-comment-section">
                 <div class="container-fluid mt-2">
                     <div class="form-group row">
                         <form method="POST">
-                            {% csrf_token %} {{ comment_form.as_p }} {% if request.user.is_authenticated %}
-                            <input type="submit" value="Submit" class="btn btn-outline-success"> {% else %}
-                            <input type="submit" value="Submit" class="btn btn-outline-success" disabled> {% endif %}
+                            {% csrf_token %} {{ comment_form.as_p }} 
+                            <input type="submit" value="Submit" class="btn btn-outline-success"> 
 
                         </form>
                     </div>
                 </div>
             </div>
+            {% endif %}
             <hr> {% for comment in comments %}
             <div class="row">
                 <div class="comments">
@@ -117,13 +118,17 @@
                         </div>
                         </div>
                     {% endfor %}
-                    <hr>
+                    <hr>{% if request.user.is_authenticated %}
                     <form method="POST">
                         {% csrf_token %}
-                        <input type="hidden" name="comment_id" value="{{ comment.id }}"> {{ comment_form.as_p }} {% if request.user.is_authenticated %}
-                        <input type="submit" value="Submit" class="btn btn-outline-success"> {% else %}
-                        <input type="submit" value="Submit" class="btn btn-outline-success" disabled> {% endif %}
+                        <input type="hidden" name="comment_id" value="{{ comment.id }}"> {{ comment_form.as_p }} 
+                        <input type="submit" value="Submit" class="btn btn-outline-success"> 
+                         
                     </form>
+                    {% else %}
+                    <div class="col-xs-2 col-md-1"></div>
+                    <div class="col-xs-10 col-md-11"><p>Please <a href="{% url 'login' %}">sign in</a> or <a href="{% url 'registration' %}">register</a> to leave a comment.</p></div>
+                    {% endif %}
                 </div>
             </div>
             <hr> {% endfor %}
