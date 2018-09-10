@@ -14,7 +14,11 @@ from django.utils.text import slugify
 
 
 class Feature(models.Model):
-    
+    """There are four status codes, the first will occur as the admins will 
+    decide how much the feature will cost i.e. How much money needs to be 
+    raised in order for work to begin. When price has been set the status will
+    change to open. When contributions equal or exceed the price the status 
+    will change to working."""
     STATUS_CODES = (
     (1, _('Awaiting Pricing')),
     (2, _('Open')),
@@ -43,10 +47,6 @@ class Feature(models.Model):
         return reverse("feature_detail", args=[self.id, self.slug])
         
 
-        
-    
-    
-
 @receiver(pre_save, sender=Feature)        
 def pre_save_slug(sender, **kwargs):
     slug = slugify(kwargs['instance'].title)
@@ -55,6 +55,8 @@ def pre_save_slug(sender, **kwargs):
     
     
 class Comment(models.Model):
+    """"This model is for comments on aparticular feature. It has a self-referential
+    reply field to determine if the comment is a reply to another.""" 
     feature = models.ForeignKey(Feature, related_name="comment")
     user = models.ForeignKey(User, related_name="user_feature_comment")
     reply = models.ForeignKey('self', null=True, related_name="replies", blank=True)
@@ -66,6 +68,7 @@ class Comment(models.Model):
         return '{}-{}'.format(self.feature.title, str(self.user.username))
         
     def total_likes(self):
+        """This method counts the number of users who have liked a comment."""
         return self.likes.count()
         
     def get_absolute_url(self):

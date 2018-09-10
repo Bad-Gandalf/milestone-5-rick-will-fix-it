@@ -8,7 +8,9 @@ from django.dispatch import receiver
 from django.utils.text import slugify
 from django.db.models.signals import pre_save
 
-# Create your models here.
+# This model has optional foreign key fields for ugs and features if needed. 
+# If a site admin wishes to update on a particular bug or feature the link to 
+# that specific bug or feature will dispaly in the blog post detail page. 
 class Blog(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=120)
@@ -26,7 +28,7 @@ class Blog(models.Model):
     
     
         
-    
+# Automatically create slug for model.    
 @receiver(pre_save, sender=Blog)        
 def pre_save_slug(sender, **kwargs):
     slug = slugify(kwargs['instance'].title)

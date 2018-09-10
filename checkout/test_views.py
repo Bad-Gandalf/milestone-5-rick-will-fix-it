@@ -1,70 +1,60 @@
-# from django.test import TestCase
-# from django.contrib.auth import login
-# from django.contrib.auth.models import User
-# from features.models import Feature
-# from .forms import *
-# from django.utils import timezone
-# from django.conf import settings
-# import env
-# import stripe
+from django.test import TestCase
+from django.contrib.auth import login
+from django.contrib.auth.models import User
+from django.contrib.messages import get_messages
+from features.models import Feature
+from .forms import *
+from django.utils import timezone
+from django.conf import settings
 
-# stripe.api_key = settings.STRIPE_SECRET
-
-
-
-# class TestCheckoutViews(TestCase):
-#     def test_checkout_with_incorrect_card_details(self):
-#         user = User.objects.create_user(username='username', password='password')
-#         feature = Feature(title="Test Feature", author=user, content="Test Content")
-#         feature.save()
-#         self.client.login(username='username', password='password')
-#         self.client.post('/cart/add/{0}'.format(feature.id), {'contribution': '50'}, follow=True)
-#         token = stripe.Token.create(
-#             card={
-#                 "number": '4242424242424242',
-#                 "exp_month": 12,
-#                 "exp_year": 2019,
-#                 "cvc": '111'
-#                 },
-#                 )
-        
-        
-#         page = self.client.post('/checkout/', {'full_name':"Patrick Doherty",
-#                 'phone_number':"02871774646",
-#                 'country':"Ireland",
-#                 'postcode':"BT829DE",
-#                 'town_or_city':"Strabane",
-#                 'street_address1':'5 Lasts Lane',
-#                 'street_address2':"Urney Road",
-#                 'county':"Tyrone",
-#                 token
-#             }, follow=True)
-#         self.assertEqual(page.status_code, 200)
-#         messages = list(page.context['messages'])
-#         self.assertEqual(len(messages), 1)
-#         self.assertEqual(str(messages[0]), 'We were unable to take a payment with that card!')
+class TestCheckoutViews(TestCase):
     
-#     def test_checkout_with_correct_card_details(self):
-#         user = User.objects.create_user(username='username', password='password')
-#         feature = Feature(title="Test Feature", author=user, content="Test Content")
-#         feature.save()
+    def test_checkout_with_correct_card_details(self):
+        user = User.objects.create_user('username', 'myemail@test.com','password')
+        feature = Feature(title="Test Feature", author=user, content="Test Content")
+        feature.save()
+        self.client.login(username='username', password='password')
+        self.client.post('/cart/add/{0}'.format(feature.id), {'contribution': '50'}, follow=True)
+        stripe_id = 'tok_visa'
         
-#         self.client.login(username='username', password='password')
-#         self.client.post('/cart/add/{0}'.format(feature.id), {'contribution': '50'}, follow=True)
-#         page = self.client.post('/checkout/', {'full_name':"Patrick Doherty",
-#                 'phone_number':"02871774646",
-#                 'country':"Ireland",
-#                 'postcode':"BT829DE",
-#                 'town_or_city':"Strabane",
-#                 'street_address1':'5 Lasts Lane',
-#                 'street_address2':"Urney Road",
-#                 'county':"Tyrone",
-#                 'credit_card_number':'42424242424243',
-#                 'cvv':'111',
-#                 'expiry_month': '12',
-#                 'expiry_year':'2019',
-#                 'stripe_id': settings.STRIPE_PUBLISHABLE} , follow=True)
-#         self.assertEqual(page.status_code, 200)
-#         messages = list(page.context['messages'])
-#         self.assertEqual(len(messages), 1)
-#         self.assertEqual(str(messages[0]), 'We were unable to take a payment with that card!')
+        page = self.client.post('/checkout/', {'full_name':'name','phone_number':'123', 'street_address1':'my', 'street_address2':'address is', 'town_or_city':'kk', 'county':'ireland', 'country':'ireland','postcode':'eircode', 'credit_card_number': '4242424242424242','cvv':'111', 'expiry_month':'2','expiry_year':'2019', 'stripe_id':stripe_id}, follow=True)
+        self.assertEqual(page.status_code, 200)
+        messages = list(page.context['messages'])
+        self.assertEqual(len(messages), 1)
+        self.assertTemplateUsed('features/feature_detail.html')
+        self.assertEqual(str(messages[0]), 'You have successfully contributed')
+    
+    def test_checkout_with_incorrect_card_details(self):
+        user = User.objects.create_user('username', 'myemail@test.com','password')
+        feature = Feature(title="Test Feature", author=user, content="Test Content")
+        feature.save()
+        
+        self.client.login(username='username', password='password')
+        self.client.post('/cart/add/{0}'.format(feature.id), {'contribution': '50'}, follow=True)
+        stripe_id = 'tok_chargeDeclined'
+        page = self.client.post('/checkout/', {'full_name':'name','phone_number':'123', 'street_address1':'my', 'street_address2':'address is', 'town_or_city':'kk', 'county':'ireland', 'country':'ireland','postcode':'eircode', 'credit_card_number': '4000400040004000','cvv':'111', 'expiry_month':'2','expiry_year':'2019', 'stripe_id':stripe_id} , follow=True)
+        messages = list(get_messages(page.wsgi_request))
+        self.assertEqual(str(messages[0]), 'Your card was declined!')
+        
+    def test_checkout_invalid_order_form(self):
+        user = User.objects.create_user('username', 'myemail@test.com','password')
+        feature = Feature(title="Test Feature", author=user, content="Test Content")
+        feature.save()
+        
+        self.client.login(username='username', password='password')
+        self.client.post('/cart/add/{0}'.format(feature.id), {'contribution': '50'}, follow=True)
+        stripe_id = 'tok_chargeDeclined'
+        page = self.client.post('/checkout/', {'phone_number':'123', 'street_address1':'my', 'street_address2':'address is', 'town_or_city':'kk', 'county':'ireland', 'country':'ireland','postcode':'eircode', 'credit_card_number': '4000400040004000','cvv':'111', 'expiry_month':'2','expiry_year':'2019', 'stripe_id':stripe_id} , follow=True)
+        messages = list(get_messages(page.wsgi_request))
+        self.assertEqual(str(messages[0]), 'We were unable to take a payment with that card!')
+        
+    def test_load_page(self):
+        user = User.objects.create_user('username', 'myemail@test.com','password')
+        feature = Feature(title="Test Feature", author=user, content="Test Content")
+        feature.save()
+        self.client.login(username='username', password='password')
+        self.client.post('/cart/add/{0}'.format(feature.id), {'contribution': '50'}, follow=True)
+        stripe_id = 'tok_visa'
+        page=self.client.get('/checkout/')
+        self.assertTemplateUsed('checkout/checkout.html')
+        

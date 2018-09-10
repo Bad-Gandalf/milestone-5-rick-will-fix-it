@@ -2,7 +2,9 @@ from django.contrib import admin
 from .models import Post, Comment
 from django.db import models
 
-# Register your models here.
+# The admin panel will display the posts in a manner that is easy to read.
+# Admins can see the most popular/urgent bugs quickly depending on 
+# total_upvotes. They can also adjust the status of the bug easily. 
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'author', 'status', 'total_upvotes')

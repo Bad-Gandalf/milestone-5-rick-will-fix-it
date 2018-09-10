@@ -30,20 +30,22 @@ class Post(models.Model):
     
     def __str__(self):
         return self.title
-    
+# This method will count the users who have upvoted a bug post.    
     def total_upvotes(self):
         return self.upvotes.count()   
-        
+    
     def get_absolute_url(self):
         return reverse("post_detail", args=[self.id, self.slug])
-        
+
+# This automatically creates a slug for the post        
 @receiver(pre_save, sender=Post)        
 def pre_save_slug(sender, **kwargs):
     slug = slugify(kwargs['instance'].title)
     kwargs['instance'].slug = slug
     print(kwargs)
     
-    
+# This model is for comments on particular bug posts. It has a self-referential
+# reply field to determine if the comment is a reply to another.    
 class Comment(models.Model):
     post = models.ForeignKey(Post, related_name="comment")
     user = models.ForeignKey(User)
@@ -54,10 +56,10 @@ class Comment(models.Model):
     
     def __str__(self):
         return '{}-{}'.format(self.post.title, str(self.user.username))
-        
+# This method will count the users who have liked a comment.        
     def total_likes(self):
         return self.likes.count()
-    
+# This method directs to the url for the post.    
     def get_absolute_url(self):
         return reverse("post_detail", args=[self.post.id, self.post.slug])
 

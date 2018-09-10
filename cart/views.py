@@ -12,6 +12,8 @@ def view_cart(request):
 
 @login_required    
 def contribution_amount(request, id):
+    """As users choose the amount they wish to contribute, I have created a 
+    contribution form to validate the amount, ie. it needs to be at least €10."""
     feature = get_object_or_404(Feature, pk=id)
     contribution_form = ContributionForm(request.POST)
     context = {"contribution_form": contribution_form, "feature": feature}
@@ -31,7 +33,8 @@ def add_to_cart(request, id):
     
 @login_required
 def adjust_cart(request, id):
-    """Adjust the donation of the specified product to the specified amount"""
+    """Adjust the donation of the specified product to the specified amount.
+    It will also check again to see if the amount meets the threshold """
     
     contribution = int(request.POST.get('contribution'))
     if contribution < 10:

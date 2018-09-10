@@ -1,5 +1,3 @@
-#from djqscsv import render_to_csv_response
-#from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from django.core import serializers
 from .models import BugWorkTime
@@ -11,7 +9,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import BugWorkTimeSerializer, PostSerializer, OrderLineItemSerializer, FeatureSerializer
 
-# Create your views here.
+"""Will render pages for site statistics. javascript files will use d3 to 
+create the charts."""
 def display_stats(request):
     return render(request, 'stats/workflow.html')
     
@@ -20,9 +19,9 @@ def display_upvotes(request):
     
 def display_feature_stats(request):
     return render(request, 'stats/feature_stats.html')
-    
-    
 
+"""The below classes create the api views with the json data in order for the
+d3/javascript files to parse the data and create the appropriate charts."""
 class BugWorkTimeListDaily(APIView):
     # If statements to adjust for last working day i.e Friday when the 
     # user checks on a Sunday or Monday

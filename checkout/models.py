@@ -14,7 +14,8 @@ class Order(models.Model):
     
     def __str__(self):
         return "{0}-{1}-{2}".format(self.id, self.date, self.full_name)
-        
+
+"""This model handles each contribution made to a feature"""        
 class OrderLineItem(models.Model):
     user = models.ForeignKey(User, null=True, related_name="user_contribution")
     order = models.ForeignKey(Order, null=False, related_name="order_contribution")

@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from .models import Blog
 from django.db import models
 
-# Register your models here.
+# The render_change_form method ensures that only users that are identified as 
+# staff will be an option to pick from when creating a blog.
 
 class BlogAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'author')

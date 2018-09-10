@@ -16,7 +16,7 @@ class TestFeatureList(TestCase):
     def test_Feature_list_retrieval(self):
         user = User(username="username", email="email@gmail.com", password="password")
         user.save()
-        feature = Feature(title="Test Feature", author=user, content="Test Content")
+        feature = Feature(title="Test Feature", author=user, content="Test Content", status=2)
         feature.save()
         page = self.client.get("/features/feature_list/")
         self.assertTrue(page.context["features"])
