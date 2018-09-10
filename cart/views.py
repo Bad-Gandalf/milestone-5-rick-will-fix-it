@@ -50,4 +50,11 @@ def adjust_cart(request, id):
     request.session['cart'] = cart
     return redirect(reverse('view_cart'))
 
+@login_required    
+def empty_cart(request, id):
+    """Get the cart and delete it."""
+    request.session['cart'] = request.session.get('cart', {})
+    del request.session['cart']
+    messages.error(request, "You have successfully emptied your cart!")
+    return redirect(reverse('view_cart'))
     

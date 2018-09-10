@@ -14,6 +14,10 @@ stripe.api_key = settings.STRIPE_SECRET
 @login_required()
 def checkout(request):
     """Checks that information has been correctly validated"""
+    cart = request.session.get('cart', {})
+    if not cart.items():
+        messages.error(request, "Cart is empty. Cannot proceed to checkout!")
+        return redirect(reverse('view_cart'))
     
     if request.method =="POST":
         order_form = OrderForm(request.POST)

@@ -50,4 +50,12 @@ class TestCartViews(TestCase):
         self.assertEqual(page.status_code, 200)
         self.assertTemplateUsed(page, 'cart/cart.html')
         
-        
+    def test_empty_cart(self):
+        self.client.login(username='username', password='password')
+        page = self.client.post('/cart/add/{0}'.format(self.feature.id), {'contribution': '50'}, follow=True)
+        page = self.client.post('/cart/empty/{0}'.format(self.feature.id), follow=True)
+        messages = list(page.context['messages'])
+        self.assertEqual(page.status_code, 200)
+        self.assertTemplateUsed(page, 'cart/cart.html') 
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), 'You have successfully emptied your cart!')
