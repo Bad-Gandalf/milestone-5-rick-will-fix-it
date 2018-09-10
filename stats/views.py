@@ -23,8 +23,8 @@ def display_feature_stats(request):
 """The below classes create the api views with the json data in order for the
 d3/javascript files to parse the data and create the appropriate charts."""
 class BugWorkTimeListDaily(APIView):
-    # If statements to adjust for last working day i.e Friday when the 
-    # user checks on a Sunday or Monday
+    """If statements to adjust for last working day i.e Friday when the 
+    user checks on a Sunday or Monday"""
     def get(self, request):
         today = datetime.today()
         if datetime.today().isoweekday() == 7: #Sunday
@@ -40,6 +40,7 @@ class BugWorkTimeListDaily(APIView):
     
         
 class BugWorkTimeListWeekly(APIView):
+    """Provides a json for work spent on each bug in the last 7 days"""
     def get(self, request):
         today = datetime.today()
         week = today - timedelta(days=7)
@@ -50,7 +51,7 @@ class BugWorkTimeListWeekly(APIView):
     
     
 class BugWorkTimeListMonthly(APIView):
-    
+    """Provides a json for work spent on each bug in the last 31 days"""
     def get(self, request):
         today = datetime.today()
         month = today - timedelta(days=31)
@@ -61,20 +62,21 @@ class BugWorkTimeListMonthly(APIView):
     
     
 class CurrentBugUpvotes(APIView):
-    
+    """Provides a json for upvotes on working bugs"""
     def get(self, request):
         qs = Post.objects.filter(status=2)
         serializer = PostSerializer(qs, many=True)
         return Response(serializer.data)
         
 class OpenBugUpvotes(APIView):
-    
+    """Provides a json for upvotes on open bugs"""
     def get(self, request):
         qs = Post.objects.filter(status=1)
         serializer = PostSerializer(qs, many=True)
         return Response(serializer.data)
         
 class OpenFeaturesContributions(APIView):
+    """Provides a json for total contributions to a particular feature."""
     def get(self, request):
         qs = Feature.objects.filter(status=2)
         serializer = FeatureSerializer(qs, many=True)

@@ -9,9 +9,9 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-12 col-md-6">
+        <div class="col-sm-12 col-md-6 profile-photo">
             {% if profile.photo %}
-            <img src="{{ profile.photo.url }}" width=400px;>
+            <img src="{{ profile.photo.url }}" >
             {% else %}
             <a href="{% url 'edit_profile' user.id %}"><button class="btn-success">Upload Picture</button></a>
             {% endif %}

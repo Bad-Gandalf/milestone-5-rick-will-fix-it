@@ -1,15 +1,15 @@
 {% extends "base.html" %} {% block content %} {% load static from staticfiles %}
 <div class="container-fluid">
     <div class="container">
-        
-    <div class="row">
-        <div class="col-sm-3 col-md-2">
-        <div class="avatar-box"> 
-        <img src="{{post.author.profile.photo.url}}" class="img-circle">
-        </div>
-        <br>
-        <div class="upvote-panel">
-                        <span><form action="{% url 'upvote_post' %}" method="POST">
+
+        <div class="row">
+            <div class="col-sm-3 col-md-2">
+                <div class="avatar-box">
+                    <img src="{{post.author.profile.photo.url}}" class="img-circle">
+                </div>
+                <br>
+                <div class="upvote-panel">
+                    <span><form action="{% url 'upvote_post' %}" method="POST">
                     {% csrf_token %} 
                     {% if is_upvoted %}
                     <button class="btn btn-danger" type="submit" name="post_id" value="{{ post.id }}">Downvote</button> 
@@ -18,9 +18,9 @@
                     {% endif %}
                     </form>
                 <br>
-                    </div>
-                    <br>
-</div>
+            </div>
+            <br>
+        </div>
         <div class="col-md-10 col-sm-9">
 
             <div class="panel-body">
@@ -42,54 +42,54 @@
 
                     <div class="col-md-3 col-xs-12">
                         <span class="boldtext">Status:</span> {{ post.get_status_display }}
-                    </div>
-                    <div class="col-md-3 col-xs-12">
-                     {{ post.published_date }}
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    {{ post.published_date }}
                 </div>
                 {% if request.user.id == post.author.id %}
-                 <div class="col-md-3" >
-                    
-                        <span><a href="{% url 'update' post.id post.slug %}" style="float:right;">
+                <div class="col-md-3 edit-bug-link">
+
+                    <span><a href="{% url 'update' post.id post.slug %}" >
                              Edit
                             </a></span> </div>{% else %} {% endif %}</small>
 
-                </div>
-                {% if post.image %}
-                <hr>
-                <div class="col-xs-10" style="text-align:center;">
-                    <img class="img-blogpost" src="{{ post.image.url }}" style="max-width:100%; max-height:500px;">
-                </div>
-                {% endif %}
-                
             </div>
-
-
+            {% if post.image %}
             <hr>
-            <h4>Comment{{ comments|pluralize }}: {{ comments.count }}</h4>
-            <hr>
-            {% if request.user.is_authenticated %}
-            <div class="main-comment-section">
-                <div class="container-fluid mt-2">
-                    <div class="form-group row">
-                        <form method="POST">
-                            {% csrf_token %} {{ comment_form.as_p }} 
-                            <input type="submit" value="Submit" class="btn btn-outline-success">  
-
-                        </form>
-                    </div>
-                </div>
+            <div class="col-xs-10 bug-detail-image">
+                <img src="{{ post.image.url }}">
             </div>
             {% endif %}
-            <hr> {% for comment in comments %}
-            <div class="row">
 
-                <div class="comments">
-                    <div class="col-xs-2 col-md-1">
-                        <img src="{{comment.user.profile.photo.url}}" class="img-circle" style="max-height:50px; max-width:50px;">
-                    </div>
-                    <div class="col-xs-10 col-md-11"><p>
+        </div>
+
+
+        <hr>
+        <h4>Comment{{ comments|pluralize }}: {{ comments.count }}</h4>
+        <hr> {% if request.user.is_authenticated %}
+        <div class="main-comment-section">
+            <div class="container-fluid mt-2">
+                <div class="form-group row">
+                    <form method="POST">
+                        {% csrf_token %} {{ comment_form.as_p }}
+                        <input type="submit" value="Submit" class="btn btn-outline-success">
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <hr> {% for comment in comments %}
+        <div class="row">
+
+            <div class="comments">
+                <div class="col-xs-2 col-md-1 profile-photo-bug-detail">
+                    <img src="{{comment.user.profile.photo.url}}" class="img-circle">
+                </div>
+                <div class="col-xs-10 col-md-11">
+                    <p>
                         <a href="{% url 'user_profile' comment.user.id %}">{{comment.user.username}}</a> {{ comment.content }} <small>{{comment.timestamp }} <i class="fas fa-thumbs-up" ></i>   {{ comment.total_likes }}</small></p>
-                     <small>
+                    <small>
                     <div class="col-xs-3 ">
                         <button type="button" name="button" class="reply-btn">Reply</button>
                         </div>
@@ -104,55 +104,55 @@
                 </form></span>
                 </div></small>
                 </div>
-                </div>
             </div>
+        </div>
 
-            <div class="replied-comments mt-4" style="display:none;">
+        <div class="replied-comments mt-4">
 
-                <div class="form-group container-fluid">
-                    {% for reply in comment.replies.all %}
-                    <hr>
+            <div class="form-group container-fluid">
+                {% for reply in comment.replies.all %}
+                <hr>
 
-                    <div class="row">
-                        <div class="col-xs-2 col-md-1"><img src="{{reply.user.profile.photo.url}}" class="img-circle" style="max-height:50px; max-width:50px;"></div>
-                        <div class="col-xs-10 col-md-11"><p>
-                        <a href="{% url 'user_profile' comment.user.id %}">{{reply.user.username}}</a> {{ reply.content }} <small>{{reply.timestamp }}</small></p>
-                        </div>
-                        
-                        
-
-
-
+                <div class="row">
+                    <div class="col-xs-2 col-md-1 profile-photo-bug-detail">
+                        <img src="{{reply.user.profile.photo.url}}" class="img-circle"></div>
+                    <div class="col-xs-10 col-md-11">
+                        <p>
+                            <a href="{% url 'user_profile' comment.user.id %}">{{reply.user.username}}</a> {{ reply.content }} <small>{{reply.timestamp }}</small></p>
                     </div>
-                    {% endfor %}
-                    <hr>{% if request.user.is_authenticated %}
-                    <form method="POST">
-                        {% csrf_token %}
-                        <input type="hidden" name="comment_id" value="{{ comment.id }}"> {{ comment_form.as_p }} 
-                        <input type="submit" value="Submit" class="btn btn-outline-success">  
-                    </form>
-                    {% else %}
-                    <div class="col-xs-2 col-md-1"></div>
-                    <div class="col-xs-10 col-md-11"><p>Please <a href="{% url 'login' %}">sign in</a> or <a href="{% url 'registration' %}">register</a> to leave a comment.</p></div>
-                    
-                {% endif %}
+
                 </div>
-                
+                {% endfor %}
+                <hr>{% if request.user.is_authenticated %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="comment_id" value="{{ comment.id }}"> {{ comment_form.as_p }}
+                    <input type="submit" value="Submit" class="btn btn-outline-success">
+                </form>
+                {% else %}
+                <div class="col-xs-2 col-md-1"></div>
+                <div class="col-xs-10 col-md-11">
+                    <p>Please <a href="{% url 'login' %}">sign in</a> or <a href="{% url 'registration' %}">register</a> to leave a comment.</p>
+                </div>
+
+                {% endif %}
             </div>
-            
-            <hr> {% endfor %}
-
-
-
-            <a href="{% url 'post_list' %}" class="btn btn-default">Back To List</a>
 
         </div>
+
+        <hr> {% endfor %}
+
+
+
+        <a href="{% url 'post_list' %}" class="btn btn-default">Back To List</a>
+
+    </div>
 
 
 </div>
 
-    </div>
-    
+</div>
+
 </div>
 
 {% endblock %}

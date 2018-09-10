@@ -16,16 +16,16 @@
             upvote a particular bug. You must register before you can post a 
             new bug. Upvotes will determine time given to solving each bug.</p>
         </div>
-        <div class="col-xs-12 col-md-3">
-            <img src="{% static 'img/mrmeeseeks.jpeg' %}" style="border-radius: 10px; max-width:225px;">
+        <div class="col-xs-12 col-md-3 index-image">
+            <img src="{% static 'img/mrmeeseeks.jpeg' %}">
         </div>
     </div>
     
     
     <hr>
     <div class="row">
-        <div class="col-xs-12 col-md-3">
-            <img src="{% static 'img/CursePurgePlus.png' %}" style="border-radius: 10px; max-width:225px;">
+        <div class="col-xs-12 col-md-3 index-image">
+            <img src="{% static 'img/CursePurgePlus.png' %}">
         </div>
         <div class="col-xs-12 col-md-9">
             <a href="{% url 'feature_list' %}"><h2>Feature Requests and Curse Purge Plus</h2></a>
@@ -53,7 +53,7 @@
 
 <div class="blog-post container ">
     
-    <div class="post-info" style="margin-bottom:10px;">
+    <div class="post-info">
         <h3 class="post-title">{{ blog.title }}</h3>
         <div class="post-meta">
             <small><span class="post-author">by {{ blog.author }} - </span>

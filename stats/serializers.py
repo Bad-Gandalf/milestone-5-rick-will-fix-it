@@ -4,7 +4,8 @@ from bugs.models import Post
 from features.models import Feature
 from checkout.models import OrderLineItem
 
-
+"""These serializers help create the readable json files from python objects
+in order to be read by the javascript/ d3 files."""
 class BugWorkTimeSerializer(serializers.ModelSerializer):
     bug = serializers.SlugRelatedField(read_only=True, slug_field='title')
     user = serializers.SlugRelatedField(read_only=True, slug_field='username')
