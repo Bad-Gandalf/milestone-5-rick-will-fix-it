@@ -12,6 +12,7 @@ class TestContributionForm(TestCase):
         self.assertRaises(ValidationError, form.clean_price)
         
     
+    
         
         
         

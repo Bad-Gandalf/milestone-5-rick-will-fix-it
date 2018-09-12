@@ -43,6 +43,7 @@ class TestPostDetailView(TestCase):
         self.assertEqual(page.status_code, 200)
         self.assertTemplateUsed(page, "bugs/post_detail.html")
         
+        
     def test_create_post_get(self):
         User.objects.create_user(username='username', password='password')
         self.client.login(username='username', password='password')
