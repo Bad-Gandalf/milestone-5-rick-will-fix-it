@@ -1,15 +1,15 @@
 {% extends 'base.html' %} {% block content %} {% load staticfiles %}
-
+<div class="container-fluid">
 <div class="container">
 
     <h1>{{ user.username }}'s Profile</h1>
-</div>
 
+</div>
 
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-12 col-md-6 profile-photo">
+        <div class="col-xs-12 col-md-6 profile-photo">
             {% if profile.photo %}
             <img src="{{ profile.photo.url }}" >
             {% else %}
@@ -17,8 +17,9 @@
             {% endif %}
             
         </div>
-        <br>
-        <div class="col-sm-12 col-md-6">
+        
+        <div class="col-xs-12 col-md-6">
+            
             <p>Name: {{ user.first_name }} {{ user.last_name }}</p>
             <p>Email: {{ user.email }}</p>
             <p>DOB: {{ profile.date_of_birth }}</p>
@@ -33,7 +34,7 @@
         </div>
 </div>
 </div>
-
+</div>
 
 
 

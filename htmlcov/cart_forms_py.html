@@ -93,12 +93,12 @@
 <p id="t2" class="stm run hide_run"><span class="key">from</span> <span class="nam">checkout</span><span class="op">.</span><span class="nam">models</span> <span class="key">import</span> <span class="nam">OrderLineItem</span><span class="strut">&nbsp;</span></p>
 <p id="t3" class="pln"><span class="strut">&nbsp;</span></p>
 <p id="t4" class="stm run hide_run"><span class="key">class</span> <span class="nam">ContributionForm</span><span class="op">(</span><span class="nam">forms</span><span class="op">.</span><span class="nam">ModelForm</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
-<p id="t5" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t5" class="pln">    <span class="str">""" Displays minimum amount required."""</span><span class="strut">&nbsp;</span></p>
 <p id="t6" class="stm run hide_run">    <span class="key">def</span> <span class="nam">__init__</span><span class="op">(</span><span class="nam">self</span><span class="op">,</span> <span class="op">*</span><span class="nam">args</span><span class="op">,</span> <span class="op">**</span><span class="nam">kwargs</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
 <p id="t7" class="stm run hide_run">        <span class="nam">super</span><span class="op">(</span><span class="nam">ContributionForm</span><span class="op">,</span> <span class="nam">self</span><span class="op">)</span><span class="op">.</span><span class="nam">__init__</span><span class="op">(</span><span class="op">*</span><span class="nam">args</span><span class="op">,</span> <span class="op">**</span><span class="nam">kwargs</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
 <p id="t8" class="stm run hide_run">        <span class="nam">self</span><span class="op">.</span><span class="nam">fields</span><span class="op">[</span><span class="str">'contribution'</span><span class="op">]</span><span class="op">.</span><span class="nam">widget</span><span class="op">.</span><span class="nam">attrs</span><span class="op">[</span><span class="str">'min'</span><span class="op">]</span> <span class="op">=</span> <span class="num">10.00</span><span class="strut">&nbsp;</span></p>
 <p id="t9" class="pln"><span class="strut">&nbsp;</span></p>
-<p id="t10" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t10" class="pln">    <span class="str">""" Validates the form, if it meets minimum requirement """</span><span class="strut">&nbsp;</span></p>
 <p id="t11" class="stm run hide_run">    <span class="key">def</span> <span class="nam">clean_price</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
 <p id="t12" class="stm run hide_run">        <span class="nam">contribution</span> <span class="op">=</span> <span class="nam">self</span><span class="op">.</span><span class="nam">cleaned_data</span><span class="op">[</span><span class="str">'contribution'</span><span class="op">]</span><span class="strut">&nbsp;</span></p>
 <p id="t13" class="stm run hide_run">        <span class="key">if</span> <span class="nam">contribution</span> <span class="op">&lt;</span> <span class="num">10.00</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
@@ -118,7 +118,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v4.5.1</a>,
-            created at 2018-08-23 17:00
+            created at 2018-09-10 18:28
         </p>
     </div>
 </div>

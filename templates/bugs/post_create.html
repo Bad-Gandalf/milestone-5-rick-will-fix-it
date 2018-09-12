@@ -1,4 +1,5 @@
 {% extends 'base.html' %} {% block content %}
+{% load bootstrap %}
 
 <div class="container create-bug-header">
     <h2>
@@ -15,20 +16,17 @@
 <br>
 
 <div class="container">
-    <div class="col-md-offset-2 col-md-8">
+    
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group">
-                {% for field in form %}
-                <label>{{ field.label_tag }}</label> {{ field }} 
-                <br>
-                {% endfor %}
+                {{ form|bootstrap }}
             </div>
             {% if request.user.is_authenticated %}
             <button type="submit" value="Submit" class="btn-primary">Submit</button>{% else %}
             <button type="submit" value="Submit" class="btn-primary" disabled>Submit</button> {% endif %}
         </form>
-    </div>
+    
 </div>
 
 {% endblock %}

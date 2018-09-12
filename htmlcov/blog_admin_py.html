@@ -74,20 +74,21 @@
 <p id="n5" class="pln"><a href="#n5">5</a></p>
 <p id="n6" class="pln"><a href="#n6">6</a></p>
 <p id="n7" class="pln"><a href="#n7">7</a></p>
-<p id="n8" class="stm run hide_run"><a href="#n8">8</a></p>
+<p id="n8" class="pln"><a href="#n8">8</a></p>
 <p id="n9" class="stm run hide_run"><a href="#n9">9</a></p>
 <p id="n10" class="stm run hide_run"><a href="#n10">10</a></p>
 <p id="n11" class="stm run hide_run"><a href="#n11">11</a></p>
 <p id="n12" class="stm run hide_run"><a href="#n12">12</a></p>
-<p id="n13" class="pln"><a href="#n13">13</a></p>
-<p id="n14" class="stm run hide_run"><a href="#n14">14</a></p>
-<p id="n15" class="pln"><a href="#n15">15</a></p>
-<p id="n16" class="stm run hide_run"><a href="#n16">16</a></p>
+<p id="n13" class="stm run hide_run"><a href="#n13">13</a></p>
+<p id="n14" class="pln"><a href="#n14">14</a></p>
+<p id="n15" class="stm run hide_run"><a href="#n15">15</a></p>
+<p id="n16" class="pln"><a href="#n16">16</a></p>
 <p id="n17" class="stm run hide_run"><a href="#n17">17</a></p>
 <p id="n18" class="stm run hide_run"><a href="#n18">18</a></p>
-<p id="n19" class="pln"><a href="#n19">19</a></p>
+<p id="n19" class="stm run hide_run"><a href="#n19">19</a></p>
 <p id="n20" class="pln"><a href="#n20">20</a></p>
-<p id="n21" class="stm run hide_run"><a href="#n21">21</a></p>
+<p id="n21" class="pln"><a href="#n21">21</a></p>
+<p id="n22" class="stm run hide_run"><a href="#n22">22</a></p>
 
             </td>
             <td class="text">
@@ -96,22 +97,23 @@
 <p id="t3" class="stm run hide_run"><span class="key">from</span> <span class="op">.</span><span class="nam">models</span> <span class="key">import</span> <span class="nam">Blog</span><span class="strut">&nbsp;</span></p>
 <p id="t4" class="stm run hide_run"><span class="key">from</span> <span class="nam">django</span><span class="op">.</span><span class="nam">db</span> <span class="key">import</span> <span class="nam">models</span><span class="strut">&nbsp;</span></p>
 <p id="t5" class="pln"><span class="strut">&nbsp;</span></p>
-<p id="t6" class="pln"><span class="com"># Register your models here.</span><span class="strut">&nbsp;</span></p>
-<p id="t7" class="pln"><span class="strut">&nbsp;</span></p>
-<p id="t8" class="stm run hide_run"><span class="key">class</span> <span class="nam">BlogAdmin</span><span class="op">(</span><span class="nam">admin</span><span class="op">.</span><span class="nam">ModelAdmin</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
-<p id="t9" class="stm run hide_run">    <span class="nam">list_display</span> <span class="op">=</span> <span class="op">(</span><span class="str">'title'</span><span class="op">,</span> <span class="str">'slug'</span><span class="op">,</span> <span class="str">'author'</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t10" class="stm run hide_run">    <span class="nam">list_filter</span> <span class="op">=</span> <span class="op">(</span><span class="str">'published_date'</span><span class="op">,</span> <span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t11" class="stm run hide_run">    <span class="nam">search_fields</span> <span class="op">=</span> <span class="op">(</span><span class="str">'author__username'</span><span class="op">,</span> <span class="str">'title'</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t12" class="stm run hide_run">    <span class="nam">prepopulated_fields</span> <span class="op">=</span> <span class="op">{</span><span class="str">'slug'</span> <span class="op">:</span><span class="op">(</span><span class="str">'title'</span><span class="op">,</span><span class="op">)</span><span class="op">}</span><span class="strut">&nbsp;</span></p>
-<p id="t13" class="pln"><span class="strut">&nbsp;</span></p>
-<p id="t14" class="stm run hide_run">    <span class="nam">date_hierarchy</span> <span class="op">=</span> <span class="op">(</span><span class="str">'published_date'</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t15" class="pln"><span class="strut">&nbsp;</span></p>
-<p id="t16" class="stm run hide_run">    <span class="key">def</span> <span class="nam">render_change_form</span><span class="op">(</span><span class="nam">self</span><span class="op">,</span> <span class="nam">request</span><span class="op">,</span> <span class="nam">context</span><span class="op">,</span> <span class="op">*</span><span class="nam">args</span><span class="op">,</span> <span class="op">**</span><span class="nam">kwargs</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
-<p id="t17" class="stm run hide_run">        <span class="nam">context</span><span class="op">[</span><span class="str">'adminform'</span><span class="op">]</span><span class="op">.</span><span class="nam">form</span><span class="op">.</span><span class="nam">fields</span><span class="op">[</span><span class="str">'author'</span><span class="op">]</span><span class="op">.</span><span class="nam">queryset</span> <span class="op">=</span> <span class="nam">User</span><span class="op">.</span><span class="nam">objects</span><span class="op">.</span><span class="nam">filter</span><span class="op">(</span><span class="nam">is_staff</span><span class="op">=</span><span class="key">True</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t18" class="stm run hide_run">        <span class="key">return</span> <span class="nam">super</span><span class="op">(</span><span class="nam">BlogAdmin</span><span class="op">,</span> <span class="nam">self</span><span class="op">)</span><span class="op">.</span><span class="nam">render_change_form</span><span class="op">(</span><span class="nam">request</span><span class="op">,</span> <span class="nam">context</span><span class="op">,</span> <span class="op">*</span><span class="nam">args</span><span class="op">,</span> <span class="op">**</span><span class="nam">kwargs</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t19" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t6" class="pln"><span class="com"># The render_change_form method ensures that only users that are identified as </span><span class="strut">&nbsp;</span></p>
+<p id="t7" class="pln"><span class="com"># staff will be an option to pick from when creating a blog.</span><span class="strut">&nbsp;</span></p>
+<p id="t8" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t9" class="stm run hide_run"><span class="key">class</span> <span class="nam">BlogAdmin</span><span class="op">(</span><span class="nam">admin</span><span class="op">.</span><span class="nam">ModelAdmin</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t10" class="stm run hide_run">    <span class="nam">list_display</span> <span class="op">=</span> <span class="op">(</span><span class="str">'title'</span><span class="op">,</span> <span class="str">'slug'</span><span class="op">,</span> <span class="str">'author'</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t11" class="stm run hide_run">    <span class="nam">list_filter</span> <span class="op">=</span> <span class="op">(</span><span class="str">'published_date'</span><span class="op">,</span> <span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t12" class="stm run hide_run">    <span class="nam">search_fields</span> <span class="op">=</span> <span class="op">(</span><span class="str">'author__username'</span><span class="op">,</span> <span class="str">'title'</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t13" class="stm run hide_run">    <span class="nam">prepopulated_fields</span> <span class="op">=</span> <span class="op">{</span><span class="str">'slug'</span> <span class="op">:</span><span class="op">(</span><span class="str">'title'</span><span class="op">,</span><span class="op">)</span><span class="op">}</span><span class="strut">&nbsp;</span></p>
+<p id="t14" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t15" class="stm run hide_run">    <span class="nam">date_hierarchy</span> <span class="op">=</span> <span class="op">(</span><span class="str">'published_date'</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t16" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t17" class="stm run hide_run">    <span class="key">def</span> <span class="nam">render_change_form</span><span class="op">(</span><span class="nam">self</span><span class="op">,</span> <span class="nam">request</span><span class="op">,</span> <span class="nam">context</span><span class="op">,</span> <span class="op">*</span><span class="nam">args</span><span class="op">,</span> <span class="op">**</span><span class="nam">kwargs</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t18" class="stm run hide_run">        <span class="nam">context</span><span class="op">[</span><span class="str">'adminform'</span><span class="op">]</span><span class="op">.</span><span class="nam">form</span><span class="op">.</span><span class="nam">fields</span><span class="op">[</span><span class="str">'author'</span><span class="op">]</span><span class="op">.</span><span class="nam">queryset</span> <span class="op">=</span> <span class="nam">User</span><span class="op">.</span><span class="nam">objects</span><span class="op">.</span><span class="nam">filter</span><span class="op">(</span><span class="nam">is_staff</span><span class="op">=</span><span class="key">True</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t19" class="stm run hide_run">        <span class="key">return</span> <span class="nam">super</span><span class="op">(</span><span class="nam">BlogAdmin</span><span class="op">,</span> <span class="nam">self</span><span class="op">)</span><span class="op">.</span><span class="nam">render_change_form</span><span class="op">(</span><span class="nam">request</span><span class="op">,</span> <span class="nam">context</span><span class="op">,</span> <span class="op">*</span><span class="nam">args</span><span class="op">,</span> <span class="op">**</span><span class="nam">kwargs</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
 <p id="t20" class="pln"><span class="strut">&nbsp;</span></p>
-<p id="t21" class="stm run hide_run"><span class="nam">admin</span><span class="op">.</span><span class="nam">site</span><span class="op">.</span><span class="nam">register</span><span class="op">(</span><span class="nam">Blog</span><span class="op">,</span> <span class="nam">BlogAdmin</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t21" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t22" class="stm run hide_run"><span class="nam">admin</span><span class="op">.</span><span class="nam">site</span><span class="op">.</span><span class="nam">register</span><span class="op">(</span><span class="nam">Blog</span><span class="op">,</span> <span class="nam">BlogAdmin</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
 
             </td>
         </tr>
@@ -122,7 +124,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v4.5.1</a>,
-            created at 2018-09-05 15:21
+            created at 2018-09-11 19:09
         </p>
     </div>
 </div>

@@ -6,8 +6,6 @@ from django.contrib.messages import get_messages
 
 class TestViews(TestCase):
     
-    
-        
     def test_get_login_page(self):
         page = self.client.get("/accounts/login/")
         self.assertEqual(page.status_code, 200)
@@ -23,7 +21,7 @@ class TestViews(TestCase):
         self.assertTemplateUsed(page, "accounts/registration.html")
     
     def test_get_profile_page(self):
-        user = User(username='test_username', email='patrick.e.doherty@gmail.com',
+        user = User(username='test_username', email='test@gmail.com',
                     first_name = 'George', last_name='Smith')
         user.save()
         page = self.client.get("/accounts/profile/{0}/".format(user.id))

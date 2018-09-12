@@ -1,19 +1,20 @@
 {% extends 'base.html' %} 
-
+{% load bootstrap %}
 {% block content %}
 
 <div class="container">
+    <div class="panel-body">
     <h3>Edit Profile</h3>
 <div class="edit-profile-form ui-widget">
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data" role='form'>
         {% csrf_token %}
-        {{ user_form.as_p }}
+        {{ user_form|bootstrap }}
         <br>
-        {{ profile_form.as_p }} 
+        {{ profile_form|bootstrap }} 
         <br>
         <button type="submit" value="Submit" class="btn-primary">Submit</button>
     </form>
-
+</div>
 </div>
 </div>
 

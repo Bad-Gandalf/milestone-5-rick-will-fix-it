@@ -2,7 +2,7 @@
 <div class="container-fluid">
     <div class="container">
         <div class="row">
-            <div class="col-sm-3 col-md-2">
+            <div class="col-sm-3 col-md-2 avatar-upvote-box">
                 <div class="avatar-box">
                     <img src="{{feature.author.profile.photo.url}}" class="img-circle">
                 </div>
@@ -41,14 +41,15 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <p>{{ feature.content }}</p>
+                            <hr>
 
                         </div>
 
 
-                        <small><div class="col-md-3 col-xs-12">
+                        <small><div class="col-md-3 col-xs-6">
                         <span class="boldtext">Status:</span> {{ feature.get_status_display }}
                     </div>
-                    <div class="col-md-3 col-xs-12">
+                    <div class="col-md-3 col-xs-6">
                      {{ feature.published_date }}
                 </div> </small>
 

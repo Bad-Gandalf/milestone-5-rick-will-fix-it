@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
-
-
+{% load bootstrap %}
 
 {% block page_title %}Register User{% endblock %}
 
@@ -8,14 +7,16 @@
 
 {% block content %}
 <div class="container">
+    <div class="panel-body">
 <p>If you already have an account, you can <a href="{% url 'login' %}">sign in</a></p>
-<form method="POST">
+<form method="POST" role="form">
     {% csrf_token %}
     <div class="form-body">
     
-    {{ registration_form.as_p }}
+    {{ registration_form|bootstrap }}
     <button class="btn btn-default" type="submit">Register</button>
     </div>
 </form>
+</div>
 </div>
 {% endblock %}

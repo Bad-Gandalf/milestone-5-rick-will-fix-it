@@ -1,22 +1,23 @@
 {% extends 'base.html' %} {% block content %}
+{% load bootstrap %}
 <div class="container-fluid">
-<div class="row">
+<div class="container">
 
-    <div class="col-md-offset-3 col-md-6">
+    
         <div class="panel-body">
             
             <div class="caption" >
                 <h3>{{ feature.title }}</h3>
                 <hr>
                 <p>{{ feature.content }}</p>
-                <p>Feature Proposed by: {{ feature.author.username }}</p>
+                <p>by: {{ feature.author.username }}</p>
                 <p>Target: €{{ feature.price }}</p>
             <div class="form-group">
                 <form method="post" action="{% url 'add_to_cart' feature.id %}">
                 {% csrf_token %}
 
                 
-                    {{ contribution_form.as_table }} {% if request.user.is_authenticated %}
+                    {{ contribution_form|bootstrap }} {% if request.user.is_authenticated %}
                     <input type="submit" value="Submit" class="btn btn-success"> {% else %}
                     <input type="submit" value="Submit" class="btn btn-success" disabled> {% endif %}
                 
@@ -26,7 +27,7 @@
             </div>
             
         </div>
-    </div>
+    
 
 </div>
 </div>

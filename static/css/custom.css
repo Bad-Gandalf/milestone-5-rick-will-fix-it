@@ -257,8 +257,13 @@ caption p {
 	margin-bottom: 0;
 }
 .profile-photo img {
-	width:400px;
+	width:100%;
 }
+
+.profile-photo {
+margin-bottom: 15px;
+}
+
 .blog-post-image img {
 	max-width:100%;
 	max-height:500px;
@@ -295,4 +300,16 @@ caption p {
 
 .replied-comments {
 	display:none;
+}
+
+.total-upvotes-icon {
+	padding-right:0px;
+}
+
+.create-feature-button a {
+	float:right;
+}
+
+.avatar-upvote-box {
+	text-align:center;	
 }

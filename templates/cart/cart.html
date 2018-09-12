@@ -1,8 +1,8 @@
 {% extends 'base.html' %} {% block content %}
 <div class="container-fluid">
-<div class="row">
+
     {% if not cart_items %}
-    <div class="col-xs-8 panel">
+    <div class="col-xs-12 col-md-8 panel">
         <div class="panel-body">
 
             <div class="caption">
@@ -15,7 +15,7 @@
     
     
     
-    <div class="col-xs-8 panel">
+    <div class="col-xs-12 col-md-8 panel">
         <div class="panel-body">
 
             <div class="caption">
@@ -34,7 +34,8 @@
                         </div>
                     </div>
                     <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>Amend</button>
-                    <a href="{% url 'empty_cart' item.id %}" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Empty Cart</a>
+                    
+                    <a href="{% url 'remove_feature' item.id %}" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a>
                 </form>
                 
                 </span>
@@ -43,13 +44,17 @@
     </div>
     
     {% endfor %}
-    {% endif %}
-    <div class="col-xs-4 panel-body">
-        <p>Total</p>
-        <p><span class="glyphicon glyphicon-euro" aria-hidden="true"></span>{{ total }}</p>
+    <div class="col-xs-12 col-md-4 panel">
+        <div class="panel-body">
+        <p>Total: <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>{{ total }}</p>
+       
         <a href="{% url 'checkout' %}" class="btn btn-success" role="button"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Checkout</a>
+        <a href="{% url 'empty_cart' %}" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Empty Cart</a>
     </div>
-</div>
+    </div>
+    {% endif %}
+    
+
 
   </div> 
 

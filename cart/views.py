@@ -44,16 +44,21 @@ def adjust_cart(request, id):
     
     if contribution > 0:
         cart[id] = contribution
-    else:
-        cart.pop(id)
-        
+    
     request.session['cart'] = cart
     return redirect(reverse('view_cart'))
 
+@login_required
+def remove_feature(request, id):
+    """Delete a specific item in the cart."""
+    del request.session['cart'][str(id)]
+    request.session.modified = True
+    messages.error(request, "Feature successfully deleted from cart!")
+    return redirect(reverse('view_cart'))
+
 @login_required    
-def empty_cart(request, id):
+def empty_cart(request):
     """Get the cart and delete it."""
-    request.session['cart'] = request.session.get('cart', {})
     del request.session['cart']
     messages.error(request, "You have successfully emptied your cart!")
     return redirect(reverse('view_cart'))
