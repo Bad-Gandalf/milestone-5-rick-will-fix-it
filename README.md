@@ -14,37 +14,37 @@ Every bug and feature page will have a comment section allowing for the communit
 the television series. 
 
 ## UX
-User stories
-Bugs - Morty has noticed that everyone is acting strange at school and has decided to create a bug post. This will be seen by developers and other users of the site.
+####User stories
+- Bugs - Morty has noticed that everyone is acting strange at school and has decided to create a bug post. This will be seen by developers and other users of the site.
 The problem can be discussed with other users and developers who will upvote the bug to determine its urgency. Morty at this point has the ability to edit his bug post in light of 
 the discussion. When waiting for the bug to be fixed Morty can check the workflow statistics to see how it is divided based on urgency. Once the problem has been solved the developers
 or Rick will close the bug post and release an update addressing it. 
 
-Features - Krombopulous Michael, an assassin who needs an anti-matter ray-gun for his next target decides to raise a new feature request on the site. He cannot raise a bug
+- Features - Krombopulous Michael, an assassin who needs an anti-matter ray-gun for his next target decides to raise a new feature request on the site. He cannot raise a bug
 as his problems are his alone and Rick must be paid for this service. KM posts a request for a new feature which automatically goes to 'awaiting pricing', lead times are given 
 and the feature request cannot be seen by other users until a price has been decided upon. Once it has been decided upon the post will be visible on the site. If KM can meet 
 the price himself, work on the feature can begin. If he cannot, contributions by other interested users can help him meet his goal. Once the price has been met it will be 
 subject to the workflow priorities. The feature with the most contributions will be given priority and KM can follow this with the site's workflow statistics. 
 
-Anonymous user - This user can read all bugs, features and blogs however they cannot post anything be that bugs, features, comments, upvotes etc. Most of the options will be
+- Anonymous user - This user can read all bugs, features and blogs however they cannot post anything be that bugs, features, comments, upvotes etc. Most of the options will be
 unavailable to them, however, if they do attempt to do so they will be redirected to a login page. From here they can also register.
 
-Rick/Developer - Once a developer has worked on a bug for a certain amount of time i.e 60 minutes, they must fill out a timesheet in the admin panel. These timesheets will
+- Rick/Developer - Once a developer has worked on a bug for a certain amount of time i.e 60 minutes, they must fill out a timesheet in the admin panel. These timesheets will
 then be used as data for the site's workflow statistics. Once they have finished with a bug or feature or even just decide to update on its progress they can post a blog
 from the admin panel linking to the original post. 
  
 ## Features
 
 ### Existing Features
--Bugs - For raising tickets when a problem is encountered and other users can discuss this in a forum. Priority is given by upvotes.
--Features - Essentially the same as Bugs but for new feature proposals, and replacing upvotes with monetary contributions.
--Blog - Simple blog app detailing updates on Bugs or Features, only developers can create these.
--Cart - Shopping cart app where users can choose a feature and the amount they wish to contribute. 
--Checkout - Processes payments from users.
--Stats - Serializes information from models and uses this to create statistical charts displaying bug/feature/workflow statistics.
+- Bugs - For raising tickets when a problem is encountered and other users can discuss this in a forum. Priority is given by upvotes.
+- Features - Essentially the same as Bugs but for new feature proposals, and replacing upvotes with monetary contributions.
+- Blog - Simple blog app detailing updates on Bugs or Features, only developers can create these.
+- Cart - Shopping cart app where users can choose a feature and the amount they wish to contribute. 
+- Checkout - Processes payments from users.
+- Stats - Serializes information from models and uses this to create statistical charts displaying bug/feature/workflow statistics.
 
 ### Features Left to Implement
--Quiz - Users can upload quiz questions, if they are approved they can be added to a bank of questions. Users can then take a quiz made from these questions and compare results
+- Quiz - Users can upload quiz questions, if they are approved they can be added to a bank of questions. Users can then take a quiz made from these questions and compare results
 on a scoreboard.
 
 
@@ -94,5 +94,8 @@ on a scoreboard.
 
 ![Django Testing](/static/img/coverage1.png)
 ![Django Testing](/static/img/coverage2.png)
+
+
+
 
 [![Build Status](https://travis-ci.org/Bad-Gandalf/Unicorn-Attractor.svg?branch=master)](https://travis-ci.org/Bad-Gandalf/Unicorn-Attractor)

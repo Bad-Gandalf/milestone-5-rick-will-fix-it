@@ -24,6 +24,13 @@
         <div class="col-md-10 col-sm-9">
 
             <div class="panel-body">
+                {% if request.user.id == post.author.id %}
+                <div class="col-xs-12 edit-bug-link">
+
+                    <span><a href="{% url 'update' post.id post.slug %}" >
+                             Edit</a></span>
+                </div> 
+                            {% endif %}
 
                 <h3>{{ post.title }}</h3>
                 <a href="{% url 'user_profile' post.author.id %}"><h6>{{ post.author.username }}</h6></a>
@@ -46,17 +53,12 @@
                 <div class="col-md-3 col-xs-5">
                     {{ post.published_date }}
                 </div>
-                {% if request.user.id == post.author.id %}
-                <div class="col-md-3 edit-bug-link">
-
-                    <span><a href="{% url 'update' post.id post.slug %}" >
-                             Edit
-                            </a></span> </div>{% else %} {% endif %}</small>
+                </small>
 
             </div>
             {% if post.image %}
             <hr>
-            <div class="col-xs-10 bug-detail-image">
+            <div class="col-xs-12 bug-detail-image">
                 <img src="{{ post.image.url }}">
             </div>
             {% endif %}
