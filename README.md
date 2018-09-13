@@ -131,7 +131,7 @@ I developed the site mainly on Chrome but have also since tested it on Safari an
 All user stories have been checked with developer tools for their responsiveness. 
 Through this method I tested a wide variety of devices; iPhone 5,6,7,8,X, 
 iPad, iPad Pro, Google Pixel 2 and Galaxy S5. I am very happy with how my project scales from devices.
-The only problem is when looking at statistical charts and I do not find this and issue. 
+The only problem is when looking at statistical charts and I do not find this an issue. 
 
 ## Deployment
 - Project was deployed to heroku with relative ease.
@@ -141,7 +141,7 @@ The only problem is when looking at statistical charts and I do not find this an
 ## Credits
 
 ### Media
-- ### Media
+
 - The photos used in this site were obtained from [Rickipedia](http://rickandmorty.wikia.com/wiki/Rickipedia)
 
 ### Acknowledgements
