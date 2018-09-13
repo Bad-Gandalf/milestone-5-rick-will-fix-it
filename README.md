@@ -80,8 +80,8 @@ For testing I used the Django Test Suite to cover all my apps and then used
 Coverage to report on what code had or had not been tested. After 
 some persistence I eventually got the report up to 99%. I had difficulty 
 testing the checkout views due to stripe using javascript. However when I 
-found the correct tokens to use for form validation I was pleased. 99 Tests, 
-1823 statements with 22 missing. 
+found the correct tokens to use for form validation I was pleased. 101 Tests, 
+1862 statements with 22 missing. 
 
 My approach to automated testing was following the user stories. Running a test 
 for a logged in user and running the same for one that is logged in.

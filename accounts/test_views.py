@@ -99,6 +99,7 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, "accounts/profile.html")
         
     def test_edit_profile_correct_info_username_not_unique(self):
+        # Create two users. Log in as the first and try to update profile using second's username.
         user1 = User.objects.create_user(username='username', password='password', email="test@email.com")
         user2 = User.objects.create_user(username='username2', password='password', email="test2@email.com")
         self.client.login(username='username', password='password')
@@ -111,6 +112,7 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, "accounts/edit_profile.html")
         
     def test_edit_profile_correct_info_email_not_unique(self):
+        # Create two users. Log in as the first and try to update profile using second's email.
         user1 = User.objects.create_user(username='username', password='password', email="test@email.com")
         user2 = User.objects.create_user(username='username2', password='password', email="test2@email.com")
         self.client.login(username='username', password='password')
