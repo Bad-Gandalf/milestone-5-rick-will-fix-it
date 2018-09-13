@@ -46,8 +46,6 @@ class TestViews(TestCase):
         self.assertEqual(page.status_code, 200)
         self.assertTemplateUsed(page, "accounts/login.html")
         
-    
-    
         
     def test_logout_page_authenticated(self):
         User.objects.create_user(username='username', password='password')
@@ -62,8 +60,6 @@ class TestViews(TestCase):
         page = self.client.get("/accounts/login/")
         self.assertEqual(page.status_code, 302)
         
-    
-           
     def test_get_registration_page_user_authenticated(self):
         User.objects.create_user(username='username', password='password')
         self.client.login(username='username', password='password')
@@ -81,7 +77,6 @@ class TestViews(TestCase):
         
     def test_register_new_user_duplicate_info(self):
         user = User.objects.create_user(username='test_username', password='password', email='email.address@gmail.com')
-        user.save()
         response = self.client.post("/accounts/register/", {'username': 'test_username', 
                                         'email': 'email.address@gmail.com',
                                         'password1': 'beyk38cmej39',
@@ -128,7 +123,6 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, "accounts/edit_profile.html")    
         
         
-        
     def test_edit_profile_missing_info(self):
         user = User.objects.create_user(username='username', password='password', email="test@email.com")
         self.client.login(username='username', password='password')
@@ -139,8 +133,6 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "accounts/edit_profile.html")
         
-        
-    
         
     def test_get_login_page_not_authenticated_correct_info(self):
         User.objects.create_user(username='username', password='password')
