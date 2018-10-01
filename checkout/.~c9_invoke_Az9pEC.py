@@ -8,7 +8,7 @@ from django.conf import settings
 from django.utils import timezone
 from features.models import Feature
 import stripe
-
+import env
 
 stripe.api_key = settings.STRIPE_SECRET
 

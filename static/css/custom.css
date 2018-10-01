@@ -41,7 +41,6 @@ footer {
     margin: 0 auto;
 }
 
-
 caption p {
     word-wrap: break-word;
 }
@@ -60,7 +59,6 @@ caption p {
 .panel-body {
     height: 100%;
     border: 1px solid #ddd;
-
 }
 
 .product-description {
@@ -74,15 +72,6 @@ caption p {
 
 .comment-avatar-box img {
     max-width: 30px;
-}
-
-.replied-comments {
-    
-    
-}
-
-.form-group {
-    
 }
 
 .chart-wrapper {

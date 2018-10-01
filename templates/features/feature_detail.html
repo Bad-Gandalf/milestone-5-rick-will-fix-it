@@ -4,17 +4,17 @@
         <div class="row">
             <div class="col-sm-3 col-md-2 avatar-upvote-box">
                 <div class="avatar-box">
-                    <img src="{{feature.author.profile.photo.url}}" class="img-circle">
+                    <img alt="Author's Avatar" src="{{feature.author.profile.photo.url}}" class="img-circle">
                 </div>
                 <br>
 
                 <div class="upvote-panel">
-                    <span><form action="{% url 'contribution_amount' feature.id %}" method="POST">
+                    <form action="{% url 'contribution_amount' feature.id %}" method="POST">
                  {% csrf_token %}
                 
                 <button class="btn btn-success" type="submit" name="feature_id" value="{{ feature.id }}">Contribute</button> 
                 
-            </form></span>
+            </form>
                 </div>
                 <br>
                 <div class="contribution-target-box">
@@ -46,17 +46,18 @@
                         </div>
 
 
-                        <small><div class="col-md-3 col-xs-6">
-                        <span class="boldtext">Status:</span> {{ feature.get_status_display }}
+                        <div class="col-md-3 col-xs-6">
+                       <small> <span class="boldtext">Status:</span> {{ feature.get_status_display }}</small>
                     </div>
                     <div class="col-md-3 col-xs-6">
-                     {{ feature.published_date }}
-                </div> </small>
+                     <small>{{ feature.published_date }}</small>
+                </div> 
 
                         <hr> {% if feature.image %}
-                        <hr>
+                        
                         <div class="col-xs-12 bug-detail-image">
-                            <img class="img-blogpost" src="{{ feature.image.url }}">
+                            <hr>
+                            <img alt="Feature Image" class="img-blogpost" src="{{ feature.image.url }}">
                         </div>
                         {% endif %}
 
@@ -81,25 +82,25 @@
                     <div class="row">
                         <div class="comments">
                             <div class="col-xs-2 col-md-1 profile-photo-bug-detail">
-                                <img src="{{comment.user.profile.photo.url}}" class="img-circle">
+                                <img alt="Commentor Avatar" src="{{comment.user.profile.photo.url}}" class="img-circle">
                             </div>
                             <div class="col-xs-10 col-md-11">
                                 <p>
                                     <a href="{% url 'user_profile' comment.user.id %}">{{comment.user.username}}</a> {{ comment.content }} <small>{{comment.timestamp }} <i class="fas fa-thumbs-up" ></i>   {{ comment.total_likes }}</small></p>
 
-                                <small><div class="col-xs-3 ">
+                                <div class="col-xs-3 ">
                         <button type="button" name="button" class="reply-btn">Reply</button>
                         </div>
                         <div class="col-xs-3">
-                        <span><form action="{% url 'like_feature_comment' %}" method="POST">
+                        <form action="{% url 'like_feature_comment' %}" method="POST">
                     {% csrf_token %} 
                     {% if comment.is_liked %}
                     <button type="submit" name="comment_id" value="{{ comment.id }}">Unlike</button> 
                     {% else %}
                     <button type="submit" name="comment_id" value="{{ comment.id }}">Like</button> 
                     {% endif %}
-                </form></span>
-                </div></small>
+                </form>
+                </div>
 
                             </div>
                         </div>
@@ -115,7 +116,7 @@
 
                             <div class="row">
                                 <div class="col-xs-2 col-md-1 profile-photo-bug-detail">
-                                    <img src="{{reply.user.profile.photo.url}}" class="img-circle">
+                                    <img alt="Commentor Avatar" src="{{reply.user.profile.photo.url}}" class="img-circle">
                                 </div>
                                 <div class="col-xs-10 col-md-11">
                                     <p>
