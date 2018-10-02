@@ -90,8 +90,10 @@
                 </div>
                 <div class="col-xs-10 col-md-11">
                     <p>
-                        <a href="{% url 'user_profile' comment.user.id %}">{{comment.user.username}}</a> {{ comment.content }} <small>{{comment.timestamp }} <i class="fas fa-thumbs-up" ></i>   {{ comment.total_likes }}</small></p>
+                        <a href="{% url 'user_profile' comment.user.id %}">{{comment.user.username}}</a> 
+                        {{ comment.content }} <small>{{comment.timestamp }} <i class="fas fa-thumbs-up" ></i>   {{ comment.total_likes }}  </small></p>
                     
+                    <p><small>{{comment.replies.count }} repl{{comment.replies.count|pluralize:"y,ies"}}</small></p>
                     <div class="col-xs-3 ">
                         <button type="button" name="button" class="reply-btn">Reply</button>
                         </div>
