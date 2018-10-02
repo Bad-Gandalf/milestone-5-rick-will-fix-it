@@ -10,11 +10,11 @@
 
                 <div class="upvote-panel">
                     <form action="{% url 'contribution_amount' feature.id %}" method="POST">
-                 {% csrf_token %}
-                
-                <button class="btn btn-success" type="submit" name="feature_id" value="{{ feature.id }}">Contribute</button> 
-                
-            </form>
+                        {% csrf_token %}
+
+                        <button class="btn btn-success" type="submit" name="feature_id" value="{{ feature.id }}">Contribute</button>
+
+                    </form>
                 </div>
                 <br>
                 <div class="contribution-target-box">
@@ -47,14 +47,14 @@
 
 
                         <div class="col-md-3 col-xs-6">
-                       <small> <span class="boldtext">Status:</span> {{ feature.get_status_display }}</small>
-                    </div>
-                    <div class="col-md-3 col-xs-6">
-                     <small>{{ feature.published_date }}</small>
-                </div> 
+                            <small> <span class="boldtext">Status:</span> {{ feature.get_status_display }}</small>
+                        </div>
+                        <div class="col-md-3 col-xs-6">
+                            <small>{{ feature.published_date }}</small>
+                        </div>
 
                         <hr> {% if feature.image %}
-                        
+
                         <div class="col-xs-12 bug-detail-image">
                             <hr>
                             <img alt="Feature Image" class="img-blogpost" src="{{ feature.image.url }}">
@@ -87,20 +87,17 @@
                             <div class="col-xs-10 col-md-11">
                                 <p>
                                     <a href="{% url 'user_profile' comment.user.id %}">{{comment.user.username}}</a> {{ comment.content }} <small>{{comment.timestamp }} <i class="fas fa-thumbs-up" ></i>   {{ comment.total_likes }}</small></p>
-
-                                <div class="col-xs-3 ">
-                        <button type="button" name="button" class="reply-btn">Reply</button>
-                        </div>
-                        <div class="col-xs-3">
-                        <form action="{% url 'like_feature_comment' %}" method="POST">
-                    {% csrf_token %} 
-                    {% if comment.is_liked %}
-                    <button type="submit" name="comment_id" value="{{ comment.id }}">Unlike</button> 
-                    {% else %}
-                    <button type="submit" name="comment_id" value="{{ comment.id }}">Like</button> 
-                    {% endif %}
-                </form>
-                </div>
+                                <p><small>{{comment.replies.count }} repl{{comment.replies.count|pluralize:"y,ies"}}</small></p>
+                                <div class="col-xs-3">
+                                    <button type="button" name="button" class="reply-btn">Reply</button>
+                                </div>
+                                <div class="col-xs-3">
+                                    <form action="{% url 'like_feature_comment' %}" method="POST">
+                                        {% csrf_token %} {% if comment.is_liked %}
+                                        <button type="submit" name="comment_id" value="{{ comment.id }}">Unlike</button> {% else %}
+                                        <button type="submit" name="comment_id" value="{{ comment.id }}">Like</button> {% endif %}
+                                    </form>
+                                </div>
 
                             </div>
                         </div>
