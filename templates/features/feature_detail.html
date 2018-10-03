@@ -41,7 +41,7 @@
                         <h6>{{ feature.author.username }}</h6>
                     </a>
                     <div class="row">
-                        <div class="col-xs-12">
+                        <div class="col-xs-12 comment-box">
                             <p>{{ feature.content }}</p>
                             <hr>
 
@@ -86,7 +86,7 @@
                             <div class="col-xs-2 col-md-1 profile-photo-bug-detail">
                                 <img alt="Commentor Avatar" src="{{comment.user.profile.photo.url}}" class="img-circle">
                             </div>
-                            <div class="col-xs-10 col-md-11">
+                            <div class="col-xs-10 col-md-11 comment-box">
                                 <p>
                                     <a href="{% url 'user_profile' comment.user.id %}">{{comment.user.username}}</a> {{ comment.content }} <small>{{comment.timestamp }} <i class="fas fa-thumbs-up" ></i>   {{ comment.total_likes }}</small></p>
                                 <p><small>{{comment.replies.count }} repl{{comment.replies.count|pluralize:"y,ies"}}</small></p>
