@@ -11,8 +11,10 @@
                 <div class="upvote-panel">
                     <form action="{% url 'contribution_amount' feature.id %}" method="POST">
                         {% csrf_token %}
-
+                        {% if feature.price %}
                         <button class="btn btn-success" type="submit" name="feature_id" value="{{ feature.id }}">Contribute</button>
+                        {% else %}
+                        {% endif %}
 
                     </form>
                 </div>
