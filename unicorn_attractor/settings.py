@@ -2,12 +2,12 @@ import os
 import dj_database_url
 #import env # for development only
 
-# if os.environ.get('DEVELOPMENT'):
-#     development = True
-# else:
-#     development = False
+if os.environ.get('DEVELOPMENT'):
+    development = True
+else:
+    development = False
 
-development = True
+
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
