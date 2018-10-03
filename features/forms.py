@@ -2,6 +2,7 @@ from django import forms
 from .models import Feature, Comment
 
 
+
 class FeatureCreateForm(forms.ModelForm):
     class Meta:
         model = Feature
@@ -19,12 +20,15 @@ class UserLoginForm(forms.Form):
 
 
 class CommentForm(forms.ModelForm):
-    content = forms.CharField(label="", widget=forms.Textarea(attrs={
-                              'class': 'form-control',
-                              'placeholder': 'Text goes here!!!',
-                              'rows': '2', 'cols': '50'}))
-
     class Meta:
         model = Comment
-        fields = ('content',)
-
+        fields = ['content']
+        widgets = {'content': forms.Textarea(attrs={
+                              'class': 'form-control',
+                              'placeholder': 'Text goes here!!!',
+                              'rows': '2', 'cols': '50',
+                              'max_length': '500',
+                              }),
+            
+        }
+            

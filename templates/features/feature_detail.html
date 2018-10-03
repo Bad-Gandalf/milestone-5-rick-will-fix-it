@@ -115,7 +115,7 @@
                                 <div class="col-xs-2 col-md-1 profile-photo-bug-detail">
                                     <img alt="Commentor Avatar" src="{{reply.user.profile.photo.url}}" class="img-circle">
                                 </div>
-                                <div class="col-xs-10 col-md-11">
+                                <div class="col-xs-10 col-md-11 comment-box">
                                     <p>
                                         <a href="{% url 'user_profile' comment.user.id %}">{{reply.user.username}}</a> {{ reply.content }} <small>{{reply.timestamp }}</small></p>
                                 </div>
@@ -130,7 +130,7 @@
                             </form>
                             {% else %}
                             <div class="col-xs-2 col-md-1"></div>
-                            <div class="col-xs-10 col-md-11">
+                            <div class="col-xs-10 col-md-11 ">
                                 <p>Please <a href="{% url 'login' %}">sign in</a> or <a href="{% url 'registration' %}">register</a> to leave a comment.</p>
                             </div>
                             {% endif %}

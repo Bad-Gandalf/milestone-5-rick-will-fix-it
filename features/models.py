@@ -9,6 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.utils.text import slugify
+from django.core.validators import MaxLengthValidator
 
 # Create your models here.
 
@@ -29,7 +30,7 @@ class Feature(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=120)
     author = models.ForeignKey(User, related_name='feature')
-    content = models.TextField()
+    content = models.TextField(validators=[MaxLengthValidator(300)])
     created_date = models.DateTimeField(auto_now_add=True)
     published_date = models.DateTimeField(blank=True, null=True, default=timezone.now)
     views = models.IntegerField(default=0)

@@ -303,3 +303,7 @@ margin-bottom: 15px;
 .avatar-upvote-box {
 	text-align:center;	
 }
+
+.comment-box p {
+	overflow-wrap: break-word;
+}
