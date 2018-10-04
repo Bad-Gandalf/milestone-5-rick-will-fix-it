@@ -133,6 +133,12 @@ Through this method I tested a wide variety of devices; iPhone 5,6,7,8,X,
 iPad, iPad Pro, Google Pixel 2 and Galaxy S5. I am very happy with how my project scales from devices.
 The only problem is when looking at statistical charts and I do not find this an issue. 
 
+## Database Design
+It took me quite a while to get the appropriate models correct. The main focus was to rely on the primary keys
+of Bugs and Features, from these everything could be linked. It wasnt particularly difficult, the one issue that
+took alot of consideration was contributions and orders and how I would treat these and given that in was 
+contributions and not necessarily product purchases. 
+
 ## Deployment
 - Project was deployed to heroku with relative ease.
 - Difference in databases, development=sqlite3 and production=postgresql.

@@ -1,8 +1,11 @@
+
+/* Styling for the body of each page */
 body {
     font-family: Arial;
     padding-top: 100px;
 }
 
+/* Styling for the footer of each page */
 footer {
     margin-top: 40px;
     padding-top: 20px;
@@ -10,51 +13,20 @@ footer {
     border-top: 1px solid #ededed;
     color: #A9A9A9;
 }
-
+/* Colour for icons on navbar */
 .icon-bar {
     background-color: #fff;
 }
 
-.accountform {
-    padding-top: 20px;
-}
-
-.badge {
-    padding-left: 9px;
-    padding-right: 9px;
-    -webkit-border-radius: 9px;
-    -moz-border-radius: 9px;
-    border-radius: 9px;
-}
-
-.label-warning[href], 
-.badge-warning[href] {
-    background-color: #c67605;
-}
-
-.product {
-    background-size: contain;
-    background-position: center center;
-    background-repeat: no-repeat;
-    width: 150px;
-    height: 150px;
-    margin: 0 auto;
-}
-
-caption p {
+/* to ensure extremely long strings dont leave their divs and become grafitti */
+p {
     word-wrap: break-word;
 }
 
-.row.row-flex {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 30px;
+h3 {
+	overflow-wrap: break-word;	
 }
 
-.panel-default {
-    border-color: transparent;
-    padding: 0 10px;
-}
 
 .panel-body {
     height: 100%;
@@ -74,6 +46,7 @@ caption p {
     max-width: 30px;
 }
 
+/* Styling for charts that will be rendered in the site workflow pages */
 .chart-wrapper {
     overflow: auto;
     position: relative;
@@ -106,7 +79,8 @@ caption p {
   shape-rendering: crispEdges;
 }
 
-  .ui-datepicker {
+/* Styling for datepicker widget */
+.ui-datepicker {
 	width: 216px;
 	height: auto;
 	margin: 5px auto 0;
@@ -115,6 +89,7 @@ caption p {
 	-moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
 	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
 }
+
 .ui-datepicker a {
 	text-decoration: none;
 }
@@ -245,30 +220,36 @@ caption p {
 	height: 29px;
 	margin-bottom: 0;
 }
+
+/* Ensuring profile photos stay within a certain size on a users profile page */
 .profile-photo img {
 	max-height: 400px;
-	max-width:100%;
+	max-width: 100%;
 }
 
 .profile-photo {
 margin-bottom: 15px;
 }
 
+/* Styling for images attached to a blog post */
 .blog-post-image img {
 	max-width:100%;
 	max-height:500px;
 	float:right;
 }
 
+/* Styling for images presented in the index page */
 .index-image img {
 	border-radius: 10px; 
 	max-width:225px;
 }
 
+/* Styling for post content on the index page */
 .post-info {
 	margin-bottom:10px;
 }
 
+/*Styling for bug app*/
 .create-bug-header {
 	text-align:center;
 }
@@ -276,7 +257,7 @@ margin-bottom: 15px;
 .edit-bug-link a{
 	float:right;	
 }
-
+/* How image associated with a bug is displayed */
 .bug-detail-image img {
 	max-width:100%; 
 	max-height:500px;
@@ -288,10 +269,13 @@ margin-bottom: 15px;
 	max-width:50px;
 }
 
+/* Sets replies to comments as invisible to begin with, then js script will ensure they
+are shown when 'reply' is clicked on */
 .replied-comments {
 	display:none;
 }
 
+/* adjusting icon for upvoting bugs to sit correctly */
 .total-upvotes-icon {
 	padding-right:0px;
 }
@@ -304,6 +288,6 @@ margin-bottom: 15px;
 	text-align:center;	
 }
 
-.comment-box p {
-	overflow-wrap: break-word;
-}
+
+
+
