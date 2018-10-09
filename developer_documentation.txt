@@ -1,0 +1,24 @@
+Developer Documentation
+
+Bugs
+
+Using the admin panel check periodically for new bugs. There shall be no more than 5 bugs set to “working” at any one time. “Working” is a signal to the users that this bug is currently being addressed. When there is now room to move an “open” bug to “working” we do so based on the number of upvotes. This can be done in the admin panel for bugs.
+
+When a bug has been resolved, comment in the bug description page informing users that this is the case. Then change the bug's status to “closed”, this is done in the admin panel. 
+
+Create a blog post linking to the closed bug. If the bug remains working for some time and there is a lot of queries about it, then post a blog updating users of the progress on the bug. 
+
+Bug Work Time
+
+When you have finished a period of time working on the bug (not necessarily resolving it) create a time sheet in the admin panel under Bug Work Times. This will then be added to the workflow display of the page. 
+
+
+Features
+
+We only work on one feature at a time, and this should take up 50% of our available time. Therefore only one feature should ever be set to “working”.
+
+When a user submits a feature it will not automatically display on the site, it will be set to “Awaiting Pricing”. This means that we must decide how much money needs to be raised before we start development of this new feature. Once decided we then change the status to open, from there site users can see it and contribute. 
+
+When we have completed work on our current feature, then we move the “open” feature with the most contributions to “working”. Once again this can all be done in the admin panel. 
+
+Create blog posts for new features to update and advertise to our users. This can be done in the admin panel exactly the same as bugs, except we link it to a feature and not a bug. 

@@ -32,6 +32,14 @@ unavailable to them, however, if they do attempt to do so they will be redirecte
 - Rick/Developer - Once a developer has worked on a bug for a certain amount of time i.e 60 minutes, they must fill out a timesheet in the admin panel. These timesheets will
 then be used as data for the site's workflow statistics. Once they have finished with a bug or feature or even just decide to update on its progress they can post a blog
 from the admin panel linking to the original post. 
+
+- Contributor - A site member wishes to contribute to a feature's kickstarter. They will find a feature on the feature list or from a new blog update
+on the home page. They will click on this and read all the details. They can comment and converse with others in the comments section of the page.
+When satisfied they can click on contribute. They will be asked how much they wish to contribute and be told of the minimum amount. From here a feature with
+the contribution amount will be added to their cart. They can now add another feature, or adjust the previously added feature. They can also 
+delete a feature from the cart or empty it completely. After this they can then proceed to checkout where their personal and payment details
+will be taken through a form. If the requirements for a successful payment are not met they will be notified. If they are successful they will be 
+taken back to the feature page with a message telling them of their successful contribution. 
  
 ## Features
 
@@ -60,7 +68,7 @@ on a scoreboard.
 - [pillow](https://pillow.readthedocs.io/en/5.2.x/)
     - needed for using images
 - [django rest framework](http://www.django-rest-framework.org/)
-    - for providing json information for statistics
+    - for providing json information for statistics taht would update depending on user/developer activity 
 - [crossfilter](https://github.com/crossfilter/crossfilter)
     - to parse and compare data
 - [d3](https://d3js.org/)
@@ -77,13 +85,15 @@ on a scoreboard.
 ## Testing
 
 ### TDD
-
-
+Before getting to automated testing I would test each route to see if it was displaying the correct information. I would also 
+print a lot of the responses to ensure I was using the correct querysets. There were very few functions I had to create that were not
+available in the django documentation already. 
 
 ### Django Test Suite
 For testing I used unittests to cover all my apps and then used 
 Coverage to report on what code had or had not been tested. After 
-some persistence I eventually got the report up to 99%. I had difficulty 
+some persistence I eventually got the report up to 99%. Proof of 
+this can be found in coverage1.png and coverage2.png. I had difficulty 
 testing the checkout views due to stripe using javascript. However when I 
 found the correct tokens to use for form validation I was pleased. 101 Tests, 
 1862 statements with 22 missing. 
@@ -107,7 +117,7 @@ to fail before eventually passing.
 - Stats: test\_apps.py, test\_models.py and test\_views.py 
  
 As for manual testing I followed through the user stories testing form validation 
-at each point.One particular test I could not automate was the password reset.
+at each point. One particular test I did not automate was the password reset.
 
 1. Forgot Password/Password Reset:
     1. Go to "Login" page
@@ -122,14 +132,15 @@ at each point.One particular test I could not automate was the password reset.
     10. Enter correct information into both fields and check for correct message.
     11. Log in with new password. 
 
-![Django Testing](coverage1.png)
-![Django Testing](coverage2.png)
+To test that my workflow and statistics pages were getting the correct information I would check recent entries against the arrays
+printed to the console to check if they were updating correctly. This would ensure the rest framework was providing the correct data
+for the charts. 
 
 ## Travis
 I also used Travis to test my builds, finding great difficulty at first due 
 to permissions regarding building databases. I overcame this with an 'if' 
 statement in settings.py that looks for 'Travis' in the environment and chooses
-to use the prebuilt database. The build now passes. 
+to use the prebuilt database. The build now passes. I used the travis.yml to include a script to run for travis to test the app.
 
 ## Cross browser testing
 I developed the site mainly on Chrome but have also since tested it on Safari and Firefox with no issues.
@@ -153,6 +164,11 @@ users to contriute to more than one feature per order.
 - Pushed to heroku.
 - Differences in databases, development=sqlite3 and production=postgresql.
 - Different django secret key variables.
+- In my settings file I linked all the AWS directories to store static and media files.
+- I also linked the smtp email address in settings.py and the stripe environment variables for correct payments. 
+
+## Developer documentation
+This can be found in developer_documentation.txt. A guide for processes needed for operating the site a business like manner.
 
 ## Credits
 
@@ -168,7 +184,5 @@ users to contriute to more than one feature per order.
     - [TheNewBoston](https://www.youtube.com/channel/UCJbPGzawDH1njbqV-D5HqKw)
     - [Abhishek Verma](https://www.youtube.com/channel/UCOPiE8TU4cphHqeOkos-J5A)
     
-
-
 
 ![Build Status](https://travis-ci.org/Bad-Gandalf/milestone-5-rick-will-fix-it.svg?branch=master)
