@@ -49,14 +49,14 @@ on a scoreboard.
 
 
 ## Technologies used:
-##### HTML - hypertext markup language
-##### CSS - cascading style sheets 
-##### Javascript - client side scripting language
-##### Python - Programming Language
+##### HTML - a standardized system for tagging text files to achieve font, colour, graphic, and hyperlink effects on World Wide Web pages.
+##### CSS - cascading style sheets to style the content and layout of the site.
+##### Javascript - client side scripting language, used for presenting statistics and animations.
+##### Python - Programming Language to create the backend that decides upon the responses to the user's input.
 ##### Git Bash & GitHub -for version control and backup of code
 ##### Bootstrap - A framework for developing responsive, mobile 1st websites.
-##### Django - python web framework
-##### Libraries i needed to install
+##### Django - python web framework to hold all the apps/code/templates as one website.
+##### Libraries I needed to install
 - [pillow](https://pillow.readthedocs.io/en/5.2.x/)
     - needed for using images
 - [django rest framework](http://www.django-rest-framework.org/)
@@ -75,8 +75,13 @@ on a scoreboard.
 
 
 ## Testing
-## Django Test Suite
-For testing I used the Django Test Suite to cover all my apps and then used 
+
+### TDD
+
+
+
+### Django Test Suite
+For testing I used unittests to cover all my apps and then used 
 Coverage to report on what code had or had not been tested. After 
 some persistence I eventually got the report up to 99%. I had difficulty 
 testing the checkout views due to stripe using javascript. However when I 
@@ -117,8 +122,8 @@ at each point.One particular test I could not automate was the password reset.
     10. Enter correct information into both fields and check for correct message.
     11. Log in with new password. 
 
-![Django Testing](/static/img/coverage1.png)
-![Django Testing](/static/img/coverage2.png)
+![Django Testing](coverage1.png)
+![Django Testing](coverage2.png)
 
 ## Travis
 I also used Travis to test my builds, finding great difficulty at first due 
@@ -135,13 +140,18 @@ The only problem is when looking at statistical charts and I do not find this an
 
 ## Database Design
 It took me quite a while to get the appropriate models correct. The main focus was to rely on the primary keys
-of Bugs and Features, from these everything could be linked. It wasnt particularly difficult, the one issue that
-took alot of consideration was contributions and orders and how I would treat these and given that in was 
-contributions and not necessarily product purchases. 
+of Bugs, Features and Users, from these everything else could be linked. It wasnt particularly difficult, the issue that
+took alot of consideration focused on contributions and orders and how I would treat these given that it was 
+contributions and not necessarily product purchases. I decided to design these so the option would remain for
+users to contriute to more than one feature per order. 
 
 ## Deployment
 - Project was deployed to heroku with relative ease.
-- Difference in databases, development=sqlite3 and production=postgresql.
+- Created Procfile and requirements.txt for dependencies.
+- Created new heroku app and set environment variables.
+- Linked my Github and environment with Heroku
+- Pushed to heroku.
+- Differences in databases, development=sqlite3 and production=postgresql.
 - Different django secret key variables.
 
 ## Credits
@@ -161,4 +171,4 @@ contributions and not necessarily product purchases.
 
 
 
-[![Build Status](https://travis-ci.org/Bad-Gandalf/milestone-5-rick-will-fix-it.svg?branch=master)
+![Build Status](https://travis-ci.org/Bad-Gandalf/milestone-5-rick-will-fix-it.svg?branch=master)

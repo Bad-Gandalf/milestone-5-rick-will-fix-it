@@ -24,7 +24,7 @@ class Post(models.Model):
     tag = models.CharField(max_length=30, blank=True, null=True)
     image = models.ImageField(upload_to="img", blank=True, null=True)
     status = models.IntegerField(_('status'), default=1, choices=STATUS_CODES)
-    upvotes = models.ManyToManyField(User, blank=True, null=True, related_name="upvoted_posts")
+    upvotes = models.ManyToManyField(User, blank=True, related_name="upvoted_posts")
 
     def __str__(self):
         return self.title

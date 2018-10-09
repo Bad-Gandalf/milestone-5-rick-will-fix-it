@@ -239,9 +239,15 @@ margin-bottom: 15px;
 }
 
 /* Styling for images presented in the index page */
+
+.index-image {
+	text-align: center;
+}
+
 .index-image img {
 	border-radius: 10px; 
 	max-width:225px;
+	
 }
 
 /* Styling for post content on the index page */
